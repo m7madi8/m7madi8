@@ -18,7 +18,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Systems-First Web Engineering Portfolio",
+  title: "Mohammad",
   description:
     "A productized portfolio for a senior web specialist focused on systems, scalability, and performance.",
 };
