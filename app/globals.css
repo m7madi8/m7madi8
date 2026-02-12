@@ -456,39 +456,35 @@ a {
   pointer-events: none;
 }
 
-/* Brand loader */
-.brand-loader-bar {
+/* Logo loader */
+.loader-progress-bar {
   width: 0;
-  animation: brand-loader-bar 1.8s ease-in-out infinite;
+  animation: loader-progress-bar 1.6s ease-in-out infinite;
 }
 
-.brand-loader-wordmark {
-  font-size: 0.75rem;
-  letter-spacing: 0.28em;
+.loader-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-logo {
+  width: 100px;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
   opacity: 0;
-  animation: brand-loader-wordmark 0.6s ease 0.2s forwards;
+  animation: loader-logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
 }
 
-.brand-loader-cursor {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 1rem;
-  animation: blink 1.4s ease-in-out infinite;
-}
-
-.brand-loader-underline {
-  transform-origin: left;
-  transform: scaleX(0);
-  animation: brand-loader-underline 1.2s ease-in-out infinite;
-}
-
-@keyframes brand-loader-bar {
+@keyframes loader-progress-bar {
   0% {
     width: 0;
     margin-left: 0;
   }
-  45% {
-    width: 60%;
-    margin-left: 20%;
+  50% {
+    width: 70%;
+    margin-left: 15%;
   }
   100% {
     width: 0;
@@ -496,47 +492,25 @@ a {
   }
 }
 
-@keyframes brand-loader-wordmark {
+@keyframes loader-logo-in {
   from {
     opacity: 0;
-    letter-spacing: 0.35em;
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
-    letter-spacing: 0.28em;
-  }
-}
-
-@keyframes brand-loader-underline {
-  0% {
-    transform: scaleX(0);
-  }
-  40% {
-    transform: scaleX(1);
-  }
-  60% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0);
+    transform: scale(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .brand-loader-bar {
+  .loader-progress-bar {
     animation: none;
     width: 50%;
   }
-  .brand-loader-wordmark {
+  .loader-logo {
     animation: none;
     opacity: 1;
-  }
-  .brand-loader-cursor {
-    animation: none;
-  }
-  .brand-loader-underline {
-    animation: none;
-    transform: scaleX(0.6);
   }
 }
 

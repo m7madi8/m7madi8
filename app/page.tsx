@@ -1,5 +1,6 @@
 import Image from "next/image";
 import profileImage from "../img/me.png";
+import logoMe from "../img/logo-me.png";
 import logo99 from "../img/99logo2.png";
 import logoSamar from "../img/samar-logo.png";
 import logoWolve from "../img/wolve_store.png";
@@ -9,10 +10,21 @@ import logoRawan from "../img/rawan-logo.png";
 import logoLayali from "../img/layali-logo.png";
 import logoNana from "../img/nana's-logo.webp";
 import CustomCursor from "./components/CustomCursor";
-import Header from "./components/Header";
 import LiquidEther from "./components/LiquidEther";
 import RevealManager from "./components/RevealManager";
+import StaggeredMenu from "./components/StaggeredMenu";
 import { projects } from "./data/projects";
+
+const menuItems = [
+  { label: "Home", ariaLabel: "Go to home", link: "#" },
+  { label: "Projects", ariaLabel: "View projects", link: "#work" },
+  { label: "Contact", ariaLabel: "Get in touch", link: "#contact" },
+];
+
+const socialItems = [
+  { label: "GitHub", link: "https://github.com/" },
+  { label: "LinkedIn", link: "https://www.linkedin.com/" },
+];
 
 export default function Home() {
   const services = [
@@ -60,6 +72,21 @@ export default function Home() {
     <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
       <CustomCursor />
       <RevealManager />
+      <StaggeredMenu
+        position="right"
+        items={menuItems}
+        socialItems={socialItems}
+        displaySocials
+        displayItemNumbering
+        logoUrl={logoMe.src}
+        menuButtonColor="#ffffff"
+        openMenuButtonColor="#000000"
+        changeMenuColorOnOpen
+        colors={["#08090a", "#1f2126", "#6b7280"]}
+        accentColor="var(--button-border)"
+        isFixed={true}
+        closeOnClickAway
+      />
 
       {/* الشاشة الأولى: 100vh على الأقل مع الهيدر والهيرو واللوجوهات ظاهرة */}
       <div className="relative min-h-screen w-full">
@@ -88,28 +115,28 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-6 pt-8 sm:px-10 lg:px-16">
-          <Header />
-
-            {/* Hero */}
+            {/* Hero – على الشاشات الكبيرة يملأ الصفحة فلا تظهر اللوجوهات حتى التمرير */}
             <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-[85vh]">
               <div className="relative max-w-3xl lg:-mt-10">
                 <div className="hero-pill reveal" data-reveal>
                   <span className="hero-pill-dot" aria-hidden />
-                  Crafting Unique Brand Identities
+                  Web Developer
                 </div>
                 <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
-                  Branding that you need Indeed.
+                  Quiet Code.
+                  <br />
+                  Loud Results.
                 </h1>
                 <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
-                  Elevate your brand with custom identity and package design. Showcase your story through bold visuals and strategic design solutions.
+                  I build modern, performant websites and web applications that deliver real results.
                 </p>
                 <div className="mt-10 flex w-full flex-col items-center">
                   <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 px-3 sm:px-0" data-reveal>
-                    <a href="#contact" className="hero-btn md:-ml-14" data-cursor>
-                      Get Started Now
+                    <a href="#work" className="hero-btn md:-ml-14" data-cursor>
+                      See The Proof
                     </a>
-                    <a href="#work" className="hero-btn" data-cursor>
-                      See Projects
+                    <a href="#contact" className="hero-btn" data-cursor>
+                      Start Something Serious
                     </a>
                   </div>
                   <a
@@ -132,8 +159,8 @@ export default function Home() {
               </div>
             </section>
 
-            {/* شريط اللوجوهات – فل العرض */}
-            <section className="logos-marquee relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden py-4" aria-hidden>
+            {/* شريط اللوجوهات – فل العرض، على الشاشات الكبيرة يظهر أسفل قليلاً */}
+            <section className="logos-marquee relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden py-4 lg:mt-24" aria-hidden>
               <div className="logos-marquee-inner flex w-max items-center gap-12 px-6 sm:gap-16 sm:px-10 lg:gap-20 lg:px-16">
                 {[...brandLogos, ...brandLogos].map((item, i) => (
                   <span key={`img-${i}`} className="logos-marquee-item relative h-8 w-auto shrink-0 sm:h-10">
@@ -194,8 +221,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Services – Craft exceptional experiences */}
-        <section id="about" className="mt-32 space-y-16">
+        {/* Services – Craft exceptional experiences (hidden) */}
+        <section id="about" className="mt-32 space-y-16 hidden" aria-hidden="true">
           <div className="reveal max-w-2xl" data-reveal>
             <h2 className="section-title text-3xl font-medium tracking-tight sm:text-4xl">
               Craft exceptional experiences that captivate.
@@ -230,8 +257,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Second project row – 3D feel */}
-        <section className="mt-32" aria-label="More work">
+        {/* Second project row – 3D feel (hidden: About + Selected cards) */}
+        <section className="mt-32 hidden" aria-label="More work" aria-hidden="true">
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="reveal perspective-3d" data-reveal>
               <div className="card-3d rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)] overflow-hidden">
