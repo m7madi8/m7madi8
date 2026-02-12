@@ -114,7 +114,7 @@ export function StaggeredMenu({
     itemEntranceTweenRef.current?.kill();
 
     const itemEls = Array.from(panel.querySelectorAll<HTMLElement>(".sm-panel-itemLabel"));
-    const numberEls = Array.from(panel.querySelectorAll<HTMLElement>(".sm-panel-list[data-numbering] .sm-panel-item"));
+    const numberEls = Array.from(panel.querySelectorAll<HTMLElement>(".sm-panel-itemNum"));
     const socialTitle = panel.querySelector<HTMLElement>(".sm-socials-title");
     const socialLinks = Array.from(panel.querySelectorAll<HTMLElement>(".sm-socials-link"));
 
@@ -125,7 +125,7 @@ export function StaggeredMenu({
       gsap.set(itemEls, { yPercent: 140, rotate: 10 });
     }
     if (numberEls.length) {
-      gsap.set(numberEls, { "--sm-num-opacity": 0 });
+      gsap.set(numberEls, { opacity: 0 });
     }
     if (socialTitle) {
       gsap.set(socialTitle, { opacity: 0 });
@@ -167,9 +167,9 @@ export function StaggeredMenu({
         tl.to(
           numberEls,
           {
+            opacity: 1,
             duration: 0.6,
             ease: "power2.out",
-            "--sm-num-opacity": 1,
             stagger: { each: 0.08, from: "start" },
           },
           itemsStart + 0.1
@@ -248,9 +248,9 @@ export function StaggeredMenu({
         if (itemEls.length) {
           gsap.set(itemEls, { yPercent: 140, rotate: 10 });
         }
-        const numberEls = Array.from(panel.querySelectorAll<HTMLElement>(".sm-panel-list[data-numbering] .sm-panel-item"));
+        const numberEls = Array.from(panel.querySelectorAll<HTMLElement>(".sm-panel-itemNum"));
         if (numberEls.length) {
-          gsap.set(numberEls, { "--sm-num-opacity": 0 });
+          gsap.set(numberEls, { opacity: 0 });
         }
         const socialTitle = panel.querySelector<HTMLElement>(".sm-socials-title");
         const socialLinks = Array.from(panel.querySelectorAll<HTMLElement>(".sm-socials-link"));
@@ -484,6 +484,11 @@ export function StaggeredMenu({
                     data-index={idx + 1}
                     onClick={(e) => handleItemClick(e, it)}
                   >
+                    {displayItemNumbering && (
+                      <span className="sm-panel-itemNum" aria-hidden="true">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    )}
                     <span className="sm-panel-itemLabel">{it.label}</span>
                   </a>
                 </li>

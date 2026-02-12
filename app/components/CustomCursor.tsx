@@ -17,7 +17,14 @@ export default function CustomCursor() {
       target.current = { x: event.clientX, y: event.clientY };
     };
 
-    const setActive = () => cursor.classList.add("is-active");
+    const setActive = (e: Event) => {
+      const el = e.target as HTMLElement;
+      const skip =
+        el.closest?.(".staggered-menu-panel") ||
+        el.closest?.(".hero-btn") ||
+        el.closest?.(".btn-primary");
+      if (!skip) cursor.classList.add("is-active");
+    };
     const clearActive = () => cursor.classList.remove("is-active");
 
     const bindInteractive = () => {

@@ -23,7 +23,7 @@ const menuItems = [
 
 const socialItems = [
   { label: "GitHub", link: "https://github.com/" },
-  { label: "LinkedIn", link: "https://www.linkedin.com/" },
+  { label: "Instagram", link: "https://www.instagram.com/m7madi8/" },
 ];
 
 export default function Home() {
@@ -454,12 +454,12 @@ export default function Home() {
             </a>
             <a
               className="btn-primary px-6 py-3"
-              href="https://www.linkedin.com/"
+              href="https://www.instagram.com/m7madi8/"
               target="_blank"
               rel="noreferrer"
               data-cursor
             >
-              LinkedIn
+              Instagram
             </a>
           </div>
         </section>
