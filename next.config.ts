@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   basePath,
   assetPrefix: assetPrefix || undefined,
   images: { unoptimized: true },
+  turbopack: {},
   webpack: (config) => {
     config.resolve = config.resolve ?? {};
     const projectNodeModules = path.join(projectRoot, "node_modules");
