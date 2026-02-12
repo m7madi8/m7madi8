@@ -10,6 +10,7 @@ import logoLayali from "../img/layali-logo.png";
 import logoNana from "../img/nana's-logo.webp";
 import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
+import LiquidEther from "./components/LiquidEther";
 import RevealManager from "./components/RevealManager";
 import { projects } from "./data/projects";
 
@@ -56,72 +57,101 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
       <CustomCursor />
       <RevealManager />
-      <main className="relative mx-auto min-h-screen max-w-7xl px-6 pb-32 pt-8 sm:px-10 lg:px-16">
-        <Header />
 
-        {/* Hero – على الشاشات الكبيرة يملأ الصفحة فلا تظهر اللوجوهات حتى التمرير */}
-        <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-screen">
-          <div className="relative max-w-3xl lg:-mt-10">
-            <div className="hero-pill reveal" data-reveal>
-              <span className="hero-pill-dot" aria-hidden />
-              Crafting Unique Brand Identities
-            </div>
-            <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
-              Branding that you need Indeed.
-            </h1>
-            <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
-              Elevate your brand with custom identity and package design. Showcase your story through bold visuals and strategic design solutions.
-            </p>
-            {/* الأزرار وعنصر التمرير – حاوية واحدة للتوسيط والمسافة المتماثلة */}
-            <div className="mt-10 flex w-full flex-col items-center">
-              <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 px-3 sm:px-0" data-reveal>
-                <a href="#contact" className="hero-btn md:-ml-14" data-cursor>
-                  Get Started Now
-                </a>
-                <a href="#work" className="hero-btn" data-cursor>
-                  See Projects
-                </a>
+      {/* الشاشة الأولى: 100vh على الأقل مع الهيدر والهيرو واللوجوهات ظاهرة */}
+      <div className="relative min-h-screen w-full">
+        <div className="absolute inset-0 z-0 min-h-screen">
+          <LiquidEther
+            colors={["#08090a", "#6b7280", "#f5f5f4"]}
+            mouseForce={20}
+            cursorSize={100}
+            isViscous
+            viscous={30}
+            iterationsViscous={32}
+            iterationsPoisson={32}
+            resolution={0.5}
+            isBounce={false}
+            autoDemo
+            autoSpeed={0.5}
+            autoIntensity={2.2}
+            takeoverDuration={0.25}
+            autoResumeDelay={3000}
+            autoRampDuration={0.6}
+            color0="#08090a"
+            color1="#6b7280"
+            color2="#e8e6ef"
+            className="h-full w-full"
+            style={{ position: "absolute", inset: 0 }}
+          />
+        </div>
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-6 pt-8 sm:px-10 lg:px-16">
+          <Header />
+
+            {/* Hero */}
+            <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-[85vh]">
+              <div className="relative max-w-3xl lg:-mt-10">
+                <div className="hero-pill reveal" data-reveal>
+                  <span className="hero-pill-dot" aria-hidden />
+                  Crafting Unique Brand Identities
+                </div>
+                <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
+                  Branding that you need Indeed.
+                </h1>
+                <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
+                  Elevate your brand with custom identity and package design. Showcase your story through bold visuals and strategic design solutions.
+                </p>
+                <div className="mt-10 flex w-full flex-col items-center">
+                  <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 px-3 sm:px-0" data-reveal>
+                    <a href="#contact" className="hero-btn md:-ml-14" data-cursor>
+                      Get Started Now
+                    </a>
+                    <a href="#work" className="hero-btn" data-cursor>
+                      See Projects
+                    </a>
+                  </div>
+                  <a
+                    href="#work"
+                    className="scroll-hint reveal mt-8 hidden items-center justify-center gap-4 text-[color:var(--muted)] no-underline transition-opacity hover:opacity-90 lg:flex"
+                    data-reveal
+                    aria-label="Scroll down to see projects"
+                  >
+                    <span className="shrink-0 text-sm font-medium">Scroll down</span>
+                    <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
+                    <span className="scroll-hint-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--button-border)] text-white">
+                      <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                      </svg>
+                    </span>
+                    <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
+                    <span className="shrink-0 text-sm font-medium">to see projects</span>
+                  </a>
+                </div>
               </div>
-              <a
-                href="#work"
-                className="scroll-hint reveal mt-8 hidden items-center justify-center gap-4 text-[color:var(--muted)] no-underline transition-opacity hover:opacity-90 lg:flex"
-                data-reveal
-                aria-label="Scroll down to see projects"
-              >
-                <span className="shrink-0 text-sm font-medium">Scroll down</span>
-                <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
-                <span className="scroll-hint-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--button-border)] text-white">
-                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                  </svg>
-                </span>
-                <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
-                <span className="shrink-0 text-sm font-medium">to see projects</span>
-              </a>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        {/* شريط لوجوهات علامات تجارية وهمية متحركة – أسفل الهيرو */}
-        <section className="logos-marquee -mx-6 mt-4 overflow-hidden py-4 sm:-mx-10 lg:-mx-16" aria-hidden>
-          <div className="logos-marquee-inner flex w-max items-center gap-12 px-6 sm:gap-16 sm:px-10 lg:gap-20 lg:px-16">
-            {[...brandLogos, ...brandLogos].map((item, i) => (
-              <span key={`img-${i}`} className="logos-marquee-item relative h-8 w-auto shrink-0 sm:h-10">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  width={120}
-                  height={40}
-                  className="h-full w-auto object-contain opacity-80"
-                />
-              </span>
-            ))}
-          </div>
-        </section>
+            {/* شريط اللوجوهات – فل العرض */}
+            <section className="logos-marquee relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden py-4" aria-hidden>
+              <div className="logos-marquee-inner flex w-max items-center gap-12 px-6 sm:gap-16 sm:px-10 lg:gap-20 lg:px-16">
+                {[...brandLogos, ...brandLogos].map((item, i) => (
+                  <span key={`img-${i}`} className="logos-marquee-item relative h-8 w-auto shrink-0 sm:h-10">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      width={120}
+                      height={40}
+                      className="h-full w-auto object-contain opacity-80"
+                    />
+                  </span>
+                ))}
+              </div>
+            </section>
+        </div>
+      </div>
 
+      <main className="relative mx-auto min-h-screen max-w-7xl px-6 pb-32 pt-8 sm:px-10 lg:px-16">
         {/* Project showcase – 3D cards */}
         <section className="mt-28" aria-label="Featured projects">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

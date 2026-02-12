@@ -39,11 +39,18 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   letter-spacing: -0.01em;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 80%, transparent);
-  color: #ffffff;
+  background: transparent;
+  color: inherit;
+}
+
+::-moz-selection {
+  background: transparent;
+  color: inherit;
 }
 
 a {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import InitialLoader from "./components/InitialLoader";
+import NoCopy from "./components/NoCopy";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${plexMono.variable} antialiased`}
       >
+        <NoCopy />
         <InitialLoader />
         {children}
       </body>
