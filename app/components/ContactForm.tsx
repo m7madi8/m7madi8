@@ -14,19 +14,33 @@ export default function ContactForm() {
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [mailtoUrl, setMailtoUrl] = useState<string | null>(null);
 
   const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
   const isFirebaseConfigured = Boolean(db);
 
+  const trimmedName = name.trim();
+  const trimmedPhone = phone.trim();
+  const trimmedNotes = notes.trim();
+  const isFormEmpty = !trimmedName && !trimmedPhone && !trimmedNotes;
+  const canSubmit = !isFormEmpty;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
+    setMailtoUrl(null);
 
     const payload = {
-      name: name.trim(),
-      phone: phone.trim(),
-      notes: notes.trim(),
+      name: trimmedName,
+      phone: trimmedPhone,
+      notes: trimmedNotes,
     };
+
+    if (!canSubmit) {
+      setStatus("error");
+      setErrorMessage("Please fill in at least one field.");
+      return;
+    }
 
     setStatus("loading");
 
@@ -58,13 +72,14 @@ export default function ContactForm() {
         });
       }
 
-      // إذا لم يكن هناك Web3Forms ولا Firebase → فتح mailto
+      // إذا لم يكن هناك Web3Forms ولا Firebase → عرض رابط mailto بدل فتحه (لتجنب نافذة اختيار التطبيق على الموبايل)
       if (!web3formsKey && !isFirebaseConfigured) {
         const subject = encodeURIComponent("Contact from portfolio");
         const body = encodeURIComponent(
           `Name: ${payload.name}\nPhone: ${payload.phone}\n\nNotes:\n${payload.notes}`
         );
-        window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+        setMailtoUrl(`mailto:${EMAIL}?subject=${subject}&body=${body}`);
+        setStatus("idle");
         return;
       }
 
@@ -155,6 +170,20 @@ export default function ContactForm() {
           <div className="mx-auto mt-6 h-px w-12 bg-[color:var(--border)]" aria-hidden />
         </div>
       )}
+      {mailtoUrl && (
+        <div className="sm:col-span-2 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-6">
+          <p className="text-sm text-[color:var(--muted)]">
+            To send your message, open your email app by clicking the link below:
+          </p>
+          <a
+            href={mailtoUrl}
+            className="mt-3 inline-block text-sm font-medium text-white underline decoration-[color:var(--border)] underline-offset-2 hover:decoration-white"
+          >
+            Send via email
+          </a>
+        </div>
+      )}
+
       {status === "error" && (
         <p className="sm:col-span-2 text-sm text-red-400">
           {errorMessage || "Failed to send. Try again or use the email link below."}
@@ -165,8 +194,8 @@ export default function ContactForm() {
         <div className="sm:col-span-2">
           <button
             type="submit"
-            disabled={status === "loading"}
-            className="btn-primary px-6 py-3 disabled:opacity-60"
+            disabled={status === "loading" || !canSubmit}
+            className="btn-primary px-6 py-3 disabled:opacity-60 disabled:cursor-not-allowed"
             data-cursor
             suppressHydrationWarning
           >
