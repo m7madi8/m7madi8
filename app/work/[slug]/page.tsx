@@ -104,6 +104,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   alt={`${project.title} preview`}
                   className="h-56 w-full rounded-xl border border-[color:var(--border)] object-cover"
                   sizes="(max-width: 1024px) 100vw, 45vw"
+                  loading="lazy"
                 />
               ) : (
                 <div className="h-40 rounded-xl border border-[color:var(--border)] bg-[#14161b]" />

@@ -109,66 +109,67 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-6 pt-8 sm:px-10 lg:px-16">
-            {/* Hero – على الشاشات الكبيرة يملأ الصفحة فلا تظهر اللوجوهات حتى التمرير */}
-            <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-[85vh]">
-              <div className="relative max-w-3xl lg:-mt-10">
-                <div className="hero-pill reveal" data-reveal>
-                  <span className="hero-pill-dot" aria-hidden />
-                  Web Developer
-                </div>
-                <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
-                  Silent Code.
-                  <br />
-                  Massive Impact.
-                </h1>
-                <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
-                  I engineer modern, high-performance web systems built to scale.
-                </p>
-                <div className="mt-10 flex w-full flex-col items-center">
-                  <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6 px-3 sm:px-0" data-reveal>
-                    <a href="#contact" className="hero-btn" data-cursor>
-                      Let&apos;s Build Something Great
-                    </a>
-                    <a href="#work" className="hero-btn" data-cursor>
-                      See The Proof
-                    </a>
-                  </div>
-                  <a
-                    href="#work"
-                    className="scroll-hint reveal mt-8 hidden items-center justify-center gap-4 text-[color:var(--muted)] no-underline transition-opacity hover:opacity-90 lg:flex"
-                    data-reveal
-                    aria-label="Scroll down to see projects"
-                  >
-                    <span className="shrink-0 text-sm font-medium">Scroll down</span>
-                    <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
-                    <span className="scroll-hint-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--button-border)] text-white">
-                      <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                      </svg>
-                    </span>
-                    <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
-                    <span className="shrink-0 text-sm font-medium">to see projects</span>
+          {/* Hero – على الشاشات الكبيرة يملأ الصفحة فلا تظهر اللوجوهات حتى التمرير */}
+          <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-[85vh]">
+            <div className="relative max-w-3xl lg:-mt-10">
+              <div className="hero-pill reveal" data-reveal>
+                <span className="hero-pill-dot" aria-hidden />
+                Web Developer
+              </div>
+              <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
+                Silent Code.
+                <br />
+                Massive Impact.
+              </h1>
+              <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
+                I engineer modern, high-performance web systems built to scale.
+              </p>
+              <div className="mt-10 flex w-full flex-col items-center">
+                <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6 px-3 sm:px-0" data-reveal>
+                  <a href="#contact" className="hero-btn" data-cursor>
+                    Let&apos;s Build Something Great
+                  </a>
+                  <a href="#work" className="hero-btn" data-cursor>
+                    See The Proof
                   </a>
                 </div>
-              </div>
-            </section>
-
-            {/* شريط اللوجوهات – فل العرض، على الشاشات الكبيرة يظهر أسفل قليلاً */}
-            <section className="logos-marquee relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden py-4 lg:mt-24" aria-hidden>
-              <div className="logos-marquee-inner flex w-max items-center gap-12 px-6 sm:gap-16 sm:px-10 lg:gap-20 lg:px-16">
-                {[...brandLogos, ...brandLogos].map((item, i) => (
-                  <span key={`img-${i}`} className="logos-marquee-item relative h-8 w-auto shrink-0 sm:h-10">
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      width={120}
-                      height={40}
-                      className="h-full w-auto object-contain opacity-80"
-                    />
+                <a
+                  href="#work"
+                  className="scroll-hint reveal mt-8 hidden items-center justify-center gap-4 text-[color:var(--muted)] no-underline transition-opacity hover:opacity-90 lg:flex"
+                  data-reveal
+                  aria-label="Scroll down to see projects"
+                >
+                  <span className="shrink-0 text-sm font-medium">Scroll down</span>
+                  <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
+                  <span className="scroll-hint-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--button-border)] text-white">
+                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                    </svg>
                   </span>
-                ))}
+                  <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
+                  <span className="shrink-0 text-sm font-medium">to see projects</span>
+                </a>
               </div>
-            </section>
+            </div>
+          </section>
+
+          {/* شريط اللوجوهات – فل العرض، على الشاشات الكبيرة يظهر أسفل قليلاً */}
+          <section className="logos-marquee relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden py-4 lg:mt-24" aria-hidden>
+            <div className="logos-marquee-inner flex w-max items-center gap-12 px-6 sm:gap-16 sm:px-10 lg:gap-20 lg:px-16">
+              {[...brandLogos, ...brandLogos].map((item, i) => (
+                <span key={`img-${i}`} className="logos-marquee-item relative h-8 w-auto shrink-0 sm:h-10">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={120}
+                    height={40}
+                    className="h-full w-auto object-contain opacity-80"
+                    loading="lazy"
+                  />
+                </span>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
 
@@ -192,6 +193,7 @@ export default function Home() {
                           fill
                           className={index === 0 ? "object-contain" : "object-cover"}
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="absolute inset-0 bg-[color:var(--surface)] flex items-center justify-center text-[color:var(--muted)] text-sm uppercase tracking-widest">
@@ -263,6 +265,7 @@ export default function Home() {
                     fill
                     className="object-cover object-top"
                     sizes="(max-width: 640px) 100vw, 50vw"
+                    loading="lazy"
                   />
                 </div>
                 <div className="p-6">
@@ -283,6 +286,7 @@ export default function Home() {
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 100vw, 50vw"
+                      loading="lazy"
                     />
                   )}
                 </div>
@@ -404,6 +408,7 @@ export default function Home() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 1024px) 100vw, 45vw"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-[color:var(--muted)] text-xs uppercase tracking-widest">

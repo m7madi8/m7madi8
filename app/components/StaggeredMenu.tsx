@@ -466,6 +466,7 @@ export function StaggeredMenu({
                 draggable={false}
                 width={110}
                 height={24}
+                loading="lazy"
               />
             ) : (
               <span className="text-lg font-medium tracking-tight text-white">Mohammad</span>
