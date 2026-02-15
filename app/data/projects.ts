@@ -2,6 +2,8 @@ import type { StaticImageData } from "next/image";
 import image99 from "../../img/99.png";
 import imageSamarammar from "../../img/samarammar.png";
 
+import image03 from "../../img/03.png";
+
 export type Project = {
   slug: string;
   title: string;
@@ -46,19 +48,19 @@ export const projects: Project[] = [
     overview: "Refined interior, exterior, and garden design portfolio.",
   },
   {
-    slug: "signal-launch",
-    title: "Signal Launch",
-    context: "Landing page campaign",
-    summary: "A focused landing page built to convert.",
-    goal: "Explain the offer quickly and move users to action.",
-    build: "A focused landing flow with short sections and clear proof.",
+    slug: "daily",
+    title: "Daily",
+    context: "Sportswear & Gym Gear Store",
+    summary: "A premium e-commerce platform for athletes.",
+    image: image03,
+    goal: "Create a powerful online presence and seamless shopping for gym enthusiasts.",
+    build: "A high-performance e-commerce site with intuitive product filtering.",
     work: [
-      "Tight copy structure with one primary message.",
-      "Fast-loading visuals and responsive layout.",
-      "Single conversion path without distractions.",
+      "Designed a bold, energetic UI/UX.",
+      "Integrated secure payment gateways.",
+      "Optimized product pages for high conversion.",
     ],
-    result: "Improved lead quality and a cleaner conversion funnel.",
-    overview:
-      "A landing page built to communicate fast and convert reliably.",
+    result: "Significant increase in online sales and user engagement.",
+    overview: "A robust, fast, and visually striking store for modern fitness gear.",
   },
 ];
