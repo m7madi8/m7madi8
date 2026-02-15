@@ -22,7 +22,7 @@ const menuItems = [
 ];
 
 const socialItems = [
-  { label: "WhatsApp", link: "https://wa.me/9647713000000" },
+  { label: "WhatsApp", link: "https://wa.me/972592132438" },
   { label: "Instagram", link: "https://www.instagram.com/m7madi8/" },
 ];
 export default function Home() {
@@ -448,7 +448,7 @@ export default function Home() {
             </a>
             <a
               className="btn-primary px-6 py-3"
-              href="https://www.whatsapp.com/m7madi8/"
+              href="https://wa.me/972592132438"
               target="_blank"
               rel="noreferrer"
               data-cursor
