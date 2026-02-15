@@ -133,22 +133,7 @@ export default function Home() {
                     See The Proof
                   </a>
                 </div>
-                <a
-                  href="#work"
-                  className="scroll-hint reveal mt-8 hidden items-center justify-center gap-4 text-[color:var(--muted)] no-underline transition-opacity hover:opacity-90 lg:flex"
-                  data-reveal
-                  aria-label="Scroll down to see projects"
-                >
-                  <span className="shrink-0 text-sm font-medium">Scroll down</span>
-                  <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
-                  <span className="scroll-hint-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--button-border)] text-white">
-                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
-                      <line x1="12" y1="5" x2="12" y2="19" />
-                    </svg>
-                  </span>
-                  <span className="scroll-hint-line h-px w-16 shrink-0 bg-[color:var(--border)]" />
-                  <span className="shrink-0 text-sm font-medium">to see projects</span>
-                </a>
+
               </div>
             </div>
           </section>
