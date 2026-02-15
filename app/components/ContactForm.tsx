@@ -6,6 +6,7 @@ import { db } from "../../lib/firebase";
 
 const EMAIL = "eslamhuhu1@gmail.com";
 const CONTACTS_COLLECTION = "contacts";
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -14,38 +15,67 @@ export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
   const isFirebaseConfigured = Boolean(db);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
 
-    if (isFirebaseConfigured) {
-      setStatus("loading");
-      try {
+    const payload = {
+      name: name.trim(),
+      phone: phone.trim(),
+      notes: notes.trim(),
+    };
+
+    setStatus("loading");
+
+    try {
+      // 1) إرسال الطلب إلى بريدك عبر Web3Forms
+      if (web3formsKey) {
+        const res = await fetch(WEB3FORMS_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            access_key: web3formsKey,
+            subject: "Contact from portfolio",
+            name: payload.name,
+            phone: payload.phone,
+            message: payload.notes,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) {
+          throw new Error(data.message ?? "Failed to send email.");
+        }
+      }
+
+      // 2) حفظ في Firebase إن كان مفعّلاً
+      if (isFirebaseConfigured) {
         await addDoc(collection(db!, CONTACTS_COLLECTION), {
-          name: name.trim(),
-          phone: phone.trim(),
-          notes: notes.trim(),
+          ...payload,
           createdAt: serverTimestamp(),
         });
-        setStatus("success");
-        setName("");
-        setPhone("");
-        setNotes("");
-      } catch (err) {
-        setStatus("error");
-        setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
       }
-      return;
-    }
 
-    // Fallback: mailto when Firebase is not configured
-    const subject = encodeURIComponent("Contact from portfolio");
-    const body = encodeURIComponent(
-      `Name: ${name}\nPhone: ${phone}\n\nNotes:\n${notes}`
-    );
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+      // إذا لم يكن هناك Web3Forms ولا Firebase → فتح mailto
+      if (!web3formsKey && !isFirebaseConfigured) {
+        const subject = encodeURIComponent("Contact from portfolio");
+        const body = encodeURIComponent(
+          `Name: ${payload.name}\nPhone: ${payload.phone}\n\nNotes:\n${payload.notes}`
+        );
+        window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+        return;
+      }
+
+      setStatus("success");
+      setName("");
+      setPhone("");
+      setNotes("");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong.");
+    }
   };
 
   return (
