@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import CustomCursor from "../../components/CustomCursor";
 import RevealManager from "../../components/RevealManager";
@@ -33,13 +34,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </p>
           </div>
           <div className="flex items-center gap-6 text-xs uppercase tracking-[0.3em] text-[color:var(--muted)]">
-            <a
+            <Link
               className="transition hover:text-white"
               href="/#work"
               data-cursor
             >
               Back to work
-            </a>
+            </Link>
             {project.url ? (
               <a
                 className="transition hover:text-white"

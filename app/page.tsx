@@ -22,18 +22,11 @@ const menuItems = [
 ];
 
 const socialItems = [
-  { label: "GitHub", link: "https://github.com/" },
+  { label: "WhatsApp", link: "https://wa.me/9647713000000" },
   { label: "Instagram", link: "https://www.instagram.com/m7madi8/" },
 ];
-
 export default function Home() {
   const services = [
-    {
-      title: "Web design",
-      copy:
-        "Clean, modern interfaces that communicate your brand and convert visitors into customers.",
-      href: "#work",
-    },
     {
       title: "Branding",
       copy:
@@ -49,10 +42,10 @@ export default function Home() {
   ];
 
   const processSteps = [
-    { step: "01", title: "Discovery", copy: "We align on goals, audience, and success metrics." },
-    { step: "02", title: "Strategy", copy: "Structure, content, and technical approach." },
-    { step: "03", title: "Design", copy: "Visual direction and high-fidelity interfaces." },
-    { step: "04", title: "Development", copy: "Build, test, and launch with quality in mind." },
+    { step: "01", title: "Discovery", copy: "I analyze business goals and technical requirements." },
+    { step: "02", title: "Architecture", copy: "I design scalable system structures and database logic." },
+    { step: "03", title: "Development", copy: "I build clean, maintainable, and high-performance code." },
+    { step: "04", title: "Launch", copy: "I test, optimize, and deploy reliable digital products." },
   ];
 
   const portfolioProjects = projects;
@@ -123,20 +116,20 @@ export default function Home() {
                   Web Developer
                 </div>
                 <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
-                  Quiet Code.
+                  Silent Code.
                   <br />
-                  Loud Results.
+                  Massive Impact.
                 </h1>
                 <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
-                  I build modern, performant websites and web applications that deliver real results.
+                  I engineer modern, high-performance web systems built to scale.
                 </p>
                 <div className="mt-10 flex w-full flex-col items-center">
-                  <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 px-3 sm:px-0" data-reveal>
-                    <a href="#work" className="hero-btn md:-ml-14" data-cursor>
-                      See The Proof
-                    </a>
+                  <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6 px-3 sm:px-0" data-reveal>
                     <a href="#contact" className="hero-btn" data-cursor>
-                      Start Something Serious
+                      Let&apos;s Build Something Great
+                    </a>
+                    <a href="#work" className="hero-btn" data-cursor>
+                      See The Proof
                     </a>
                   </div>
                   <a
@@ -178,7 +171,7 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="relative mx-auto min-h-screen max-w-7xl px-6 pb-32 pt-8 sm:px-10 lg:px-16">
+      <main className="relative mx-auto min-h-screen max-w-7xl px-6 pb-8 pt-8 sm:px-10 lg:px-16">
         {/* Project showcase – 3D cards */}
         <section className="mt-28" aria-label="Featured projects">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -438,20 +431,12 @@ export default function Home() {
           <div className="reveal flex flex-wrap gap-4 text-sm uppercase tracking-[0.2em]" data-reveal>
             <a
               className="btn-primary px-6 py-3"
-              href="mailto:hello@example.com"
+              href="eslamhuhu1@gmail.com"
               data-cursor
             >
               Email
             </a>
-            <a
-              className="btn-primary px-6 py-3"
-              href="https://github.com/"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor
-            >
-              GitHub
-            </a>
+            
             <a
               className="btn-primary px-6 py-3"
               href="https://www.instagram.com/m7madi8/"
@@ -461,12 +446,21 @@ export default function Home() {
             >
               Instagram
             </a>
+            <a
+              className="btn-primary px-6 py-3"
+              href="https://www.whatsapp.com/m7madi8/"
+              target="_blank"
+              rel="noreferrer"
+              data-cursor
+            >
+              WhatsApp
+            </a>
           </div>
         </section>
 
         {/* Footer */}
         <footer className="mt-32 border-t border-[color:var(--border)] pt-10 text-center text-xs text-[color:var(--muted)]">
-          <p>© {new Date().getFullYear()} Mohammad. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Mohammad Hroub. All rights reserved.</p>
         </footer>
       </main>
     </div>

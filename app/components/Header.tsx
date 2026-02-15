@@ -88,23 +88,23 @@ export default function Header() {
               aria-label="Main navigation"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex h-full flex-col pt-20 px-6 pb-8">
-                <div className="absolute right-4 top-6 flex items-center justify-end">
-                  <button
-                    type="button"
-                    onClick={closeMenu}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl text-[color:var(--muted)] transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
-                    aria-label="Close menu"
-                  >
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-                <p className="mb-8 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--muted)]">
+              <div className="absolute right-4 top-6 flex items-center justify-end">
+                <button
+                  type="button"
+                  onClick={closeMenu}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl text-[color:var(--muted)] transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
+                  aria-label="Close menu"
+                >
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex h-full flex-col overflow-y-auto pt-20 px-6 pb-8">
+                <p className="mb-5 font-mono text-[9px] uppercase tracking-[0.3em] text-[color:var(--muted)]">
                   Menu
                 </p>
-                <ul className="flex flex-col gap-1">
+                <ul className="flex flex-col gap-0.5">
                   {navLinks.map((link, i) => (
                     <li
                       key={link.href}
@@ -116,10 +116,10 @@ export default function Header() {
                     >
                       <a
                         href={link.href}
-                        className="menu-link group flex items-center gap-4 py-3.5 text-[15px] font-medium tracking-tight text-[color:var(--foreground)] transition-colors hover:text-white"
+                        className="menu-link group flex items-center gap-3 py-2.5 text-[13px] font-medium tracking-tight text-[color:var(--foreground)] transition-colors hover:text-white"
                         onClick={closeMenu}
                       >
-                        <span className="menu-link-num font-mono text-[11px] text-[color:var(--muted)] tabular-nums transition-colors group-hover:text-white/70">
+                        <span className="menu-link-num font-mono text-[10px] text-[color:var(--muted)] tabular-nums transition-colors group-hover:text-white/70">
                           {link.num}
                         </span>
                         <span className="menu-link-label relative">
@@ -130,8 +130,8 @@ export default function Header() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-auto pt-8 border-t border-[color:var(--border)]">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
+                <div className="mt-auto shrink-0 pt-6 border-t border-[color:var(--border)]">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
                     Mohammad — Portfolio
                   </p>
                 </div>
