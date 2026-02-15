@@ -9,6 +9,7 @@ import logoMarkiz from "../img/markiz-logo.png";
 import logoRawan from "../img/rawan-logo.png";
 import logoLayali from "../img/layali-logo.png";
 import logoNana from "../img/nana's-logo.webp";
+import ContactForm from "./components/ContactForm";
 import CustomCursor from "./components/CustomCursor";
 import LiquidEther from "./components/LiquidEther";
 import RevealManager from "./components/RevealManager";
@@ -428,33 +429,28 @@ export default function Home() {
           <div className="reveal max-w-2xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
             Let&apos;s build something clean and effective. I take on a limited number of projects to keep quality high.
           </div>
-          <div className="reveal flex flex-wrap gap-4 text-sm uppercase tracking-[0.2em]" data-reveal>
-            <a
-              className="btn-primary px-6 py-3"
-              href="eslamhuhu1@gmail.com"
-              data-cursor
-            >
-              Email
-            </a>
-            
-            <a
-              className="btn-primary px-6 py-3"
-              href="https://www.instagram.com/m7madi8/"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor
-            >
-              Instagram
-            </a>
-            <a
-              className="btn-primary px-6 py-3"
-              href="https://wa.me/972592132438"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor
-            >
-              WhatsApp
-            </a>
+          <div className="space-y-8">
+            <ContactForm />
+            <div className="reveal flex flex-wrap gap-4 text-sm uppercase tracking-[0.2em]" data-reveal>
+              <a
+                className="btn-primary px-6 py-3"
+                href="https://www.instagram.com/m7madi8/"
+                target="_blank"
+                rel="noreferrer"
+                data-cursor
+              >
+                Instagram
+              </a>
+              <a
+                className="btn-primary px-6 py-3"
+                href="https://wa.me/972592132438"
+                target="_blank"
+                rel="noreferrer"
+                data-cursor
+              >
+                WhatsApp
+              </a>
+            </div>
           </div>
         </section>
 
