@@ -457,6 +457,7 @@ export function StaggeredMenu({
           aria-controls="staggered-menu-panel"
           onClick={toggleMenu}
           type="button"
+          suppressHydrationWarning
         >
           <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
             <span ref={textInnerRef} className="sm-toggle-textInner">

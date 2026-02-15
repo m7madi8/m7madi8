@@ -83,6 +83,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       className="reveal grid w-full max-w-2xl gap-5 sm:grid-cols-2"
       data-reveal
+      suppressHydrationWarning
     >
       <div className="space-y-2 sm:col-span-2 sm:max-w-xs">
         <label
@@ -99,6 +100,7 @@ export default function ContactForm() {
           disabled={status === "loading"}
           className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
           placeholder="Your name"
+          suppressHydrationWarning
         />
       </div>
       <div className="space-y-2 sm:max-w-xs">
@@ -116,6 +118,7 @@ export default function ContactForm() {
           disabled={status === "loading"}
           className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
           placeholder="Phone or WhatsApp"
+          suppressHydrationWarning
         />
       </div>
       <div className="space-y-2 sm:col-span-2">
@@ -153,6 +156,7 @@ export default function ContactForm() {
           disabled={status === "loading"}
           className="btn-primary px-6 py-3 disabled:opacity-60"
           data-cursor
+          suppressHydrationWarning
         >
           {status === "loading" ? "Sending…" : "Send"}
         </button>
