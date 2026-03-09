@@ -10,6 +10,7 @@ const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -20,9 +21,10 @@ export default function ContactForm() {
   const isFirebaseConfigured = Boolean(db);
 
   const trimmedName = name.trim();
+  const trimmedEmail = email.trim();
   const trimmedPhone = phone.trim();
   const trimmedNotes = notes.trim();
-  const isFormEmpty = !trimmedName && !trimmedPhone && !trimmedNotes;
+  const isFormEmpty = !trimmedName && !trimmedEmail && !trimmedPhone && !trimmedNotes;
   const canSubmit = !isFormEmpty;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,6 +34,7 @@ export default function ContactForm() {
 
     const payload = {
       name: trimmedName,
+      email: trimmedEmail,
       phone: trimmedPhone,
       notes: trimmedNotes,
     };
@@ -54,6 +57,7 @@ export default function ContactForm() {
             access_key: web3formsKey,
             subject: "Contact from portfolio",
             name: payload.name,
+            email: payload.email,
             phone: payload.phone,
             message: payload.notes,
           }),
@@ -76,7 +80,7 @@ export default function ContactForm() {
       if (!web3formsKey && !isFirebaseConfigured) {
         const subject = encodeURIComponent("Contact from portfolio");
         const body = encodeURIComponent(
-          `Name: ${payload.name}\nPhone: ${payload.phone}\n\nNotes:\n${payload.notes}`
+          `Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone}\n\nNotes:\n${payload.notes}`
         );
         setMailtoUrl(`mailto:${EMAIL}?subject=${subject}&body=${body}`);
         setStatus("idle");
@@ -85,6 +89,7 @@ export default function ContactForm() {
 
       setStatus("success");
       setName("");
+      setEmail("");
       setPhone("");
       setNotes("");
     } catch (err) {
@@ -117,6 +122,24 @@ export default function ContactForm() {
               disabled={status === "loading"}
               className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
               placeholder="Your name"
+              suppressHydrationWarning
+            />
+          </div>
+          <div className="space-y-2 sm:max-w-xs">
+            <label
+              htmlFor="contact-email"
+              className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
+            >
+              Email
+            </label>
+            <input
+              id="contact-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={status === "loading"}
+              className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
+              placeholder="Your email"
               suppressHydrationWarning
             />
           </div>
