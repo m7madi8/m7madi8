@@ -7,6 +7,7 @@ import { db } from "../../lib/firebase";
 const EMAIL = "eslamhuhu1@gmail.com";
 const CONTACTS_COLLECTION = "contacts";
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const SITE_NAME = "My Portfolio";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -55,7 +56,8 @@ export default function ContactForm() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             access_key: web3formsKey,
-            subject: "Contact from portfolio",
+            subject: `${SITE_NAME} – New contact`,
+            from_name: SITE_NAME,
             name: payload.name,
             email: payload.email,
             phone: payload.phone,
@@ -78,7 +80,7 @@ export default function ContactForm() {
 
       // إذا لم يكن هناك Web3Forms ولا Firebase → عرض رابط mailto بدل فتحه (لتجنب نافذة اختيار التطبيق على الموبايل)
       if (!web3formsKey && !isFirebaseConfigured) {
-        const subject = encodeURIComponent("Contact from portfolio");
+        const subject = encodeURIComponent(`${SITE_NAME} – New contact`);
         const body = encodeURIComponent(
           `Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone}\n\nNotes:\n${payload.notes}`
         );
