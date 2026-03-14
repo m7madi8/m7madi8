@@ -20,6 +20,7 @@ const menuItems = [
   { label: "Home", ariaLabel: "Go to home", link: "#" },
   { label: "Projects", ariaLabel: "View projects", link: "#work" },
   { label: "Contact", ariaLabel: "Get in touch", link: "#contact" },
+  { label: "Work Agreement", ariaLabel: "Work Agreement", link: "/agreement" },
 ];
 
 const socialItems = [
