@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CustomCursor from "../components/CustomCursor";
 import RevealManager from "../components/RevealManager";
+import logoMe from "../../img/logo-me.png";
 
 const content = {
   ar: {
@@ -102,7 +104,7 @@ const content = {
   },
   en: {
     title: "Work Agreement",
-    subtitle: "Mohammad Horoub — Full-Stack Web Developer",
+    subtitle: "Mohammad Hroub — Full-Stack Web Developer",
     back: "Back to home",
     contact: "Contact me",
     translateLabel: "العربية",
@@ -117,7 +119,7 @@ const content = {
         title: "Definition of Parties",
         body: null,
         items: [
-          { label: "First party (service provider):", text: "Mohammad Horoub, working as a Full-Stack Web Developer, operating remotely." },
+          { label: "First party (service provider):", text: "Mohammad Hroub, working as a Full-Stack Web Developer, operating remotely." },
           { label: "Second party (client):", text: "The entity or person contracting with the first party to carry out a web development project or digital interfaces." },
         ],
       },
@@ -207,9 +209,22 @@ function SectionBlock({
   return (
     <section
       id={section.id}
-      className="reveal scroll-mt-24 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm sm:p-8"
+      className="reveal relative scroll-mt-24 overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm sm:p-8"
       data-reveal
     >
+      {/* علامة مائية: لوجو شفاف */}
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        aria-hidden
+      >
+        <Image
+          src={logoMe}
+          alt=""
+          className="h-auto max-h-[70%] w-auto max-w-[60%] opacity-[0.04]"
+          sizes="(max-width: 768px) 50vw, 200px"
+        />
+      </div>
+      <div className="relative z-10">
       <h2 className="section-title font-medium text-[color:var(--foreground)]">
         {section.title}
       </h2>
@@ -261,6 +276,7 @@ function SectionBlock({
             {section.highlight}
           </p>
         )}
+      </div>
       </div>
     </section>
   );
