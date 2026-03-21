@@ -103,8 +103,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="reveal grid w-full max-w-2xl gap-5 sm:grid-cols-2"
-      data-reveal
+      className="grid w-full max-w-2xl gap-5 sm:grid-cols-2"
       suppressHydrationWarning
     >
       {status !== "success" && (
