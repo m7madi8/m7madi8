@@ -36,8 +36,8 @@ export const SEO_PERSON = {
   ] as string[],
 } as const;
 
-/** عنوان الصفحة الرئيسية الافتراضي */
-export const defaultPageTitle = `${SEO_PERSON.nameEn} | ${SEO_PERSON.jobTitle} — Portfolio`;
+/** عنوان التبويب للصفحة الرئيسية */
+export const defaultPageTitle = SEO_PERSON.nameEn;
 
 export function getSiteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) {

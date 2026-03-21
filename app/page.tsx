@@ -1,14 +1,6 @@
 import Image from "next/image";
 import profileImage from "../img/me.png";
 import logoMe from "../img/logo-me.png";
-import logo99 from "../img/99logo2.png";
-import logoSamar from "../img/samar-logo.png";
-import logoWolve from "../img/wolve_store.png";
-import logoChuckeese from "../img/chuckeese-logo.png";
-import logoMarkiz from "../img/markiz-logo.png";
-import logoRawan from "../img/rawan-logo.png";
-import logoLayali from "../img/layali-logo.png";
-import logoNana from "../img/nana's-logo.webp";
 import HeroBackground from "./components/HeroBackground";
 import LazyContactForm from "./components/LazyContactForm";
 import LazyCustomCursor from "./components/LazyCustomCursor";
@@ -52,17 +44,6 @@ export default function Home() {
 
   const portfolioProjects = projects;
 
-  const brandLogos: { type: "image"; src: typeof logo99; alt: string }[] = [
-    { type: "image", src: logo99, alt: "99" },
-    { type: "image", src: logoSamar, alt: "Samar" },
-    { type: "image", src: logoWolve, alt: "Wolve Store" },
-    { type: "image", src: logoChuckeese, alt: "Chuckeese" },
-    { type: "image", src: logoMarkiz, alt: "Markiz" },
-    { type: "image", src: logoRawan, alt: "Rawan" },
-    { type: "image", src: logoLayali, alt: "Layali" },
-    { type: "image", src: logoNana, alt: "Nana's" },
-  ];
-
   return (
     <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
       <LazyCustomCursor />
@@ -83,7 +64,7 @@ export default function Home() {
         closeOnClickAway
       />
 
-      {/* الشاشة الأولى: 100vh على الأقل مع الهيدر والهيرو واللوجوهات ظاهرة */}
+      {/* الشاشة الأولى: الهيرو */}
       <div className="relative min-h-screen w-full">
         <div className="absolute inset-0 z-0 min-h-screen">
           <HeroBackground
@@ -110,7 +91,7 @@ export default function Home() {
           />
         </div>
         <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-6 pt-8 sm:px-10 lg:px-16">
-          {/* Hero – على الشاشات الكبيرة يملأ الصفحة فلا تظهر اللوجوهات حتى التمرير */}
+          {/* Hero */}
           <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-[85vh]">
             <div className="relative max-w-3xl lg:-mt-10">
               <div className="hero-pill reveal" data-reveal>
@@ -136,24 +117,6 @@ export default function Home() {
                 </div>
 
               </div>
-            </div>
-          </section>
-
-          {/* شريط اللوجوهات – فل العرض، على الشاشات الكبيرة يظهر أسفل قليلاً */}
-          <section className="logos-marquee relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-hidden py-4 lg:mt-24" aria-hidden>
-            <div className="logos-marquee-inner flex w-max items-center gap-12 px-6 sm:gap-16 sm:px-10 lg:gap-20 lg:px-16">
-              {[...brandLogos, ...brandLogos].map((item, i) => (
-                <span key={`img-${i}`} className="logos-marquee-item relative h-8 w-auto shrink-0 sm:h-10">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    width={120}
-                    height={40}
-                    className="h-full w-auto object-contain opacity-80"
-                    loading="lazy"
-                  />
-                </span>
-              ))}
             </div>
           </section>
         </div>

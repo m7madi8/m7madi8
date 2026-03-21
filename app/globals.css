@@ -443,31 +443,6 @@ a {
   background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
-/* شريط لوجوهات العلامات – ماركوي متحرك */
-.logos-marquee-inner {
-  animation: logosMarquee 35s linear infinite;
-}
-
-.logos-marquee:hover .logos-marquee-inner {
-  animation-play-state: paused;
-}
-
-@keyframes logosMarquee {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .logos-marquee-inner {
-    animation: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
 
   .hero-tilt-card,
