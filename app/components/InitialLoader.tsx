@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 
-const MIN_SHOW_MS = 900;
+const MIN_SHOW_MS = 500;
 
 type Phase = "show" | "hide" | "gone";
 

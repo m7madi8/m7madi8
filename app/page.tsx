@@ -9,11 +9,11 @@ import logoMarkiz from "../img/markiz-logo.png";
 import logoRawan from "../img/rawan-logo.png";
 import logoLayali from "../img/layali-logo.png";
 import logoNana from "../img/nana's-logo.webp";
-import ContactForm from "./components/ContactForm";
-import CustomCursor from "./components/CustomCursor";
-import LiquidEther from "./components/LiquidEther";
+import HeroBackground from "./components/HeroBackground";
+import LazyContactForm from "./components/LazyContactForm";
+import LazyCustomCursor from "./components/LazyCustomCursor";
+import LazyStaggeredMenu from "./components/LazyStaggeredMenu";
 import RevealManager from "./components/RevealManager";
-import StaggeredMenu from "./components/StaggeredMenu";
 import { projects } from "./data/projects";
 
 const menuItems = [
@@ -65,9 +65,9 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
-      <CustomCursor />
+      <LazyCustomCursor />
       <RevealManager />
-      <StaggeredMenu
+      <LazyStaggeredMenu
         position="right"
         items={menuItems}
         socialItems={socialItems}
@@ -86,7 +86,7 @@ export default function Home() {
       {/* الشاشة الأولى: 100vh على الأقل مع الهيدر والهيرو واللوجوهات ظاهرة */}
       <div className="relative min-h-screen w-full">
         <div className="absolute inset-0 z-0 min-h-screen">
-          <LiquidEther
+          <HeroBackground
             colors={["#08090a", "#6b7280", "#f5f5f4"]}
             mouseForce={20}
             cursorSize={100}
@@ -179,7 +179,8 @@ export default function Home() {
                           fill
                           className={index === 0 ? "object-contain" : "object-cover"}
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          loading="lazy"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          priority={index === 0}
                         />
                       ) : (
                         <div className="absolute inset-0 bg-[color:var(--surface)] flex items-center justify-center text-[color:var(--muted)] text-sm uppercase tracking-widest">
@@ -421,7 +422,7 @@ export default function Home() {
             Let&apos;s build something clean and effective. I take on a limited number of projects to keep quality high.
           </div>
           <div className="space-y-8">
-            <ContactForm />
+            <LazyContactForm />
             <div className="reveal flex flex-wrap gap-4 text-sm uppercase tracking-[0.2em]" data-reveal>
               <a
                 className="btn-primary px-6 py-3"

@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
   assetPrefix: assetPrefix || undefined,
   images: { unoptimized: true },
   devIndicators: false,
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error", "warn"] }
+        : false,
+  },
 };
 
 export default nextConfig;

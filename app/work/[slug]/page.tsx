@@ -1,12 +1,46 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CustomCursor from "../../components/CustomCursor";
 import RevealManager from "../../components/RevealManager";
 import { projects } from "../../data/projects";
+import { SEO_PERSON, getSiteUrl } from "../../../lib/seo-config";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+  if (!project) {
+    return {};
+  }
+  const title = `${project.title} — Project`;
+  const description = `${project.summary} Portfolio work by ${SEO_PERSON.nameEn} (${SEO_PERSON.jobTitle}). ${project.context}`;
+  return {
+    title,
+    description,
+    keywords: [...SEO_PERSON.keywords, project.title, project.context],
+    openGraph: {
+      title: `${project.title} | ${SEO_PERSON.nameEn}`,
+      description,
+      url: `${getSiteUrl()}/work/${slug}`,
+      type: "article",
+    },
+    twitter: {
+      title: `${project.title} | ${SEO_PERSON.nameEn}`,
+      description,
+    },
+    alternates: {
+      canonical: `/work/${slug}`,
+    },
+  };
 }
 
 type ProjectPageProps = {
