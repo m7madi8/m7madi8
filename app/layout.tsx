@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: "Mohammad",
   description:
     "A productized portfolio for a senior web specialist focused on systems, scalability, and performance.",
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/icon.png", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
