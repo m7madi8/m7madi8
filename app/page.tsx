@@ -81,7 +81,7 @@ export default function Home() {
             autoSpeed={0.5}
             autoIntensity={2.2}
             takeoverDuration={0.25}
-            autoResumeDelay={3000}
+            autoResumeDelay={0}
             autoRampDuration={0.6}
             color0="#08090a"
             color1="#6b7280"
@@ -133,7 +133,7 @@ export default function Home() {
                 data-reveal
               >
                 <div className="card-3d rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)] overflow-hidden">
-                  <a href={`#work`} className="block">
+                  <a href={`#${project.slug}`} className="block">
                     <div className={`image-3d-wrap aspect-[4/3] relative p-4 ${index === 0 ? "bg-[color:var(--surface)]" : ""}`}>
                       {project.image ? (
                         <Image
@@ -309,7 +309,8 @@ export default function Home() {
             {portfolioProjects.map((project, index) => (
               <article
                 key={project.slug}
-                className="reveal grid gap-10 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10"
+                id={project.slug}
+                className="reveal scroll-mt-28 grid gap-10 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10"
                 data-reveal
               >
                 <div className="space-y-6">
