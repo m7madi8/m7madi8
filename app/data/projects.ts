@@ -4,6 +4,10 @@ import imageSamarammar from "../../img/samarammar.png";
 
 import image03 from "../../img/03.png";
 import image04 from "../../img/04.png";
+import image88 from "../../img/88.png";
+import image8 from "../../img/8.png";
+
+export type ProjectStatus = "live" | "coming-soon";
 
 export type Project = {
   slug: string;
@@ -12,12 +16,21 @@ export type Project = {
   summary: string;
   image?: StaticImageData;
   url?: string;
+  status?: ProjectStatus;
   goal: string;
   build: string;
   work: string[];
   result: string;
   overview: string;
 };
+
+export function isComingSoon(project: Project): boolean {
+  return project.status === "coming-soon";
+}
+
+export function getLiveProjects(): Project[] {
+  return projects.filter((p) => !isComingSoon(p));
+}
 
 export const projects: Project[] = [
   {
@@ -84,5 +97,107 @@ export const projects: Project[] = [
     ],
     result: "A fast, memorable store that supports growth in online sales and engagement.",
     overview: "Vantage — a robust, modern e-commerce site for sportswear and gym gear.",
+  },
+  {
+    slug: "od-architects",
+    title: "OD ARCHITECTS",
+    status: "coming-soon",
+    context: "Interior, exterior & landscape design studio",
+    summary:
+      "Design studio for interior, exterior, and garden projects — from concept through supervision and on-site execution.",
+    goal: "Present full-service design capabilities and build trust with residential and commercial clients.",
+    build:
+      "A brand-led website with portfolio galleries, clear service tiers, and straightforward inquiry paths.",
+    work: [
+      "Interior, exterior, and landscape project showcases.",
+      "Supervision and execution narrative for end-to-end delivery.",
+      "Responsive layout tuned for large-format visuals and case studies.",
+    ],
+    result:
+      "In active development — publishing soon.",
+    overview:
+      "Interior, exterior, and landscape design — from vision to supervision and build.",
+  },
+  {
+    slug: "shape-up",
+    title: "Shape Up",
+    status: "coming-soon",
+    image: image88,
+    context: "Women's fitness studio",
+    summary:
+      "Studio experience for women-only training — diverse classes, sports programs, and a motivating brand presence.",
+    goal: "Help members discover class types, understand the studio's focus, and prepare for seamless booking.",
+    build:
+      "An energetic marketing site with class categories, studio story, and scheduling-ready structure.",
+    work: [
+      "Women-focused brand tone and visual identity on the web.",
+      "Class and sport category pages for varied training offerings.",
+      "Mobile-first layout built for schedules and future booking flows.",
+    ],
+    result:
+      "In active development — publishing soon.",
+    overview:
+      "Women's fitness studio — varied classes and sports in one clear digital home.",
+  },
+  {
+    slug: "healthy-mama",
+    title: "Healthy Mama",
+    status: "coming-soon",
+    context: "Women's postpartum wellness platform",
+    summary:
+      "A platform for every mother — postpartum assessments, trusted guidance, and curated books to support real lifestyle change.",
+    goal: "Give women a structured way to understand postpartum health and access personalized tips and resources.",
+    build:
+      "A member-oriented platform with assessment flows, educational content, and recommended reading paths.",
+    work: [
+      "Assessment UX tailored to postpartum wellness checkpoints.",
+      "Advice and content library architecture for ongoing support.",
+      "Book and resource recommendations aligned to each user's journey.",
+    ],
+    result:
+      "In active development — publishing soon.",
+    overview:
+      "Postpartum assessments, guidance, and curated resources — built for every mother.",
+  },
+  {
+    slug: "teady-bear",
+    title: "Teady Bear",
+    status: "coming-soon",
+    context: "Pet grooming salon booking",
+    summary:
+      "Online booking for dogs and cats — browse available salon services and reserve appointments in a few clicks.",
+    goal: "Replace manual scheduling with a clear digital flow for service selection and time slots.",
+    build:
+      "A custom booking system with a service catalog, pet-friendly UX, and appointment management.",
+    work: [
+      "Service selection and package browsing for dogs and cats.",
+      "Availability and appointment scheduling logic.",
+      "Salon-branded customer journey from pick-a-service to confirmation.",
+    ],
+    result:
+      "In active development — publishing soon.",
+    overview:
+      "Pick grooming services and book salon appointments online — for dogs and cats.",
+  },
+  {
+    slug: "nanas-biets",
+    title: "Nana's Biets",
+    status: "coming-soon",
+    image: image8,
+    context: "Premium bakery & chef brand store",
+    summary:
+      "E-commerce for Chef Farah Ammar — premium, indulgent products with a luxury food-brand feel.",
+    goal: "Launch a distinctive storefront that matches premium positioning and supports online orders.",
+    build:
+      "A product-focused shop with rich imagery, clear categories, and commerce-ready checkout structure.",
+    work: [
+      "Brand storytelling around Chef Farah Ammar and her product line.",
+      "Product showcase and catalog UX for premium treats.",
+      "Mobile commerce layout optimized for discovery and conversion.",
+    ],
+    result:
+      "In active development — publishing soon.",
+    overview:
+      "Chef Farah Ammar — premium treats in a dedicated online store.",
   },
 ];

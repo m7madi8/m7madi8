@@ -1,37 +1,27 @@
 import Image from "next/image";
+import Link from "next/link";
 import profileImage from "../img/me.png";
 import logoMe from "../img/logo-me.png";
+import { menuItems, socialItems } from "../lib/site-nav";
 import HeroBackground from "./components/HeroBackground";
 import LazyContactForm from "./components/LazyContactForm";
 import LazyCustomCursor from "./components/LazyCustomCursor";
 import LazyStaggeredMenu from "./components/LazyStaggeredMenu";
 import RevealManager from "./components/RevealManager";
-import { projects } from "./data/projects";
-
-const menuItems = [
-  { label: "Home", ariaLabel: "Go to home", link: "#" },
-  { label: "Projects", ariaLabel: "View projects", link: "#work" },
-  { label: "Contact", ariaLabel: "Get in touch", link: "#contact" },
-  { label: "Work Agreement", ariaLabel: "Work Agreement", link: "/agreement" },
-];
-
-const socialItems = [
-  { label: "WhatsApp", link: "https://wa.me/972592132438" },
-  { label: "Instagram", link: "https://www.instagram.com/m7madi8/" },
-];
+import { getLiveProjects } from "./data/projects";
 export default function Home() {
   const services = [
     {
       title: "Branding",
       copy:
         "Visual identity and design systems that stand out and stay consistent across every touchpoint.",
-      href: "#work",
+      href: "/work",
     },
     {
       title: "3D Modeling",
       copy:
         "Photorealistic renders and 3D experiences that bring products and spaces to life.",
-      href: "#work",
+      href: "/work",
     },
   ];
 
@@ -42,7 +32,7 @@ export default function Home() {
     { step: "04", title: "Launch", copy: "I test, optimize, and deploy reliable digital products." },
   ];
 
-  const portfolioProjects = projects;
+  const portfolioProjects = getLiveProjects();
 
   return (
     <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
@@ -111,9 +101,9 @@ export default function Home() {
                   <a href="#contact" className="hero-btn" data-cursor>
                     Let&apos;s Build Something Great
                   </a>
-                  <a href="#work" className="hero-btn" data-cursor>
+                  <Link href="/work" className="hero-btn" data-cursor>
                     See The Proof
-                  </a>
+                  </Link>
                 </div>
 
               </div>
@@ -125,6 +115,22 @@ export default function Home() {
       <main className="relative mx-auto min-h-screen max-w-7xl px-6 pb-8 pt-8 sm:px-10 lg:px-16">
         {/* Project showcase – 3D cards */}
         <section className="mt-28" aria-label="Featured projects">
+          <div className="reveal mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+            <div>
+              <p className="eyebrow">Featured</p>
+              <h2 className="section-title mt-2 text-2xl font-medium sm:text-3xl">
+                Recent projects
+              </h2>
+            </div>
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] transition hover:opacity-80"
+              data-cursor
+            >
+              View all projects
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {portfolioProjects.slice(0, 3).map((project, index) => (
               <div
@@ -133,7 +139,7 @@ export default function Home() {
                 data-reveal
               >
                 <div className="card-3d rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)] overflow-hidden">
-                  <a href={`#${project.slug}`} className="block">
+                  <Link href={`/work/${project.slug}`} className="block">
                     <div className={`image-3d-wrap aspect-[4/3] relative p-4 ${index === 0 ? "bg-[color:var(--surface)]" : ""}`}>
                       {project.image ? (
                         <Image
@@ -160,7 +166,7 @@ export default function Home() {
                         {project.context}
                       </p>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -293,83 +299,6 @@ export default function Home() {
                   {item.copy}
                 </p>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Our Work – detailed projects */}
-        <section id="work" className="mt-32 space-y-12">
-          <div className="reveal" data-reveal>
-            <p className="eyebrow">Selected Work</p>
-            <h2 className="section-title mt-4 text-3xl font-medium sm:text-4xl">
-              Real projects, real results.
-            </h2>
-          </div>
-          <div className="space-y-12">
-            {portfolioProjects.map((project, index) => (
-              <article
-                key={project.slug}
-                id={project.slug}
-                className="reveal scroll-mt-28 grid gap-10 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10"
-                data-reveal
-              >
-                <div className="space-y-6">
-                  <div>
-                    <p className="eyebrow">Case 0{index + 1}</p>
-                    <h3 className="mt-3 text-2xl font-medium text-white">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 text-[color:var(--muted)]">
-                      {project.summary}
-                    </p>
-                    <p className="text-sm text-[color:var(--muted)]">
-                      {project.context}
-                    </p>
-                  </div>
-                  <div className="space-y-4 text-sm">
-                    <div>
-                      <p className="eyebrow">Goal</p>
-                      <p className="mt-1 text-white">{project.goal}</p>
-                    </div>
-                    <div>
-                      <p className="eyebrow">Result</p>
-                      <p className="mt-1 text-white">{project.result}</p>
-                    </div>
-                  </div>
-                  {project.url && (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] transition hover:opacity-80"
-                      data-cursor
-                    >
-                      Visit site
-                      <span aria-hidden>→</span>
-                    </a>
-                  )}
-                </div>
-                <div className="perspective-3d">
-                  <div className="card-3d overflow-hidden rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)]">
-                    <div className="image-3d-wrap aspect-video relative">
-                      {project.image ? (
-                        <Image
-                          src={project.image}
-                          alt={`${project.title} preview`}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 1024px) 100vw, 45vw"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-[color:var(--muted)] text-xs uppercase tracking-widest">
-                          {project.title}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </article>
             ))}
           </div>
         </section>

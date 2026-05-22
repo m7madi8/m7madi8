@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CustomCursor from "../../components/CustomCursor";
 import RevealManager from "../../components/RevealManager";
-import { projects } from "../../data/projects";
+import { isComingSoon, projects } from "../../data/projects";
 import { SEO_PERSON, getSiteUrl } from "../../../lib/seo-config";
 
 export function generateStaticParams() {
@@ -60,7 +60,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <CustomCursor />
       <RevealManager />
       <main className="relative mx-auto min-h-screen max-w-5xl px-6 pb-24 pt-12 sm:px-10 lg:px-16">
-        <header className="flex items-start justify-between text-sm">
+        {isComingSoon(project) ? (
+          <div
+            className="reveal rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-4"
+            data-reveal
+          >
+            <p className="eyebrow">Status</p>
+            <p className="mt-2 text-sm text-white">
+              In active development — publishing soon.
+            </p>
+          </div>
+        ) : null}
+
+        <header
+          className={`flex items-start justify-between text-sm ${isComingSoon(project) ? "mt-8" : ""}`}
+        >
           <div className="space-y-2">
             <p className="eyebrow">Case File</p>
             <p className="text-xs text-[color:var(--muted)]">
@@ -70,10 +84,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="flex items-center gap-6 text-xs uppercase tracking-[0.3em] text-[color:var(--muted)]">
             <Link
               className="transition hover:text-white"
-              href="/#work"
+              href="/work"
               data-cursor
             >
-              Back to work
+              Back to projects
             </Link>
             {project.url ? (
               <a
@@ -113,7 +127,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <p className="mt-2 text-base text-white">{project.goal}</p>
             </div>
             <div>
-              <p className="eyebrow">What was built</p>
+              <p className="eyebrow">
+                {isComingSoon(project) ? "What's being built" : "What was built"}
+              </p>
               <p className="mt-2">{project.build}</p>
             </div>
             <div>
