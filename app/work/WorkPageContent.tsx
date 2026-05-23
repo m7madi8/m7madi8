@@ -19,8 +19,8 @@ export default function WorkPageContent({ logoUrl }: WorkPageContentProps) {
       <RevealManager />
       <LazyStaggeredMenu
         position="right"
-        items={[...menuItems]}
-        socialItems={[...socialItems]}
+        items={menuItems}
+        socialItems={socialItems}
         displaySocials
         displayItemNumbering
         logoUrl={logoUrl}
