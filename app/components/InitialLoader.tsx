@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 
-const MIN_SHOW_MS = 500;
+const MIN_SHOW_MS = 350;
+const MAX_SHOW_MS = 1200;
 
 type Phase = "show" | "hide" | "gone";
 
@@ -11,21 +12,30 @@ export default function InitialLoader() {
   const [phase, setPhase] = useState<Phase>("show");
 
   useEffect(() => {
-    const startHide = () => {
-      setPhase("hide");
+    const start = Date.now();
+    let done = false;
+
+    const finish = () => {
+      if (done) return;
+      done = true;
+      const elapsed = Date.now() - start;
+      const wait = Math.max(0, MIN_SHOW_MS - elapsed);
+      window.setTimeout(() => setPhase("hide"), wait);
     };
 
-    const onLoad = () => {
-      setTimeout(startHide, MIN_SHOW_MS);
-    };
+    const maxTimer = window.setTimeout(finish, MAX_SHOW_MS);
 
-    if (document.readyState === "complete") {
-      const t = setTimeout(startHide, MIN_SHOW_MS);
-      return () => clearTimeout(t);
+    if (document.readyState === "interactive" || document.readyState === "complete") {
+      finish();
+    } else {
+      document.addEventListener("DOMContentLoaded", finish, { once: true });
     }
 
-    window.addEventListener("load", onLoad);
-    return () => window.removeEventListener("load", onLoad);
+    return () => {
+      done = true;
+      window.clearTimeout(maxTimer);
+      document.removeEventListener("DOMContentLoaded", finish);
+    };
   }, []);
 
   const onTransitionEnd = () => {
@@ -39,7 +49,9 @@ export default function InitialLoader() {
       className="initial-loader-overlay"
       data-phase={phase}
       onTransitionEnd={onTransitionEnd}
-      aria-hidden="true"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading site"
     >
       <Loader />
     </div>

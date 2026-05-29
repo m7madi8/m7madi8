@@ -500,6 +500,7 @@ export function StaggeredMenu({
         ref={panelRef}
         className="staggered-menu-panel"
         aria-hidden={!open}
+        {...(!open ? { inert: true as const } : {})}
         style={{ height: dynamicHeight }}
       >
         <div className="sm-panel-inner">

@@ -1,5 +1,4 @@
-import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
-import { getFirestore, type Firestore } from "firebase/firestore";
+import type { Firestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -10,12 +9,25 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-let app: FirebaseApp | null = null;
-let db: Firestore | null = null;
+let dbPromise: Promise<Firestore | null> | null = null;
 
-if (typeof window !== "undefined" && firebaseConfig.projectId) {
-  app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  db = getFirestore(app);
+/** Lazy-load Firestore only when the contact form needs it. */
+export async function getDb(): Promise<Firestore | null> {
+  if (typeof window === "undefined" || !firebaseConfig.projectId) {
+    return null;
+  }
+
+  if (!dbPromise) {
+    dbPromise = (async () => {
+      const { getApp, getApps, initializeApp } = await import("firebase/app");
+      const { getFirestore } = await import("firebase/firestore");
+      const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+      return getFirestore(app);
+    })();
+  }
+
+  return dbPromise;
 }
 
-export { db };
+/** @deprecated Use getDb() — kept for type checks only */
+export const db = null;

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mohammadhroub.com/sitemap.xml
+Host: mohammadhroub.com

@@ -1,41 +1,68 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import profileImage from "../img/me.png";
 import logoMe from "../img/logo-me.png";
+import {
+  SEO_PERSON,
+  buildPageMetadata,
+  defaultPageTitle,
+} from "../lib/seo-config";
 import { menuItems, socialItems } from "../lib/site-nav";
-import HeroBackground from "./components/HeroBackground";
+import ContactSocialLinks from "./components/ContactSocialLinks";
 import LazyContactForm from "./components/LazyContactForm";
 import LazyCustomCursor from "./components/LazyCustomCursor";
 import LazyStaggeredMenu from "./components/LazyStaggeredMenu";
 import RevealManager from "./components/RevealManager";
-import { getLiveProjects } from "./data/projects";
+import SectionHeader from "./components/SectionHeader";
+import SiteFooter from "./components/SiteFooter";
+import { projects, isComingSoon } from "./data/projects";
+
+const FEATURED_SLUGS = ["nanas-biets", "nawal-omar-yoga", "shape-up"] as const;
+
+export const metadata: Metadata = buildPageMetadata({
+  title: defaultPageTitle,
+  description: SEO_PERSON.description,
+  path: "/",
+  keywords: [
+    "Silent Code Massive Impact",
+    "hire full-stack developer",
+    "استئجار مطور ويب",
+    "مواقع احترافية",
+    "مطور Next.js",
+  ],
+  ogTitle: `${SEO_PERSON.nameEn} | ${SEO_PERSON.nameAr} — Portfolio`,
+});
+
 export default function Home() {
-  const services = [
-    {
-      title: "Branding",
-      copy:
-        "Visual identity and design systems that stand out and stay consistent across every touchpoint.",
-      href: "/work",
-    },
-    {
-      title: "3D Modeling",
-      copy:
-        "Photorealistic renders and 3D experiences that bring products and spaces to life.",
-      href: "/work",
-    },
-  ];
+  const featuredProjects = FEATURED_SLUGS.map(
+    (slug) => projects.find((p) => p.slug === slug)!
+  );
 
   const processSteps = [
-    { step: "01", title: "Discovery", copy: "I analyze business goals and technical requirements." },
-    { step: "02", title: "Architecture", copy: "I design scalable system structures and database logic." },
-    { step: "03", title: "Development", copy: "I build clean, maintainable, and high-performance code." },
-    { step: "04", title: "Launch", copy: "I test, optimize, and deploy reliable digital products." },
+    {
+      step: "01",
+      title: "Discovery",
+      copy: "Analyze business goals, audience, and technical requirements to define a clear roadmap.",
+    },
+    {
+      step: "02",
+      title: "Architecture",
+      copy: "Design scalable system structures, database logic, and a maintainable codebase.",
+    },
+    {
+      step: "03",
+      title: "Development",
+      copy: "Build clean, performant code with attention to detail and best practices.",
+    },
+    {
+      step: "04",
+      title: "Launch",
+      copy: "Test thoroughly, optimize for speed, and deploy a reliable digital product.",
+    },
   ];
 
-  const portfolioProjects = getLiveProjects();
-
   return (
-    <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="relative overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
       <LazyCustomCursor />
       <RevealManager />
       <LazyStaggeredMenu
@@ -48,254 +75,184 @@ export default function Home() {
         menuButtonColor="#ffffff"
         openMenuButtonColor="#000000"
         changeMenuColorOnOpen
-        colors={["#08090a", "#1f2126", "#6b7280"]}
+        colors={["#060708", "#1a1c22", "#6b7280"]}
         accentColor="var(--button-border)"
         isFixed={true}
         closeOnClickAway
       />
 
-      {/* الشاشة الأولى: الهيرو */}
-      <div className="relative min-h-screen w-full">
-        <div className="absolute inset-0 z-0 min-h-screen">
-          <HeroBackground
-            colors={["#08090a", "#6b7280", "#f5f5f4"]}
-            mouseForce={20}
-            cursorSize={100}
-            isViscous
-            viscous={30}
-            iterationsViscous={32}
-            iterationsPoisson={32}
-            resolution={0.5}
-            isBounce={false}
-            autoDemo
-            autoSpeed={0.5}
-            autoIntensity={2.2}
-            takeoverDuration={0.25}
-            autoResumeDelay={0}
-            autoRampDuration={0.6}
-            color0="#08090a"
-            color1="#6b7280"
-            color2="#e8e6ef"
-            className="h-full w-full"
-            style={{ position: "absolute", inset: 0 }}
-          />
-        </div>
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-6 pt-8 sm:px-10 lg:px-16">
-          {/* Hero */}
-          <section className="relative mt-6 flex min-h-[75vh] flex-col items-center justify-center text-center md:mt-10 md:min-h-[80vh] lg:mt-8 lg:min-h-[85vh]">
-            <div className="relative max-w-3xl lg:-mt-10">
-              <div className="hero-pill reveal" data-reveal>
-                <span className="hero-pill-dot" aria-hidden />
-                Web Developer
-              </div>
-              <h1 className="hero-title reveal text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl" data-reveal>
-                Silent Code.
-                <br />
-                Massive Impact.
-              </h1>
-              <p className="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
-                I engineer modern, high-performance web systems built to scale.
-              </p>
-              <div className="mt-10 flex w-full flex-col items-center">
-                <div className="reveal flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6 px-3 sm:px-0" data-reveal>
-                  <a href="#contact" className="hero-btn" data-cursor>
-                    Let&apos;s Build Something Great
-                  </a>
-                  <Link href="/work" className="hero-btn" data-cursor>
-                    See The Proof
-                  </Link>
-                </div>
-
-              </div>
+      <section className="hero-static relative flex min-h-[100dvh] min-h-screen flex-col">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pb-24 pt-28 sm:px-8 sm:pt-32 lg:px-16">
+          <div className="mx-auto w-full max-w-3xl text-center">
+            <div className="hero-pill">
+              <span className="hero-pill-dot" aria-hidden />
+              Full-Stack Web Developer
             </div>
-          </section>
-        </div>
-      </div>
 
-      <main className="relative mx-auto min-h-screen max-w-7xl px-6 pb-8 pt-8 sm:px-10 lg:px-16">
-        {/* Project showcase – 3D cards */}
-        <section className="mt-28" aria-label="Featured projects">
-          <div className="reveal mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" data-reveal>
-            <div>
-              <p className="eyebrow">Featured</p>
-              <h2 className="section-title mt-2 text-2xl font-medium sm:text-3xl">
-                Recent projects
-              </h2>
+            <h1 className="hero-title text-[clamp(2.25rem,8vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
+              Silent Code.
+              <br />
+              <span className="text-[color:var(--muted)]">Massive Impact.</span>
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-md text-[0.9375rem] leading-relaxed text-[color:var(--muted)] sm:mt-6 sm:max-w-xl sm:text-lg">
+              I engineer modern, high-performance web systems — from concept to
+              launch — built to scale and designed to impress.
+            </p>
+
+            <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
+              <a href="#contact" className="hero-btn w-full sm:w-auto" data-cursor>
+                Start a Project
+              </a>
+              <Link href="/work" className="hero-btn w-full sm:w-auto" data-cursor>
+                View My Work
+              </Link>
             </div>
-            <Link
-              href="/work"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] transition hover:opacity-80"
-              data-cursor
-            >
+          </div>
+
+          <a
+            href="#work"
+            className="scroll-hint absolute bottom-6 left-1/2 -translate-x-1/2 sm:bottom-10"
+            aria-label="Scroll to projects"
+          >
+            <span className="scroll-hint-icon flex h-9 w-5 items-start justify-center rounded-full border border-[color:var(--border)] pt-1.5">
+              <span className="block h-1.5 w-0.5 rounded-full bg-[color:var(--muted)]" />
+            </span>
+            Scroll
+          </a>
+        </div>
+      </section>
+
+      <main className="relative z-10 mx-auto max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
+        <section id="work" className="section-block" aria-label="Featured projects">
+          <div
+            className="reveal mb-8 flex flex-col gap-5 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
+            data-reveal
+          >
+            <SectionHeader
+              eyebrow="Featured Work"
+              title="Projects that speak for themselves."
+              description="A selection of live launches — each built with performance, clarity, and craft in mind."
+              className="mb-0 max-w-xl"
+            />
+            <Link href="/work" className="link-arrow shrink-0 self-start sm:self-auto" data-cursor>
               View all projects
               <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {portfolioProjects.slice(0, 3).map((project, index) => (
-              <div
-                key={project.slug}
-                className="perspective-3d reveal group"
-                data-reveal
-              >
-                <div className="card-3d rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)] overflow-hidden">
-                  <Link href={`/work/${project.slug}`} className="block">
-                    <div className={`image-3d-wrap aspect-[4/3] relative p-4 ${index === 0 ? "bg-[color:var(--surface)]" : ""}`}>
+
+          <div className="projects-grid">
+            {featuredProjects.map((project, index) => {
+              const caseNumber =
+                projects.findIndex((p) => p.slug === project.slug) + 1;
+              const comingSoon = isComingSoon(project);
+
+              return (
+                <article
+                  key={project.slug}
+                  className={`reveal project-card-wrap ${index === 0 ? "project-card-wrap--featured" : "project-card-wrap--standard"}`}
+                  data-reveal
+                >
+                  <div
+                    className={`project-card ${index === 0 ? "project-card--featured" : ""}`}
+                  >
+                    <Link
+                      href={`/work/${project.slug}`}
+                      className={`project-card-image relative block ${index === 0 ? "project-card-image--featured aspect-[16/10] sm:aspect-[16/9]" : "project-card-image--standard"}`}
+                      data-cursor
+                      aria-label={`${project.title} preview`}
+                    >
                       {project.image ? (
                         <Image
                           src={project.image}
                           alt={project.title}
                           fill
-                          className={index === 0 ? "object-contain" : "object-cover"}
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          loading={index === 0 ? "eager" : "lazy"}
-                          priority={index === 0}
+                          className="object-cover"
+                          sizes={
+                            index === 0
+                              ? "(max-width: 1024px) 100vw, 55vw"
+                              : "(max-width: 1024px) 100vw, 28vw"
+                          }
+                          loading="lazy"
                         />
                       ) : (
-                        <div className="absolute inset-0 bg-[color:var(--surface)] flex items-center justify-center text-[color:var(--muted)] text-sm uppercase tracking-widest">
+                        <div className="absolute inset-0 flex items-center justify-center bg-[color:var(--surface)] text-xs uppercase tracking-widest text-[color:var(--muted)]">
                           {project.title}
                         </div>
                       )}
-                    </div>
-                    <div className="p-5">
-                      <p className="eyebrow">Project 0{index + 1}</p>
-                      <h3 className="mt-2 text-lg font-medium text-white">
+                    </Link>
+                    <div className="project-card-content">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                        <p className="eyebrow text-[0.7rem] sm:text-[0.8rem]">
+                          {String(caseNumber).padStart(2, "0")}
+                        </p>
+                        {comingSoon ? (
+                          <span className="badge">In development</span>
+                        ) : (
+                          <span className="badge badge-live">Live</span>
+                        )}
+                      </div>
+                      <h3 className="mt-2 text-lg font-medium text-white sm:text-xl">
                         {project.title}
                       </h3>
-                      <p className="mt-1 text-sm text-[color:var(--muted)]">
+                      <p className="mt-1 text-xs text-[color:var(--muted)] sm:text-sm">
                         {project.context}
                       </p>
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-[color:var(--muted)]">
+                        {project.summary}
+                      </p>
+                      <Link
+                        href={`/work/${project.slug}`}
+                        className="project-card-btn"
+                        data-cursor
+                      >
+                        View project
+                        <span aria-hidden>→</span>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
-              </div>
-            ))}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
-        {/* Services – Craft exceptional experiences (hidden) */}
-        <section id="about" className="mt-32 space-y-16 hidden" aria-hidden="true">
-          <div className="reveal max-w-2xl" data-reveal>
-            <h2 className="section-title text-3xl font-medium tracking-tight sm:text-4xl">
-              Craft exceptional experiences that captivate.
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-[color:var(--muted)]">
-              From web design and branding to 3D visualization, we bring clarity and impact to every project.
-            </p>
-          </div>
-          <div className="grid gap-10 md:grid-cols-3">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="reveal group rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-8 transition hover:border-[color:var(--accent)]"
-                data-reveal
+        <section className="section-block">
+          <div className="cta-banner reveal text-center" data-reveal>
+            <div className="cta-banner-inner">
+              <p className="eyebrow">Ready to start?</p>
+              <h2 className="section-title mx-auto mt-3 max-w-2xl font-medium sm:mt-4">
+                Let&apos;s build your next big thing.
+              </h2>
+              <p className="mx-auto mt-3 max-w-lg text-sm text-[color:var(--muted)] sm:mt-4 sm:text-base">
+                From idea to launch — clear process, high quality, and results you
+                can measure.
+              </p>
+              <a
+                href="#contact"
+                className="btn-primary mt-6 inline-flex w-full max-w-xs justify-center px-8 py-3.5 sm:mt-8 sm:w-auto sm:py-4"
+                data-cursor
               >
-                <h3 className="text-xl font-medium text-white">
-                  {service.title}
-                </h3>
-                <p className="mt-4 text-[color:var(--muted)] leading-relaxed">
-                  {service.copy}
-                </p>
-                <a
-                  href={service.href}
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] transition hover:opacity-80"
-                  data-cursor
-                >
-                  Learn more
-                  <span aria-hidden>→</span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Second project row – 3D feel (hidden: About + Selected cards) */}
-        <section className="mt-32 hidden" aria-label="More work" aria-hidden="true">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="reveal perspective-3d" data-reveal>
-              <div className="card-3d rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)] overflow-hidden">
-                <div className="image-3d-wrap aspect-[5/4] relative">
-                  <Image
-                    src={profileImage}
-                    alt="Portrait"
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6">
-                  <p className="eyebrow">About</p>
-                  <p className="mt-2 text-white">
-                    Clean work, clear results. Focused on performance and clarity.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="reveal perspective-3d" data-reveal>
-              <div className="card-3d rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-elevated)] overflow-hidden">
-                <div className="image-3d-wrap aspect-[5/4] relative bg-[color:var(--surface)]">
-                  {portfolioProjects[0]?.image && (
-                    <Image
-                      src={portfolioProjects[0].image}
-                      alt={portfolioProjects[0].title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-                <div className="p-6">
-                  <p className="eyebrow">Selected</p>
-                  <p className="mt-2 text-white">
-                    {portfolioProjects[0]?.title} — {portfolioProjects[0]?.context}
-                  </p>
-                </div>
-              </div>
+                Get in Touch
+              </a>
             </div>
           </div>
         </section>
 
-        {/* CTA – Let's build your next big thing */}
-        <section className="mt-32 text-center">
-          <div className="reveal rounded-3xl border border-[color:var(--border)] bg-[color:var(--surface)] px-8 py-20 sm:px-16" data-reveal>
-            <h2 className="text-3xl font-medium tracking-tight sm:text-4xl lg:text-5xl">
-              Let&apos;s build your next big thing.
-            </h2>
-            <p className="mx-auto mt-6 max-w-lg text-[color:var(--muted)]">
-              From idea to launch — we keep the process clear and the quality high.
-            </p>
-            <a
-              href="#contact"
-              className="btn-primary mt-10 px-8 py-4"
-              data-cursor
-            >
-              Contact Us
-            </a>
-          </div>
-        </section>
-
-        {/* Process */}
-        <section className="mt-32">
-          <div className="reveal" data-reveal>
-            <p className="eyebrow">How we work</p>
-            <h2 className="section-title mt-4 text-3xl font-medium sm:text-4xl">
-              Our process
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="section-block">
+          <SectionHeader
+            eyebrow="How I Work"
+            title="A process built for clarity."
+            description="Every project follows a structured approach — no surprises, no shortcuts."
+          />
+          <div className="process-grid mt-8 sm:mt-12">
             {processSteps.map((item) => (
-              <div
-                key={item.step}
-                className="reveal rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-8"
-                data-reveal
-              >
-                <span className="eyebrow">{item.step}</span>
-                <h3 className="mt-4 text-xl font-medium text-white">
+              <div key={item.step} className="process-step reveal" data-reveal>
+                <span className="process-step-number">{item.step}</span>
+                <h3 className="mt-4 text-base font-medium text-white sm:mt-5 sm:text-lg">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted)]">
+                <p className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">
                   {item.copy}
                 </p>
               </div>
@@ -303,46 +260,45 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact */}
-        <section id="contact" className="mt-32 space-y-10">
-          <div className="reveal" data-reveal>
-            <p className="eyebrow">Contact</p>
-            <h2 className="section-title mt-4 text-3xl font-medium sm:text-4xl">
-              Available for new projects.
-            </h2>
-          </div>
-          <div className="reveal max-w-2xl text-lg leading-relaxed text-[color:var(--muted)]" data-reveal>
-            Let&apos;s build something clean and effective. I take on a limited number of projects to keep quality high.
-          </div>
-          <div className="space-y-8">
-            <LazyContactForm />
-            <div className="reveal flex flex-wrap gap-4 text-sm uppercase tracking-[0.2em]" data-reveal>
-              <a
-                className="btn-primary px-6 py-3"
-                href="https://www.instagram.com/m7madi8/"
-                target="_blank"
-                rel="noreferrer"
-                data-cursor
-              >
-                Instagram
-              </a>
-              <a
-                className="btn-primary px-6 py-3"
-                href="https://wa.me/972592132438"
-                target="_blank"
-                rel="noreferrer"
-                data-cursor
-              >
-                WhatsApp
-              </a>
+        <section id="contact" className="section-block">
+          <SectionHeader
+            eyebrow="Contact"
+            title="Available for new projects."
+            description="I take on a limited number of projects to keep quality high. Let's talk about yours."
+          />
+
+          <div className="contact-grid mt-8 sm:mt-12">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="contact-info-item reveal" data-reveal>
+                <div className="contact-info-icon" aria-hidden>
+                  ✉
+                </div>
+                <div className="min-w-0">
+                  <p className="eyebrow">Email</p>
+                  <p className="mt-1 truncate text-sm text-white">
+                    {SEO_PERSON.email}
+                  </p>
+                </div>
+              </div>
+              <div className="contact-info-item reveal" data-reveal>
+                <div className="contact-info-icon" aria-hidden>
+                  ◎
+                </div>
+                <div>
+                  <p className="eyebrow">Location</p>
+                  <p className="mt-1 text-sm text-white">Remote — Worldwide</p>
+                </div>
+              </div>
+              <ContactSocialLinks />
+            </div>
+
+            <div className="reveal surface-card p-5 sm:p-8" data-reveal>
+              <LazyContactForm />
             </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="mt-32 border-t border-[color:var(--border)] pt-10 text-center text-xs text-[color:var(--muted)]">
-          <p>© {new Date().getFullYear()} Mohammad Hroub. All rights reserved.</p>
-        </footer>
+        <SiteFooter />
       </main>
     </div>
   );

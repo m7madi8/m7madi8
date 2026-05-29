@@ -1,41 +1,27 @@
 import type { Metadata } from "next";
 import AgreementContent from "./AgreementContent";
-import { SEO_PERSON, getSiteUrl } from "../../lib/seo-config";
+import { SEO_PERSON, buildPageMetadata } from "../../lib/seo-config";
 
 const agreementTitle =
-  "اتفاقية العمل | محمد حروب — مطور ويب Full-Stack";
-const agreementDesc =
-  "اتفاقية العمل بين محمد حروب (مطور ويب Full-Stack) والعميل. آلية العمل، نطاق الخدمة، مراحل التنفيذ، الدفع والدعم الفني.";
+  "Work Agreement | اتفاقية العمل — Mohammad Hroub | محمد حروب";
 
-export const metadata: Metadata = {
-  title: {
-    absolute: agreementTitle,
-  },
+const agreementDesc =
+  "Work agreement (EN/AR) — scope, timeline, payment, and delivery terms for web development projects with Mohammad Hroub (Full-Stack Web Developer). اتفاقية عمل واضحة: نطاق الخدمة، مراحل التنفيذ، الدفع، والدعم.";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: agreementTitle,
   description: agreementDesc,
+  path: "/agreement",
   keywords: [
-    ...SEO_PERSON.keywords,
+    "work agreement",
     "اتفاقية عمل",
-    "عقد عمل مستقل",
-    "اتفاقية تطوير مواقع",
+    "freelance contract",
+    "عقد تطوير مواقع",
+    "web development terms",
+    "شروط العمل",
   ],
-  openGraph: {
-    title: agreementTitle,
-    description: agreementDesc,
-    locale: "ar",
-    type: "website",
-    url: `${getSiteUrl()}/agreement`,
-    siteName: `${SEO_PERSON.nameEn} — Portfolio`,
-    images: [{ url: "/icon.png", alt: SEO_PERSON.nameEn }],
-  },
-  twitter: {
-    title: agreementTitle,
-    description: agreementDesc,
-    images: ["/icon.png"],
-  },
-  alternates: {
-    canonical: "/agreement",
-  },
-};
+  ogTitle: agreementTitle,
+});
 
 export default function AgreementPage() {
   return <AgreementContent />;

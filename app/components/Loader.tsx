@@ -11,13 +11,7 @@ export default function Loader() {
       aria-label="Loading"
     >
       <div className="absolute left-0 top-0 h-[2px] w-full overflow-hidden bg-[color:var(--border)]">
-        <div
-          className="loader-progress-bar h-full bg-[color:var(--accent)]"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label="Loading progress"
-        />
+        <div className="loader-progress-bar h-full bg-[color:var(--accent)]" aria-hidden />
       </div>
       <div className="loader-logo-wrap relative">
         <Image
@@ -26,7 +20,7 @@ export default function Loader() {
           width={120}
           height={120}
           className="loader-logo object-contain"
-          priority
+          loading="eager"
           aria-hidden
         />
       </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import CustomCursor from "../components/CustomCursor";
 import RevealManager from "../components/RevealManager";
+import SiteFooter from "../components/SiteFooter";
 import logoMe from "../../img/logo-me.png";
 
 const content = {
@@ -209,7 +210,7 @@ function SectionBlock({
   return (
     <section
       id={section.id}
-      className="reveal relative scroll-mt-24 overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm sm:p-8"
+      className="reveal surface-card relative scroll-mt-24 overflow-hidden p-6 sm:p-8"
       data-reveal
     >
       {/* علامة مائية: لوجو شفاف */}
@@ -272,7 +273,7 @@ function SectionBlock({
           </p>
         )}
         {"highlight" in section && section.highlight && (
-          <p className="rounded-xl border border-[color:var(--border)] bg-[color:var(--background)] p-4 font-medium text-[color:var(--foreground)]">
+          <p className="surface-card-elevated rounded-xl p-4 font-medium text-[color:var(--foreground)]">
             {section.highlight}
           </p>
         )}
@@ -288,54 +289,83 @@ export default function AgreementContent() {
   const isRtl = lang === "ar";
 
   return (
-    <div className="bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="relative bg-[color:var(--background)] text-[color:var(--foreground)]">
       <CustomCursor />
       <RevealManager />
-      <main className="relative mx-auto min-h-screen max-w-4xl px-4 pb-24 pt-8 sm:px-6 sm:pt-10 lg:px-10 lg:pt-12">
+      <main className="relative z-10 mx-auto min-h-screen max-w-5xl px-6 pb-8 pt-10 sm:px-10 lg:px-16 lg:pt-14">
         <header
-          className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+          className="page-hero reveal"
+          data-reveal
           dir={isRtl ? "rtl" : "ltr"}
         >
-          <div className="space-y-1">
-            <p className="eyebrow">{t.title}</p>
-            <p className="text-sm text-[color:var(--muted)]">{t.subtitle}</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Link
-              className="rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-[color:var(--foreground)] transition hover:bg-[color:var(--surface-elevated)]"
-              href="/"
-              data-cursor
-            >
-              {t.back}
-            </Link>
-            <Link
-              className="rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-[color:var(--foreground)] transition hover:bg-[color:var(--surface-elevated)]"
-              href="/#contact"
-              data-cursor
-            >
-              {t.contact}
-            </Link>
-            <button
-              type="button"
-              onClick={() => setLang(lang === "ar" ? "en" : "ar")}
-              className="rounded-lg border border-[color:var(--button-border)] bg-[color:var(--button-bg)] px-4 py-2 text-[color:var(--button-text)] transition hover:opacity-90"
-              data-cursor
-              aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-            >
-              {t.translateLabel}
-            </button>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="eyebrow">{t.title}</p>
+              <h1 className="page-hero-title mt-4 font-medium">{t.title}</h1>
+              <p className="mt-3 text-sm text-[color:var(--muted)]">{t.subtitle}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <Link
+                className="btn-primary px-5 py-2.5 text-sm"
+                href="/"
+                data-cursor
+              >
+                {t.back}
+              </Link>
+              <Link
+                className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-5 py-2.5 transition hover:bg-[color:var(--surface-elevated)]"
+                href="/#contact"
+                data-cursor
+              >
+                {t.contact}
+              </Link>
+              <button
+                type="button"
+                onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+                className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-5 py-2.5 transition hover:bg-[color:var(--surface-elevated)]"
+                data-cursor
+                aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+              >
+                {t.translateLabel}
+              </button>
+            </div>
           </div>
         </header>
+
+        {/* Table of contents */}
+        <nav
+          className="reveal mt-10 surface-card p-6"
+          data-reveal
+          dir={isRtl ? "rtl" : "ltr"}
+          aria-label="Table of contents"
+        >
+          <p className="eyebrow mb-4">Contents</p>
+          <ol className="grid gap-2 sm:grid-cols-2">
+            {t.sections.map((section, i) => (
+              <li key={section.id}>
+                <a
+                  href={`#${section.id}`}
+                  className="text-sm text-[color:var(--muted)] transition hover:text-white"
+                  data-cursor
+                >
+                  {String(i + 1).padStart(2, "0")}. {section.title}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
 
         <article
           dir={isRtl ? "rtl" : "ltr"}
           lang={lang === "ar" ? "ar" : "en"}
-          className="mt-12 space-y-8 sm:mt-16 sm:space-y-10"
+          className="mt-12 space-y-6 sm:mt-14 sm:space-y-8"
         >
           {t.sections.map((section) => (
             <SectionBlock key={section.id} section={section} dir={isRtl ? "rtl" : "ltr"} />
           ))}
         </article>
+
+        <SiteFooter />
       </main>
     </div>
   );

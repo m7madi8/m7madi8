@@ -5,7 +5,8 @@ import LazyCustomCursor from "../components/LazyCustomCursor";
 import LazyStaggeredMenu from "../components/LazyStaggeredMenu";
 import ProjectCaseList from "../components/ProjectCaseList";
 import RevealManager from "../components/RevealManager";
-import { projects } from "../data/projects";
+import SiteFooter from "../components/SiteFooter";
+import { projects, getLiveProjects } from "../data/projects";
 import { menuItems, socialItems } from "../../lib/site-nav";
 
 type WorkPageContentProps = {
@@ -13,8 +14,11 @@ type WorkPageContentProps = {
 };
 
 export default function WorkPageContent({ logoUrl }: WorkPageContentProps) {
+  const liveCount = getLiveProjects().length;
+  const inDevCount = projects.length - liveCount;
+
   return (
-    <div className="overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="relative overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
       <LazyCustomCursor />
       <RevealManager />
       <LazyStaggeredMenu
@@ -27,54 +31,66 @@ export default function WorkPageContent({ logoUrl }: WorkPageContentProps) {
         menuButtonColor="#ffffff"
         openMenuButtonColor="#000000"
         changeMenuColorOnOpen
-        colors={["#08090a", "#1f2126", "#6b7280"]}
+        colors={["#060708", "#1a1c22", "#6b7280"]}
         accentColor="var(--button-border)"
         isFixed
         closeOnClickAway
       />
 
-      <main className="page-with-fixed-nav relative mx-auto w-full max-w-5xl px-5 pb-16 sm:px-8 lg:max-w-7xl lg:px-10">
-        <header
-          className="reveal border-b border-[color:var(--border)] pb-6 sm:pb-8"
-          data-reveal
-        >
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+      <main className="page-with-fixed-nav relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
+        <header className="page-hero reveal" data-reveal>
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="eyebrow">Portfolio</p>
             <Link
               href="/"
-              className="text-xs uppercase tracking-[0.2em] text-[color:var(--muted)] transition hover:text-white"
+              className="link-arrow text-[color:var(--muted)] hover:text-white"
               data-cursor
             >
-              ← Back to home
+              <span aria-hidden>←</span>
+              Back to home
             </Link>
           </div>
-          <h1 className="section-title mt-4 max-w-2xl font-medium tracking-tight">
+          <h1 className="page-hero-title mt-6 max-w-3xl font-medium tracking-tight">
             Selected work
           </h1>
-          <p className="mt-3 max-w-xl text-base leading-relaxed text-[color:var(--muted)]">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-[color:var(--muted)] sm:text-lg">
             Live launches and work in progress — goals, build direction, and
-            outcomes. Several projects are in active development and publishing
-            soon.
+            outcomes from real client projects.
           </p>
+
+          <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
+            <span className="badge badge-live">{liveCount} Live</span>
+            <span className="badge">{inDevCount} In Development</span>
+            <span className="badge">{projects.length} Total Cases</span>
+          </div>
         </header>
 
-        <section className="mt-8 sm:mt-10" aria-label="All projects">
+        <section className="section-block" aria-label="All projects">
           <ProjectCaseList projects={projects} />
         </section>
 
-        <section
-          className="reveal mt-12 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-10 text-center sm:mt-14"
-          data-reveal
-        >
-          <p className="text-[color:var(--muted)]">Ready to start your project?</p>
-          <Link
-            href="/#contact"
-            className="btn-primary mt-5 inline-block px-8 py-3.5"
-            data-cursor
-          >
-            Get in touch
-          </Link>
+        <section className="section-block">
+          <div className="cta-banner reveal text-center" data-reveal>
+            <div className="cta-banner-inner">
+              <p className="eyebrow">Next step</p>
+              <h2 className="section-title mx-auto mt-4 max-w-xl font-medium">
+                Ready to start your project?
+              </h2>
+              <p className="mx-auto mt-3 max-w-md text-sm text-[color:var(--muted)]">
+                Let&apos;s discuss your goals and build something exceptional together.
+              </p>
+              <Link
+                href="/#contact"
+                className="btn-primary mt-8 inline-flex px-8 py-4"
+                data-cursor
+              >
+                Get in touch
+              </Link>
+            </div>
+          </div>
         </section>
+
+        <SiteFooter />
       </main>
     </div>
   );

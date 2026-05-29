@@ -1,8 +1,7 @@
 "use client";
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
-import { db } from "../../lib/firebase";
+import { getDb } from "../../lib/firebase";
 
 const EMAIL = "eslamhuhu1@gmail.com";
 const CONTACTS_COLLECTION = "contacts";
@@ -19,7 +18,7 @@ export default function ContactForm() {
   const [mailtoUrl, setMailtoUrl] = useState<string | null>(null);
 
   const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
-  const isFirebaseConfigured = Boolean(db);
+  const isFirebaseConfigured = Boolean(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
 
   const trimmedName = name.trim();
   const trimmedEmail = email.trim();
@@ -72,10 +71,16 @@ export default function ContactForm() {
 
       // 2) حفظ في Firebase إن كان مفعّلاً
       if (isFirebaseConfigured) {
-        await addDoc(collection(db!, CONTACTS_COLLECTION), {
-          ...payload,
-          createdAt: serverTimestamp(),
-        });
+        const db = await getDb();
+        if (db) {
+          const { addDoc, collection, serverTimestamp } = await import(
+            "firebase/firestore"
+          );
+          await addDoc(collection(db, CONTACTS_COLLECTION), {
+            ...payload,
+            createdAt: serverTimestamp(),
+          });
+        }
       }
 
       // إذا لم يكن هناك Web3Forms ولا Firebase → عرض رابط mailto بدل فتحه (لتجنب نافذة اختيار التطبيق على الموبايل)
@@ -103,7 +108,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid w-full max-w-2xl gap-5 sm:grid-cols-2"
+      className="grid w-full gap-5 sm:grid-cols-2"
       suppressHydrationWarning
     >
       {status !== "success" && (
