@@ -97,8 +97,7 @@ export const SEO_FAQ = [
   },
 ] as const;
 
-export const defaultPageTitle =
-  "Mohammad Hroub | محمد حروب — Full-Stack Web Developer";
+export const defaultPageTitle = "Mohammad Hroub";
 
 export const defaultOgTitle =
   "Mohammad Hroub — Full-Stack Web Developer | محمد حروب";

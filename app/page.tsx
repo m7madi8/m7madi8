@@ -5,6 +5,7 @@ import logoMe from "../img/logo-me.png";
 import {
   SEO_PERSON,
   buildPageMetadata,
+  defaultOgTitle,
   defaultPageTitle,
 } from "../lib/seo-config";
 import { menuItems, socialItems } from "../lib/site-nav";
@@ -19,19 +20,22 @@ import { projects, isComingSoon } from "./data/projects";
 
 const FEATURED_SLUGS = ["nanas-biets", "nawal-omar-yoga", "shape-up"] as const;
 
-export const metadata: Metadata = buildPageMetadata({
-  title: defaultPageTitle,
-  description: SEO_PERSON.description,
-  path: "/",
-  keywords: [
-    "Silent Code Massive Impact",
-    "hire full-stack developer",
-    "استئجار مطور ويب",
-    "مواقع احترافية",
-    "مطور Next.js",
-  ],
-  ogTitle: `${SEO_PERSON.nameEn} | ${SEO_PERSON.nameAr} — Portfolio`,
-});
+export const metadata: Metadata = {
+  ...buildPageMetadata({
+    title: defaultPageTitle,
+    description: SEO_PERSON.description,
+    path: "/",
+    keywords: [
+      "Silent Code Massive Impact",
+      "hire full-stack developer",
+      "استئجار مطور ويب",
+      "مواقع احترافية",
+      "مطور Next.js",
+    ],
+    ogTitle: defaultOgTitle,
+  }),
+  title: { absolute: defaultPageTitle },
+};
 
 export default function Home() {
   const featuredProjects = FEATURED_SLUGS.map(
