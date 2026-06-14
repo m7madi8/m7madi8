@@ -73,6 +73,7 @@ export const projects: Project[] = [
     context: "Interior, exterior & garden design",
     summary: "Showcasing refined interior, exterior, and garden designs.",
     image: imageSamarammar,
+    url: "https://samarammar.com",
     goal: "Present refined interior, exterior, and garden design work.",
     build: "A portfolio showcasing elegant spaces and landscapes.",
     work: [
