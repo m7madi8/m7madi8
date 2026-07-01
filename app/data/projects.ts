@@ -69,7 +69,7 @@ export const projects: Project[] = [
   },
   {
     slug: "interior-landscape-elegance",
-    title: "Interior & Landscape Elegance",
+    title: 'Samar Ammar Interior Design',
     context: "Interior, exterior & garden design",
     summary: "Showcasing refined interior, exterior, and garden designs.",
     image: imageSamarammar,
@@ -102,7 +102,7 @@ export const projects: Project[] = [
   {
     slug: "od-architects",
     title: "OD ARCHITECTS",
-    status: "coming-soon",
+    url: "https://od-architects.com",
     context: "Interior, exterior & landscape design studio",
     summary:
       "Design studio for interior, exterior, and garden projects — from concept through supervision and on-site execution.",
@@ -115,7 +115,7 @@ export const projects: Project[] = [
       "Responsive layout tuned for large-format visuals and case studies.",
     ],
     result:
-      "In active development — publishing soon.",
+      "A brand-led studio site that communicates full-service design and builds client trust.",
     overview:
       "Interior, exterior, and landscape design — from vision to supervision and build.",
   },
@@ -183,7 +183,7 @@ export const projects: Project[] = [
   {
     slug: "nanas-biets",
     title: "Nana's Biets",
-    status: "coming-soon",
+    url: "https://cheffarahammar.com",
     image: image8,
     context: "Premium bakery & chef brand store",
     summary:
@@ -197,7 +197,7 @@ export const projects: Project[] = [
       "Mobile commerce layout optimized for discovery and conversion.",
     ],
     result:
-      "In active development — publishing soon.",
+      "A premium storefront that matches Chef Farah Ammar's brand and supports online orders.",
     overview:
       "Chef Farah Ammar — premium treats in a dedicated online store.",
   },

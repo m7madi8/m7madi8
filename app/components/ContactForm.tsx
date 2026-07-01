@@ -24,8 +24,7 @@ export default function ContactForm() {
   const trimmedEmail = email.trim();
   const trimmedPhone = phone.trim();
   const trimmedNotes = notes.trim();
-  const isFormEmpty = !trimmedName && !trimmedEmail && !trimmedPhone && !trimmedNotes;
-  const canSubmit = !isFormEmpty;
+  const canSubmit = Boolean(trimmedName && trimmedPhone && trimmedNotes);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +40,7 @@ export default function ContactForm() {
 
     if (!canSubmit) {
       setStatus("error");
-      setErrorMessage("Please fill in at least one field.");
+      setErrorMessage("Please fill in your name, phone number, and message.");
       return;
     }
 
@@ -118,7 +117,7 @@ export default function ContactForm() {
               htmlFor="contact-name"
               className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
             >
-              Name
+              Name <span className="text-red-400">*</span>
             </label>
             <input
               id="contact-name"
@@ -126,6 +125,7 @@ export default function ContactForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={status === "loading"}
+              required
               className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
               placeholder="Your name"
               suppressHydrationWarning
@@ -154,7 +154,7 @@ export default function ContactForm() {
               htmlFor="contact-phone"
               className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
             >
-              Phone
+              Phone <span className="text-red-400">*</span>
             </label>
             <input
               id="contact-phone"
@@ -162,6 +162,7 @@ export default function ContactForm() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               disabled={status === "loading"}
+              required
               className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
               placeholder="Phone or WhatsApp"
               suppressHydrationWarning
@@ -172,7 +173,7 @@ export default function ContactForm() {
               htmlFor="contact-notes"
               className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
             >
-              Notes
+              Message <span className="text-red-400">*</span>
             </label>
             <textarea
               id="contact-notes"
@@ -180,6 +181,7 @@ export default function ContactForm() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               disabled={status === "loading"}
+              required
               className="contact-input w-full resize-y rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
               placeholder="Your message or project details..."
             />
