@@ -10,6 +10,7 @@ import {
 } from "../lib/seo-config";
 import { menuItems, socialItems } from "../lib/site-nav";
 import ContactSocialLinks from "./components/ContactSocialLinks";
+import Hero from "./components/Hero";
 import LazyContactForm from "./components/LazyContactForm";
 import LazyCustomCursor from "./components/LazyCustomCursor";
 import LazyStaggeredMenu from "./components/LazyStaggeredMenu";
@@ -85,47 +86,7 @@ export default function Home() {
         closeOnClickAway
       />
 
-      <section className="hero-static relative flex min-h-[100dvh] min-h-screen flex-col">
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pb-24 pt-28 sm:px-8 sm:pt-32 lg:px-16">
-          <div className="mx-auto w-full max-w-3xl text-center">
-            <div className="hero-pill">
-              <span className="hero-pill-dot" aria-hidden />
-              Full-Stack Web Developer
-            </div>
-
-            <h1 className="hero-title text-[clamp(2.25rem,8vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
-              Silent Code.
-              <br />
-              <span className="text-[color:var(--muted)]">Massive Impact.</span>
-            </h1>
-
-            <p className="mx-auto mt-5 max-w-md text-[0.9375rem] leading-relaxed text-[color:var(--muted)] sm:mt-6 sm:max-w-xl sm:text-lg">
-              I engineer modern, high-performance web systems — from concept to
-              launch — built to scale and designed to impress.
-            </p>
-
-            <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
-              <a href="#contact" className="hero-btn w-full sm:w-auto" data-cursor>
-                Start a Project
-              </a>
-              <Link href="/work" className="hero-btn w-full sm:w-auto" data-cursor>
-                View My Work
-              </Link>
-            </div>
-          </div>
-
-          <a
-            href="#work"
-            className="scroll-hint absolute bottom-6 left-1/2 -translate-x-1/2 sm:bottom-10"
-            aria-label="Scroll to projects"
-          >
-            <span className="scroll-hint-icon flex h-9 w-5 items-start justify-center rounded-full border border-[color:var(--border)] pt-1.5">
-              <span className="block h-1.5 w-0.5 rounded-full bg-[color:var(--muted)]" />
-            </span>
-            Scroll
-          </a>
-        </div>
-      </section>
+      <Hero />
 
       <main className="relative z-10 mx-auto max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
         <section id="work" className="section-block" aria-label="Featured projects">

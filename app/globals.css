@@ -361,23 +361,164 @@ a {
   z-index: 1;
 }
 
-/* Static hero (no WebGL) */
-.hero-static {
+/* Clean modern hero */
+.hero-cinematic {
   background: var(--background);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   overflow: hidden;
 }
 
-.hero-static::before {
-  content: "";
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  top: -20%;
+  width: min(90vw, 52rem);
+  height: min(70vw, 36rem);
+  translate: -50% 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.07) 0%,
+    transparent 68%
+  );
+  filter: blur(40px);
+}
+
+.hero-grid {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 90% 70% at 50% -10%,
-    color-mix(in srgb, var(--foreground) 6%, transparent),
-    transparent 55%
-  );
-  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 40%, black 10%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 40%, black 10%, transparent 75%);
 }
+
+.hero-copy {
+  position: relative;
+}
+
+.hero-role,
+.hero-brand,
+.hero-headline,
+.hero-lede,
+.hero-actions {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-cinematic[data-ready="true"] .hero-role,
+.hero-cinematic[data-ready="true"] .hero-brand,
+.hero-cinematic[data-ready="true"] .hero-headline,
+.hero-cinematic[data-ready="true"] .hero-lede,
+.hero-cinematic[data-ready="true"] .hero-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-cinematic[data-ready="true"] .hero-brand {
+  transition-delay: 0.08s;
+}
+
+.hero-cinematic[data-ready="true"] .hero-headline {
+  transition-delay: 0.16s;
+}
+
+.hero-cinematic[data-ready="true"] .hero-lede {
+  transition-delay: 0.24s;
+}
+
+.hero-cinematic[data-ready="true"] .hero-actions {
+  transition-delay: 0.32s;
+}
+
+.hero-role {
+  margin-bottom: 1.25rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-brand {
+  margin: 0;
+  font-size: clamp(2.75rem, 9vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.hero-headline {
+  margin-top: 1.25rem;
+  font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--foreground) 88%, transparent);
+}
+
+.hero-line--muted {
+  color: var(--muted);
+}
+
+.hero-lede {
+  margin: 1.25rem auto 0;
+  max-width: 32rem;
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.hero-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.hero-btn--ghost {
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero-btn--ghost:hover,
+.hero-btn--ghost:focus-visible {
+  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+}
+
+@media (min-width: 640px) {
+  .hero-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-role,
+  .hero-brand,
+  .hero-headline,
+  .hero-lede,
+  .hero-actions {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+
 
 /* Skill tags */
 .skill-tag {

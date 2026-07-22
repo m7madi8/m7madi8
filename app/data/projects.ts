@@ -161,26 +161,6 @@ export const projects: Project[] = [
       "Postpartum assessments, guidance, and curated resources — built for every mother.",
   },
   {
-    slug: "teady-bear",
-    title: "Teady Bear",
-    status: "coming-soon",
-    context: "Pet grooming salon booking",
-    summary:
-      "Online booking for dogs and cats — browse available salon services and reserve appointments in a few clicks.",
-    goal: "Replace manual scheduling with a clear digital flow for service selection and time slots.",
-    build:
-      "A custom booking system with a service catalog, pet-friendly UX, and appointment management.",
-    work: [
-      "Service selection and package browsing for dogs and cats.",
-      "Availability and appointment scheduling logic.",
-      "Salon-branded customer journey from pick-a-service to confirmation.",
-    ],
-    result:
-      "In active development — publishing soon.",
-    overview:
-      "Pick grooming services and book salon appointments online — for dogs and cats.",
-  },
-  {
     slug: "nanas-biets",
     title: "Nana's Biets",
     url: "https://cheffarahammar.com",
@@ -200,5 +180,62 @@ export const projects: Project[] = [
       "A premium storefront that matches Chef Farah Ammar's brand and supports online orders.",
     overview:
       "Chef Farah Ammar — premium treats in a dedicated online store.",
+  },
+  {
+    slug: "darna",
+    title: "DARNA",
+    status: "coming-soon",
+    context: "Restaurant · Lounge · Catering — venue booking platform",
+    summary:
+      "A booking platform for one venue that unites dining, lounge evenings, and catering — guests choose the experience first, then reserve with ease.",
+    goal: "Replace a simple contact form with a full booking journey — from experience selection to confirmation — while the team manages tables and reservations in real time.",
+    build:
+      "Guest-facing flows for restaurant tables, lounge nights, and catering events, paired with a live operations view for the venue team through to reception.",
+    work: [
+      "Experience-first booking paths for Restaurant, Lounge, and Catering.",
+      "Real-time reservation and table management for the venue team.",
+      "End-to-end journey from choice through confirmation, tuned for a polished guest arrival.",
+    ],
+    result: "In active development — publishing soon.",
+    overview:
+      "Smarter venue booking — not just a contact form, but a complete experience from selection to confirmation.",
+  },
+  {
+    slug: "wolve-store",
+    title: "Wolve Store",
+    status: "coming-soon",
+    context: "Phones & original accessories e-commerce",
+    summary:
+      "An e-commerce store for phones and original accessories — a clear, fast shopping experience from first glance to order completion.",
+    goal: "Make it easy for customers to find a device or accessory by category and brand, explore products, save favorites, and check out without friction.",
+    build:
+      "A premium storefront with browse and filter flows, product detail pages, cart and wishlist, and a mobile-first checkout path.",
+    work: [
+      "Category and brand-based browsing with clear product discovery.",
+      "Product details, cart, and wishlist for a smooth purchase journey.",
+      "Elegant, mobile-ready storefront UI tuned for speed and clarity.",
+    ],
+    result: "In active development — publishing soon.",
+    overview:
+      "Phones and accessories e-commerce focused on a smooth buy flow — browse, filter, product details, and cart in a polished mobile-friendly UI.",
+  },
+  {
+    slug: "nora-harb",
+    title: "Nora Harb",
+    status: "coming-soon",
+    context: "Vinyasa yoga instructor — personal brand site",
+    summary:
+      "A calm, refined personal site for a Vinyasa yoga instructor (RYT 300) — geometric precision meets the presence of practice.",
+    goal: "Let visitors meet Nora, explore recorded video courses (each with its own page and content), and book live sessions (studio · beach · private) through direct contact.",
+    build:
+      "A quiet luxury landing with instructor story, dedicated online course pages, and clear paths to book personal sessions.",
+    work: [
+      "Brand presence that balances geometric structure with a yoga-led tone.",
+      "Recorded course pages with dedicated content per program.",
+      "Booking paths for studio, beach, and private live sessions.",
+    ],
+    result: "In active development — publishing soon.",
+    overview:
+      "Yoga instructor landing — calm identity, online courses, and personal session booking.",
   },
 ];
