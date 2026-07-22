@@ -1,11 +1,15 @@
 import type { StaticImageData } from "next/image";
 import image99 from "../../img/99.png";
-import imageSamarammar from "../../img/samarammar.png";
+import imageSamarammar from "../../img/samar-ammar-cover.png";
 
 import image03 from "../../img/03.png";
 import image04 from "../../img/04.png";
 import image88 from "../../img/88.png";
 import image8 from "../../img/8.png";
+import imageDarna from "../../img/darna.png";
+import imageHealthyMama from "../../img/healthy-mama.png";
+import imageOdArchitects from "../../img/od-architects.png";
+import imageWolveStore from "../../img/wolve-store.png";
 
 export type ProjectStatus = "live" | "coming-soon";
 
@@ -103,6 +107,7 @@ export const projects: Project[] = [
     slug: "od-architects",
     title: "OD ARCHITECTS",
     url: "https://od-architects.com",
+    image: imageOdArchitects,
     context: "Interior, exterior & landscape design studio",
     summary:
       "Design studio for interior, exterior, and garden projects — from concept through supervision and on-site execution.",
@@ -144,6 +149,7 @@ export const projects: Project[] = [
     slug: "healthy-mama",
     title: "Healthy Mama",
     status: "coming-soon",
+    image: imageHealthyMama,
     context: "Women's postpartum wellness platform",
     summary:
       "A platform for every mother — postpartum assessments, trusted guidance, and curated books to support real lifestyle change.",
@@ -185,6 +191,7 @@ export const projects: Project[] = [
     slug: "darna",
     title: "DARNA",
     status: "coming-soon",
+    image: imageDarna,
     context: "Restaurant · Lounge · Catering — venue booking platform",
     summary:
       "A booking platform for one venue that unites dining, lounge evenings, and catering — guests choose the experience first, then reserve with ease.",
@@ -204,6 +211,7 @@ export const projects: Project[] = [
     slug: "wolve-store",
     title: "Wolve Store",
     status: "coming-soon",
+    image: imageWolveStore,
     context: "Phones & original accessories e-commerce",
     summary:
       "An e-commerce store for phones and original accessories — a clear, fast shopping experience from first glance to order completion.",

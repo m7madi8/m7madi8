@@ -100,7 +100,11 @@ export default function Home() {
               description="A selection of live launches — each built with performance, clarity, and craft in mind."
               className="mb-0 max-w-xl"
             />
-            <Link href="/work" className="link-arrow shrink-0 self-start sm:self-auto" data-cursor>
+            <Link
+              href="/work"
+              className="hero-btn shrink-0 self-start sm:self-auto"
+              data-cursor
+            >
               View all projects
               <span aria-hidden>→</span>
             </Link>

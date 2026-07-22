@@ -90,7 +90,7 @@ export default function ProjectCaseList({ projects }: ProjectCaseListProps) {
               <div className="mt-auto flex flex-col gap-3 pt-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                 <Link
                   href={`/work/${project.slug}`}
-                  className="link-arrow"
+                  className="hero-btn"
                   data-cursor
                 >
                   View case study
