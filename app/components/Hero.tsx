@@ -24,18 +24,18 @@ export default function Hero() {
       aria-label="Introduction"
     >
       <div className="hero-scene" aria-hidden>
-        <div className="hero-glow" />
         <div className="hero-grid" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-16">
-        <div className="hero-copy mx-auto w-full max-w-3xl text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-24 pt-28 sm:px-8 sm:pb-28 sm:pt-32 lg:px-16 lg:pb-32">
+        <div className="hero-copy w-full max-w-2xl">
           <p className="hero-role">Full-Stack Web Developer</p>
 
           <h1 className="hero-brand">Mohammad Hroub</h1>
 
           <p className="hero-headline">
-            Silent Code. <span className="hero-line--muted">Massive Impact.</span>
+            Silent Code.{" "}
+            <span className="hero-line--muted">Massive Impact.</span>
           </p>
 
           <p className="hero-lede">
@@ -52,17 +52,6 @@ export default function Hero() {
             </Link>
           </div>
         </div>
-
-        <a
-          href="#work"
-          className="scroll-hint absolute bottom-6 left-1/2 -translate-x-1/2 sm:bottom-10"
-          aria-label="Scroll to projects"
-        >
-          <span className="scroll-hint-icon flex h-9 w-5 items-start justify-center rounded-full border border-[color:var(--border)] pt-1.5">
-            <span className="block h-1.5 w-0.5 rounded-full bg-[color:var(--muted)]" />
-          </span>
-          Scroll
-        </a>
       </div>
     </section>
   );

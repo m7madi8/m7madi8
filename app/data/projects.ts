@@ -10,8 +10,19 @@ import imageDarna from "../../img/darna.png";
 import imageHealthyMama from "../../img/healthy-mama.png";
 import imageOdArchitects from "../../img/od-architects.png";
 import imageWolveStore from "../../img/wolve-store.png";
+import nanasUiChicken from "../../img/nanas-biets/ui-dumplings-chicken.png";
+import nanasUiDates from "../../img/nanas-biets/ui-date-balls.png";
+import nanasUiMeat from "../../img/nanas-biets/ui-dumplings-meat.png";
+import nanasUiCart from "../../img/nanas-biets/ui-cart.png";
+import nanasUiCheckout from "../../img/nanas-biets/ui-checkout.png";
 
 export type ProjectStatus = "live" | "coming-soon";
+
+export type ProjectGalleryItem = {
+  src: StaticImageData;
+  alt: string;
+  label?: string;
+};
 
 export type Project = {
   slug: string;
@@ -19,6 +30,7 @@ export type Project = {
   context: string;
   summary: string;
   image?: StaticImageData;
+  gallery?: ProjectGalleryItem[];
   url?: string;
   status?: ProjectStatus;
   goal: string;
@@ -171,6 +183,33 @@ export const projects: Project[] = [
     title: "Nana's Biets",
     url: "https://cheffarahammar.com",
     image: image8,
+    gallery: [
+      {
+        src: nanasUiChicken,
+        alt: "Nana's Biets — Dumplings Chicken product page on mobile",
+        label: "Product · Dumplings Chicken",
+      },
+      {
+        src: nanasUiDates,
+        alt: "Nana's Biets — Date balls product page with size options",
+        label: "Product · Date balls",
+      },
+      {
+        src: nanasUiMeat,
+        alt: "Nana's Biets — Dumplings Meat product detail on mobile",
+        label: "Product · Dumplings Meat",
+      },
+      {
+        src: nanasUiCart,
+        alt: "Nana's Biets — shopping cart interface",
+        label: "Cart",
+      },
+      {
+        src: nanasUiCheckout,
+        alt: "Nana's Biets — checkout and order summary",
+        label: "Checkout",
+      },
+    ],
     context: "Premium bakery & chef brand store",
     summary:
       "E-commerce for Chef Farah Ammar — premium, indulgent products with a luxury food-brand feel.",

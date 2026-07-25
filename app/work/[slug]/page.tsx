@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CustomCursor from "../../components/CustomCursor";
+import ProjectGalleryCarousel from "../../components/ProjectGalleryCarousel";
 import ProjectJsonLd from "../../components/ProjectJsonLd";
 import RevealManager from "../../components/RevealManager";
 import SiteFooter from "../../components/SiteFooter";
@@ -79,14 +80,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             )}
             {project.url ? (
               <a
-                className="link-arrow"
+                className="project-card-btn project-card-btn--external project-card-btn--inline"
                 href={project.url}
                 target="_blank"
                 rel="noreferrer"
                 data-cursor
               >
                 Visit site
-                <span aria-hidden>↗</span>
+                <svg
+                  className="project-card-btn-icon"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M5.5 2.5H2.75A1.25 1.25 0 0 0 1.5 3.75v7.5c0 .69.56 1.25 1.25 1.25h7.5c.69 0 1.25-.56 1.25-1.25V8.5M8.5 1.5h4v4M5.5 8.5 12.5 1.5"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </a>
             ) : null}
           </div>
@@ -103,6 +119,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               sizes="(max-width: 1280px) 100vw, 1152px"
               priority
             />
+          </div>
+        ) : null}
+
+        {/* Interface mockups */}
+        {project.gallery && project.gallery.length > 0 ? (
+          <div className="mt-8 sm:mt-10">
+            <ProjectGalleryCarousel items={project.gallery} />
           </div>
         ) : null}
 
