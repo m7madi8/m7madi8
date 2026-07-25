@@ -125,7 +125,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Interface mockups */}
         {project.gallery && project.gallery.length > 0 ? (
           <div className="mt-8 sm:mt-10">
-            <ProjectGalleryCarousel items={project.gallery} />
+            <ProjectGalleryCarousel
+              items={project.gallery}
+              title={project.galleryTitle}
+              description={project.galleryDescription}
+            />
           </div>
         ) : null}
 

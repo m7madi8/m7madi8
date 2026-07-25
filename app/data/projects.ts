@@ -15,6 +15,15 @@ import nanasUiDates from "../../img/nanas-biets/ui-date-balls.png";
 import nanasUiMeat from "../../img/nanas-biets/ui-dumplings-meat.png";
 import nanasUiCart from "../../img/nanas-biets/ui-cart.png";
 import nanasUiCheckout from "../../img/nanas-biets/ui-checkout.png";
+import cafeUiHome from "../../img/99cafe/ui-home.png";
+import cafeUiIntroMenu from "../../img/99cafe/ui-intro-menu.png";
+import cafeUiFranchise from "../../img/99cafe/ui-franchise.png";
+import cafeUiFranchiseApply from "../../img/99cafe/ui-franchise-apply.png";
+import cafeUiRewards from "../../img/99cafe/ui-rewards.png";
+import cafeUiLocations from "../../img/99cafe/ui-locations.png";
+import cafeUiNavigation from "../../img/99cafe/ui-navigation.png";
+import cafeUiMenu from "../../img/99cafe/ui-menu.png";
+import cafeUiDrinks from "../../img/99cafe/ui-drinks.png";
 
 export type ProjectStatus = "live" | "coming-soon";
 
@@ -31,6 +40,8 @@ export type Project = {
   summary: string;
   image?: StaticImageData;
   gallery?: ProjectGalleryItem[];
+  galleryTitle?: string;
+  galleryDescription?: string;
   url?: string;
   status?: ProjectStatus;
   goal: string;
@@ -56,6 +67,56 @@ export const projects: Project[] = [
     summary: "Modern cafe website with a clean menu flow.",
     image: image99,
     url: "https://99cafe.com",
+    galleryTitle: "Mobile experience",
+    galleryDescription:
+      "Home, menu, rewards, franchise, and locations — a premium brand system built for mobile.",
+    gallery: [
+      {
+        src: cafeUiHome,
+        alt: "99cafe — home hero with brand message",
+        label: "Home",
+      },
+      {
+        src: cafeUiNavigation,
+        alt: "99cafe — premium navigation menu",
+        label: "Navigation",
+      },
+      {
+        src: cafeUiIntroMenu,
+        alt: "99cafe — menu introduction screen",
+        label: "Menu intro",
+      },
+      {
+        src: cafeUiMenu,
+        alt: "99cafe — menu categories overview",
+        label: "Menu",
+      },
+      {
+        src: cafeUiDrinks,
+        alt: "99cafe — drinks category and product detail",
+        label: "Drinks",
+      },
+      {
+        src: cafeUiRewards,
+        alt: "99cafe — rewards membership program",
+        label: "Rewards",
+      },
+      {
+        src: cafeUiFranchise,
+        alt: "99cafe — franchise overview page",
+        label: "Franchise",
+      },
+      {
+        src: cafeUiFranchiseApply,
+        alt: "99cafe — franchise application form",
+        label: "Apply",
+      },
+      {
+        src: cafeUiLocations,
+        alt: "99cafe — locations and store finder",
+        label: "Locations",
+      },
+    ],
     goal: "Present the brand clearly and highlight the menu.",
     build: "A clean, responsive site with focused sections.",
     work: ["Structured the content flow.", "Optimized for mobile speed."],
@@ -183,6 +244,9 @@ export const projects: Project[] = [
     title: "Nana's Biets",
     url: "https://cheffarahammar.com",
     image: image8,
+    galleryTitle: "Mobile experience",
+    galleryDescription:
+      "Key flows across product, cart, and checkout — designed for conversion on small screens.",
     gallery: [
       {
         src: nanasUiChicken,
