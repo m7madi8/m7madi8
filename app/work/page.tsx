@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import logoMe from "../../img/logo-me.png";
+import logoMe from "../../img/logo-me.webp";
 import { SEO_PERSON, SEO_SITE, buildPageMetadata } from "../../lib/seo-config";
 import WorkJsonLd from "../components/WorkJsonLd";
 import WorkPageContent from "./WorkPageContent";

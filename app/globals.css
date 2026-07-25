@@ -1159,6 +1159,11 @@ a {
   height: auto;
 }
 
+.phone-device-image--placeholder {
+  aspect-ratio: 9 / 19;
+  background: #121214;
+}
+
 .case-carousel-footer {
   display: flex;
   flex-direction: column;

@@ -118,6 +118,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               className="object-cover"
               sizes="(max-width: 1280px) 100vw, 1152px"
               priority
+              decoding="async"
             />
           </div>
         ) : null}

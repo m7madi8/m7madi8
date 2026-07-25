@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import logoMe from "../img/logo-me.png";
+import logoMe from "../img/logo-me.webp";
 import {
   SEO_PERSON,
   buildPageMetadata,
@@ -142,7 +142,9 @@ export default function Home() {
                               ? "(max-width: 1024px) 100vw, 55vw"
                               : "(max-width: 1024px) 100vw, 28vw"
                           }
-                          loading="lazy"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          priority={index === 0}
+                          decoding="async"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center bg-[color:var(--surface)] text-xs uppercase tracking-widest text-[color:var(--muted)]">

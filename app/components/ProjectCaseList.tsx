@@ -33,6 +33,7 @@ export default function ProjectCaseList({ projects }: ProjectCaseListProps) {
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center bg-[color:var(--surface-elevated)] px-4 text-center text-xs uppercase tracking-widest text-[color:var(--muted)]">

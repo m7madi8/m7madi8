@@ -159,14 +159,23 @@ export default function ProjectGalleryCarousel({
                   <div className="phone-device-shell">
                     <div className="phone-device-island" aria-hidden />
                     <div className="phone-device-screen">
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        className="phone-device-image"
-                        sizes="(max-width: 640px) 200px, 240px"
-                        placeholder="blur"
-                        priority={i === 0}
-                      />
+                      {Math.abs(offset) <= 1 ? (
+                        <Image
+                          src={item.src}
+                          alt={item.alt}
+                          className="phone-device-image"
+                          sizes="(max-width: 640px) 200px, 260px"
+                          placeholder="blur"
+                          loading={i === index ? "eager" : "lazy"}
+                          priority={i === 0 && index === 0}
+                          decoding="async"
+                        />
+                      ) : (
+                        <div
+                          className="phone-device-image phone-device-image--placeholder"
+                          aria-hidden
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

@@ -10,13 +10,22 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath,
   assetPrefix: assetPrefix || undefined,
-  images: { unoptimized: true },
+  // Static export cannot use the Image Optimization API — source assets are WebP.
+  images: {
+    unoptimized: true,
+    formats: ["image/webp", "image/avif"],
+  },
+  poweredByHeader: false,
+  compress: true,
   devIndicators: false,
   compiler: {
     removeConsole:
       process.env.NODE_ENV === "production"
         ? { exclude: ["error", "warn"] }
         : false,
+  },
+  experimental: {
+    optimizePackageImports: ["gsap", "three", "firebase"],
   },
 };
 

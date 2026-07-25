@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import logoMe from "../../img/logo-me.png";
+import logoMe from "../../img/logo-me.webp";
 
 export default function Loader() {
   return (

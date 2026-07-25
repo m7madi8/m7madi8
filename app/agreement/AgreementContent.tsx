@@ -6,7 +6,7 @@ import { useState } from "react";
 import CustomCursor from "../components/CustomCursor";
 import RevealManager from "../components/RevealManager";
 import SiteFooter from "../components/SiteFooter";
-import logoMe from "../../img/logo-me.png";
+import logoMe from "../../img/logo-me.webp";
 
 const content = {
   ar: {
