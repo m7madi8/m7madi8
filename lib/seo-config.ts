@@ -139,9 +139,9 @@ export function buildAlternates(path: string = ""): NonNullable<Metadata["altern
 }
 
 const OG_IMAGE = {
-  url: "/icon.png",
-  width: 512,
-  height: 512,
+  url: "/og.png",
+  width: 1200,
+  height: 630,
   alt: `${SEO_PERSON.nameEn} | ${SEO_PERSON.nameAr} — ${SEO_PERSON.jobTitle}`,
 };
 
@@ -229,8 +229,13 @@ export function getRootLayoutMetadata(): Metadata {
     publisher: SEO_PERSON.nameEn,
     category: "technology",
     icons: {
-      icon: [{ url: "/icon.png", type: "image/png" }],
-      apple: [{ url: "/icon.png", type: "image/png" }],
+      icon: [
+        { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      ],
+      apple: [
+        { url: "/apple-icon.png", type: "image/png", sizes: "512x512" },
+      ],
+      shortcut: ["/icon.png"],
     },
     alternates: buildAlternates("/"),
     openGraph: {

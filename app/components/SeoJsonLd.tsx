@@ -113,7 +113,7 @@ export default function SeoJsonLd() {
     about: { "@id": `${url}/#person` },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: absoluteUrl("/icon.png"),
+      url: absoluteUrl("/og.png"),
     },
   };
 
