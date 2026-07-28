@@ -10,6 +10,7 @@ import imageDarna from "../../img/darna.webp";
 import imageHealthyMama from "../../img/healthy-mama.webp";
 import imageOdArchitects from "../../img/od-architects.webp";
 import imageWolveStore from "../../img/wolve-store.webp";
+import imageBasharHroub from "../../img/bashar-hroub.webp";
 import nanasUiChicken from "../../img/nanas-biets/ui-dumplings-chicken.webp";
 import nanasUiDates from "../../img/nanas-biets/ui-date-balls.webp";
 import nanasUiMeat from "../../img/nanas-biets/ui-dumplings-meat.webp";
@@ -329,6 +330,26 @@ export const projects: Project[] = [
     result: "In active development — publishing soon.",
     overview:
       "Phones and accessories e-commerce focused on a smooth buy flow — browse, filter, product details, and cart in a polished mobile-friendly UI.",
+  },
+  {
+    slug: "bashar-hroub",
+    title: "Bashar Hroub",
+    status: "coming-soon",
+    image: imageBasharHroub,
+    context: "Contemporary artist portfolio",
+    summary:
+      "A night-black gallery experience for Bashar Hroub — animated typography, artwork detail pages, and a commission inquiry flow.",
+    goal: "Give the artist's work a quiet, cinematic stage online — easy to explore pieces, open details, and start a commission conversation.",
+    build:
+      "A React + Vite portfolio with Framer Motion, a night-black gallery UI, artwork detail routes, and a commission inquiry path.",
+    work: [
+      "Night-black gallery grid with refined typography and motion.",
+      "Artwork detail pages for deeper viewing of each piece.",
+      "Commission inquiry flow for collectors and collaborators.",
+    ],
+    result: "In active development — publishing soon.",
+    overview:
+      "Contemporary artist portfolio — gallery, motion, and commission inquiry, built with React, Vite, and Framer Motion.",
   },
   {
     slug: "nora-harb",
