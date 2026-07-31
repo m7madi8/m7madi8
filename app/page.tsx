@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import logoMe from "../img/logo-me.webp";
 import {
   SEO_PERSON,
@@ -10,6 +8,7 @@ import {
 } from "../lib/seo-config";
 import { menuItems, socialItems } from "../lib/site-nav";
 import ContactSocialLinks from "./components/ContactSocialLinks";
+import { FeaturedProjects } from "./components/featured";
 import Hero from "./components/Hero";
 import LazyContactForm from "./components/LazyContactForm";
 import LazyCustomCursor from "./components/LazyCustomCursor";
@@ -17,9 +16,15 @@ import LazyStaggeredMenu from "./components/LazyStaggeredMenu";
 import RevealManager from "./components/RevealManager";
 import SectionHeader from "./components/SectionHeader";
 import SiteFooter from "./components/SiteFooter";
-import { projects, isComingSoon } from "./data/projects";
+import { projects } from "./data/projects";
 
-const FEATURED_SLUGS = ["nanas-biets", "nawal-omar-yoga", "shape-up"] as const;
+/** Curated homepage selection — full archive lives on /work */
+const FEATURED_SLUGS = [
+  "nanas-biets",
+  "od-architects",
+  "interior-landscape-elegance",
+  "99cafe",
+] as const;
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -90,102 +95,16 @@ export default function Home() {
 
       <main className="relative z-10 mx-auto max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
         <section id="work" className="section-block" aria-label="Featured projects">
-          <div
-            className="reveal mb-8 flex flex-col gap-5 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
-            data-reveal
-          >
+          <div className="reveal mb-8 sm:mb-10" data-reveal>
             <SectionHeader
               eyebrow="Featured Work"
-              title="Projects that speak for themselves."
-              description="A selection of live launches — each built with performance, clarity, and craft in mind."
-              className="mb-0 max-w-xl"
+              title="Selected projects. Elevated craft."
+              description="Four pieces that define the standard — clarity, performance, and a premium digital presence."
+              className="mb-0 max-w-2xl"
             />
-            <Link
-              href="/work"
-              className="hero-btn shrink-0 self-start sm:self-auto"
-              data-cursor
-            >
-              View all projects
-              <span aria-hidden>→</span>
-            </Link>
           </div>
 
-          <div className="projects-grid">
-            {featuredProjects.map((project, index) => {
-              const caseNumber =
-                projects.findIndex((p) => p.slug === project.slug) + 1;
-              const comingSoon = isComingSoon(project);
-
-              return (
-                <article
-                  key={project.slug}
-                  className={`reveal project-card-wrap ${index === 0 ? "project-card-wrap--featured" : "project-card-wrap--standard"}`}
-                  data-reveal
-                >
-                  <div
-                    className={`project-card ${index === 0 ? "project-card--featured" : ""}`}
-                  >
-                    <Link
-                      href={`/work/${project.slug}`}
-                      className={`project-card-image relative block ${index === 0 ? "project-card-image--featured aspect-[16/10] sm:aspect-[16/9]" : "project-card-image--standard"}`}
-                      data-cursor
-                      aria-label={`${project.title} preview`}
-                    >
-                      {project.image ? (
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          className="object-cover"
-                          sizes={
-                            index === 0
-                              ? "(max-width: 1024px) 100vw, 55vw"
-                              : "(max-width: 1024px) 100vw, 28vw"
-                          }
-                          loading={index === 0 ? "eager" : "lazy"}
-                          priority={index === 0}
-                          decoding="async"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center bg-[color:var(--surface)] text-xs uppercase tracking-widest text-[color:var(--muted)]">
-                          {project.title}
-                        </div>
-                      )}
-                    </Link>
-                    <div className="project-card-content">
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                        <p className="eyebrow text-[0.7rem] sm:text-[0.8rem]">
-                          {String(caseNumber).padStart(2, "0")}
-                        </p>
-                        {comingSoon ? (
-                          <span className="badge">In development</span>
-                        ) : (
-                          <span className="badge badge-live">Live</span>
-                        )}
-                      </div>
-                      <h3 className="mt-2 text-lg font-medium text-white sm:text-xl">
-                        {project.title}
-                      </h3>
-                      <p className="mt-1 text-xs text-[color:var(--muted)] sm:text-sm">
-                        {project.context}
-                      </p>
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-[color:var(--muted)]">
-                        {project.summary}
-                      </p>
-                      <Link
-                        href={`/work/${project.slug}`}
-                        className="project-card-btn"
-                        data-cursor
-                      >
-                        View project
-                        <span aria-hidden>→</span>
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+          <FeaturedProjects projects={featuredProjects} />
         </section>
 
         <section className="section-block">

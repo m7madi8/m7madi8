@@ -18,7 +18,7 @@ export default function ContactSocialLinks() {
   return (
     <div className="contact-social-links reveal" data-reveal>
       <a
-        href="https://www.instagram.com/m7madi8/"
+        href="https://www.instagram.com/mohammad._dev/"
         target="_blank"
         rel="noreferrer"
         className="social-btn"

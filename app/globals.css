@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./components/showcase/showcase.css";
+@import "./components/featured/featured.css";
 
 :root {
   --background: #060708;
@@ -989,6 +991,11 @@ a {
   border: 1px solid var(--border);
   overflow: hidden;
   background: var(--surface);
+}
+
+.case-hero-image img {
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (min-width: 640px) {

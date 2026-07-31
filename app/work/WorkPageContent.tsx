@@ -54,8 +54,8 @@ export default function WorkPageContent({ logoUrl }: WorkPageContentProps) {
             Selected work
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[color:var(--muted)] sm:text-lg">
-            Live launches and work in progress — goals, build direction, and
-            outcomes from real client projects.
+            A curated archive of digital products — each one designed, engineered,
+            and refined with the same standard of craft.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">

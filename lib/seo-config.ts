@@ -26,7 +26,7 @@ export const SEO_PERSON = {
   description:
     "Mohammad Hroub | محمد حروب — Full-Stack Web Developer & freelance portfolio. React, Next.js, TypeScript. مطور ويب مستقل — تطوير مواقع احترافي.",
   sameAs: [
-    "https://www.instagram.com/m7madi8/",
+    "https://www.instagram.com/mohammad._dev/",
     "https://wa.me/972592132438",
   ] as string[],
 } as const;

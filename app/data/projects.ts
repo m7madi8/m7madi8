@@ -45,6 +45,10 @@ export type Project = {
   galleryDescription?: string;
   url?: string;
   status?: ProjectStatus;
+  /** Short category label for showcase cards */
+  category?: string;
+  /** Technology / craft stack shown on showcase cards */
+  stack?: string[];
   goal: string;
   build: string;
   work: string[];
