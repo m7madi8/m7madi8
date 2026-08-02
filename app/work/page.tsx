@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import logoMe from "../../img/logo-me.webp";
-import { SEO_PERSON, SEO_SITE, buildPageMetadata } from "../../lib/seo-config";
+import { SEO_PERSON, buildPageMetadata } from "../../lib/seo-config";
 import WorkJsonLd from "../components/WorkJsonLd";
 import WorkPageContent from "./WorkPageContent";
 
@@ -24,7 +23,7 @@ export default function WorkPage() {
   return (
     <>
       <WorkJsonLd />
-      <WorkPageContent logoUrl={logoMe.src} />
+      <WorkPageContent />
     </>
   );
 }

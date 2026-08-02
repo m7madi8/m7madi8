@@ -28,17 +28,7 @@
 }
 
 .links-topbar-brand {
-  display: inline-flex;
-  align-items: center;
-  line-height: 0;
-  background: transparent;
-}
-
-.links-topbar-logo {
-  width: 2rem;
-  height: 2rem;
-  object-fit: contain;
-  background: transparent;
+  pointer-events: auto;
 }
 
 .links-topbar-link {
@@ -437,10 +427,6 @@
 
 .links-footer-mark {
   margin: 0;
-  font-size: 0.9rem;
-  font-weight: 550;
-  letter-spacing: -0.02em;
-  color: #fff;
 }
 
 .links-footer-cta {

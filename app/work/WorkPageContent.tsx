@@ -9,11 +9,7 @@ import SiteFooter from "../components/SiteFooter";
 import { projects, getLiveProjects } from "../data/projects";
 import { menuItems, socialItems } from "../../lib/site-nav";
 
-type WorkPageContentProps = {
-  logoUrl: string;
-};
-
-export default function WorkPageContent({ logoUrl }: WorkPageContentProps) {
+export default function WorkPageContent() {
   const liveCount = getLiveProjects().length;
   const inDevCount = projects.length - liveCount;
 
@@ -27,7 +23,6 @@ export default function WorkPageContent({ logoUrl }: WorkPageContentProps) {
         socialItems={socialItems}
         displaySocials
         displayItemNumbering
-        logoUrl={logoUrl}
         menuButtonColor="#ffffff"
         openMenuButtonColor="#000000"
         changeMenuColorOnOpen

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import BrandMark from "../../components/BrandMark";
 import CustomCursor from "../../components/CustomCursor";
 import ProjectGalleryCarousel from "../../components/ProjectGalleryCarousel";
 import ProjectJsonLd from "../../components/ProjectJsonLd";
@@ -64,14 +65,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <main className="relative z-10 mx-auto min-h-screen max-w-5xl px-5 pb-10 pt-8 sm:px-8 sm:pt-10 lg:max-w-6xl lg:px-16 lg:pt-14">
         {/* Top nav */}
         <header className="reveal flex flex-wrap items-center justify-between gap-4" data-reveal>
-          <Link
-            className="link-arrow text-[color:var(--muted)] hover:text-white"
-            href="/work"
-            data-cursor
-          >
-            <span aria-hidden>←</span>
-            All projects
-          </Link>
+          <div className="flex items-center gap-5">
+            <BrandMark href="/" size="sm" tone="light" animate={false} />
+            <Link
+              className="link-arrow text-[color:var(--muted)] hover:text-white"
+              href="/work"
+              data-cursor
+            >
+              <span aria-hidden>←</span>
+              All projects
+            </Link>
+          </div>
           <div className="flex items-center gap-4">
             {comingSoon ? (
               <span className="badge">In development</span>

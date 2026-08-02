@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import logoMe from "../img/logo-me.webp";
 import {
   SEO_PERSON,
   buildPageMetadata,
@@ -48,26 +47,26 @@ export default function Home() {
     (slug) => projects.find((p) => p.slug === slug)!
   );
 
-  const processSteps = [
+  const methodSteps = [
     {
       step: "01",
-      title: "Discovery",
-      copy: "Analyze business goals, audience, and technical requirements to define a clear roadmap.",
+      title: "Listen first",
+      copy: "Goals, constraints, and what “done” actually means.",
     },
     {
       step: "02",
-      title: "Architecture",
-      copy: "Design scalable system structures, database logic, and a maintainable codebase.",
+      title: "Shape the system",
+      copy: "Structure, stack, and decisions that won’t rot in six months.",
     },
     {
       step: "03",
-      title: "Development",
-      copy: "Build clean, performant code with attention to detail and best practices.",
+      title: "Build with restraint",
+      copy: "Clean UI, fast code, nothing decorative without a job.",
     },
     {
       step: "04",
-      title: "Launch",
-      copy: "Test thoroughly, optimize for speed, and deploy a reliable digital product.",
+      title: "Ship & stay close",
+      copy: "Launch, measure, refine — still reachable after go-live.",
     },
   ];
 
@@ -81,7 +80,6 @@ export default function Home() {
         socialItems={socialItems}
         displaySocials
         displayItemNumbering
-        logoUrl={logoMe.src}
         menuButtonColor="#ffffff"
         openMenuButtonColor="#000000"
         changeMenuColorOnOpen
@@ -129,24 +127,26 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-block">
-          <SectionHeader
-            eyebrow="How I Work"
-            title="A process built for clarity."
-            description="Every project follows a structured approach — no surprises, no shortcuts."
-          />
-          <div className="process-grid mt-8 sm:mt-12">
-            {processSteps.map((item) => (
-              <div key={item.step} className="process-step reveal" data-reveal>
-                <span className="process-step-number">{item.step}</span>
-                <h3 className="mt-4 text-base font-medium text-white sm:mt-5 sm:text-lg">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">
-                  {item.copy}
-                </p>
-              </div>
-            ))}
+        <section className="section-block" aria-label="Method">
+          <div className="method-layout">
+            <div className="method-aside reveal" data-reveal>
+              <p className="method-kicker">Method</p>
+              <h2 className="method-heading">How the work happens.</h2>
+            </div>
+
+            <ol className="method-list">
+              {methodSteps.map((item) => (
+                <li key={item.step} className="method-row reveal" data-reveal>
+                  <span className="method-index" aria-hidden>
+                    {item.step}
+                  </span>
+                  <div className="method-body">
+                    <h3 className="method-title">{item.title}</h3>
+                    <p className="method-copy">{item.copy}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 

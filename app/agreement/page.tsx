@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import AgreementContent from "./AgreementContent";
 import { SEO_PERSON, buildPageMetadata } from "../../lib/seo-config";
 
-const agreementTitle =
-  "Work Agreement | اتفاقية العمل — Mohammad Hroub | محمد حروب";
+const agreementTitle = "Work Agreement | اتفاقية العمل — m.";
 
 const agreementDesc =
-  "Work agreement (EN/AR) — scope, timeline, payment, and delivery terms for web development projects with Mohammad Hroub (Full-Stack Web Developer). اتفاقية عمل واضحة: نطاق الخدمة، مراحل التنفيذ، الدفع، والدعم.";
+  "Professional work agreement (EN/AR): scope, phases, payment, ownership, and support terms for web projects with Mohammad Hroub. اتفاقية عمل احترافية: النطاق، المراحل، الدفع، الملكية، والدعم.";
 
 export const metadata: Metadata = buildPageMetadata({
   title: agreementTitle,

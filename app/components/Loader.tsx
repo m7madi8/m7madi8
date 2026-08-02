@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import logoMe from "../../img/logo-me.webp";
+import BrandMark from "./BrandMark";
 
 export default function Loader() {
   return (
@@ -14,14 +13,13 @@ export default function Loader() {
         <div className="loader-progress-bar h-full bg-[color:var(--accent)]" aria-hidden />
       </div>
       <div className="loader-logo-wrap relative">
-        <Image
-          src={logoMe}
-          alt=""
-          width={120}
-          height={120}
-          className="loader-logo object-contain"
-          loading="eager"
-          aria-hidden
+        <BrandMark
+          href={null}
+          size="xl"
+          tone="light"
+          animate
+          className="loader-brand-mark"
+          aria-label="m."
         />
       </div>
     </div>

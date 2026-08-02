@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { menuItems, socialItems } from "../../lib/site-nav";
+import BrandMark from "./BrandMark";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -8,10 +9,14 @@ export default function SiteFooter() {
     <footer className="site-footer reveal mt-16 sm:mt-20" data-reveal>
       <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
         <div className="lg:col-span-2">
-          <p className="text-lg font-medium tracking-tight text-white">
-            Mohammad Hroub
-          </p>
-          <p className="mt-2 max-w-xs text-sm leading-relaxed text-[color:var(--muted)]">
+          <BrandMark
+            href="/"
+            size="lg"
+            tone="light"
+            animate={false}
+            aria-label="m. — Home"
+          />
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-[color:var(--muted)]">
             Full-Stack Web Developer crafting high-performance digital products
             with clean code and clear results.
           </p>
@@ -53,7 +58,7 @@ export default function SiteFooter() {
       </div>
       <div className="mt-10 flex flex-col items-center justify-between gap-4 pt-6 sm:mt-12 sm:flex-row">
         <p className="text-xs text-[color:var(--muted)]">
-          © {year} Mohammad Hroub. All rights reserved.
+          © {year} m. All rights reserved.
         </p>
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
           Silent Code. Massive Impact.

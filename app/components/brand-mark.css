@@ -1,0 +1,147 @@
+/* ============================================
+   Brand mark — m.
+   Quiet luxury typographic identity
+   ============================================ */
+
+:root {
+  --brand-ink: #0f0f10;
+  --brand-paper: #f5f5f2;
+  --brand-gray: #8e8e93;
+  --font-brand: var(--font-league-spartan), "League Spartan", system-ui, sans-serif;
+}
+
+.brand-mark {
+  --brand-mark-color: var(--brand-paper);
+  --brand-mark-size: 1.35rem;
+  --brand-mark-tracking: 0.01em;
+  --brand-mark-dot-scale: 0.78;
+
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--brand-mark-color);
+  font-family: var(--font-brand);
+  font-weight: 500;
+  font-size: var(--brand-mark-size);
+  letter-spacing: var(--brand-mark-tracking);
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  user-select: none;
+  transition:
+    opacity 0.35s ease,
+    letter-spacing 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s ease;
+}
+
+.brand-mark:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--brand-mark-color) 55%, transparent);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+.brand-mark:hover {
+  opacity: 0.72;
+  letter-spacing: 0.04em;
+}
+
+.brand-mark-glyph {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.brand-mark-m {
+  display: inline-block;
+}
+
+/* Period: intentional mark — slightly under x-height, baseline-true */
+.brand-mark-dot {
+  display: inline-block;
+  font-size: calc(1em * var(--brand-mark-dot-scale));
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-left: 0.02em;
+  line-height: 1;
+  transform: translateY(0.02em);
+}
+
+/* ---- Tones ---- */
+.brand-mark--light {
+  --brand-mark-color: var(--brand-paper);
+}
+
+.brand-mark--dark {
+  --brand-mark-color: var(--brand-ink);
+}
+
+.brand-mark--gray {
+  --brand-mark-color: var(--brand-gray);
+}
+
+.brand-mark--inherit {
+  --brand-mark-color: currentColor;
+}
+
+/* ---- Sizes ---- */
+.brand-mark--xs {
+  --brand-mark-size: 0.95rem;
+  --brand-mark-tracking: 0.015em;
+}
+
+.brand-mark--sm {
+  --brand-mark-size: 1.15rem;
+}
+
+.brand-mark--md {
+  --brand-mark-size: 1.4rem;
+}
+
+.brand-mark--lg {
+  --brand-mark-size: 1.85rem;
+}
+
+.brand-mark--xl {
+  --brand-mark-size: 2.5rem;
+}
+
+.brand-mark--display {
+  --brand-mark-size: clamp(3.5rem, 12vw, 6.5rem);
+  --brand-mark-tracking: 0;
+  font-weight: 600;
+}
+
+/* ---- Entrance ---- */
+.brand-mark--animate {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(8px);
+  animation: brand-mark-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+}
+
+@keyframes brand-mark-enter {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark--animate {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation: none;
+  }
+
+  .brand-mark {
+    transition: opacity 0.2s ease;
+  }
+
+  .brand-mark:hover {
+    letter-spacing: var(--brand-mark-tracking);
+  }
+}

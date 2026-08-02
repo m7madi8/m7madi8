@@ -21,6 +21,11 @@
   --gradient-accent: linear-gradient(135deg, rgba(245, 245, 244, 0.12) 0%, rgba(245, 245, 244, 0.02) 50%, rgba(245, 245, 244, 0.08) 100%);
   --font-sans: var(--font-space);
   --font-mono: var(--font-plex-mono);
+  --font-brand: var(--font-league-spartan), "League Spartan", system-ui, sans-serif;
+  --font-arabic: var(--font-plex-arabic), "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --brand-ink: #0f0f10;
+  --brand-paper: #f5f5f2;
+  --brand-gray: #8e8e93;
   --section-gap: clamp(3.5rem, 6vw, 7rem);
   --radius-lg: 1.25rem;
   --radius-xl: 1.75rem;
@@ -701,59 +706,112 @@ a {
   }
 }
 
-/* Process timeline */
-.process-grid {
+/* Method — editorial list (not a process card grid) */
+.method-layout {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
+  gap: 2.25rem;
+  align-items: start;
 }
 
-@media (min-width: 640px) {
-  .process-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
+.method-kicker {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-@media (min-width: 1024px) {
-  .process-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.method-heading {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(1.75rem, 3.5vw, 2.65rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #fff;
 }
 
-.process-step {
-  position: relative;
-  padding: 1.25rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  transition: border-color 0.3s ease;
+.method-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
 }
 
-@media (min-width: 640px) {
-  .process-step {
-    padding: 1.5rem;
-  }
+.method-row {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 1rem 1.25rem;
+  align-items: baseline;
+  padding: 1.55rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  transition: border-color 0.35s ease;
+}
+
+.method-index {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.method-body {
+  min-width: 0;
+}
+
+.method-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #fff;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.method-copy {
+  margin: 0.45rem 0 0;
+  max-width: 36rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--foreground) 58%, transparent);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .process-step:hover {
-    border-color: color-mix(in srgb, var(--foreground) 12%, var(--border));
+  .method-row:hover {
+    border-bottom-color: color-mix(in srgb, var(--foreground) 22%, transparent);
+  }
+
+  .method-row:hover .method-index {
+    color: color-mix(in srgb, var(--foreground) 78%, transparent);
+  }
+
+  .method-row:hover .method-title {
+    transform: translateX(3px);
   }
 }
 
-.process-step-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 9999px;
-  border: 1px solid var(--border);
-  background: var(--surface-elevated);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.75rem;
-  color: var(--muted);
+@media (min-width: 900px) {
+  .method-layout {
+    grid-template-columns: minmax(11rem, 0.38fr) minmax(0, 1fr);
+    gap: 3.5rem 4rem;
+  }
+
+  .method-aside {
+    position: sticky;
+    top: 6.5rem;
+  }
+
+  .method-row {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.85rem 0;
+  }
+
+  .method-copy {
+    font-size: 0.98rem;
+  }
 }
 
 /* Project cards */
@@ -1614,13 +1672,8 @@ a {
   justify-content: center;
 }
 
-.loader-logo {
-  width: 100px;
-  height: auto;
-  max-height: 80px;
-  object-fit: contain;
-  opacity: 0;
-  animation: loader-logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+.loader-brand-mark {
+  /* entrance handled by BrandMark */
 }
 
 @keyframes loader-progress-bar {
@@ -1640,27 +1693,10 @@ a {
   }
 }
 
-@keyframes loader-logo-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .loader-progress-bar {
     animation: none;
     width: 50%;
-  }
-
-  .loader-logo {
-    animation: none;
-    opacity: 1;
   }
 }
 

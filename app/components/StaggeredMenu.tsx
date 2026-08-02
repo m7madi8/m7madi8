@@ -2,6 +2,7 @@
 
 import { useCallback, useLayoutEffect, useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
+import BrandMark from "./BrandMark";
 import "./StaggeredMenu.css";
 
 export type StaggeredMenuItem = {
@@ -23,7 +24,6 @@ type StaggeredMenuProps = {
   displaySocials?: boolean;
   displayItemNumbering?: boolean;
   className?: string;
-  logoUrl?: string;
   menuButtonColor?: string;
   openMenuButtonColor?: string;
   accentColor?: string;
@@ -42,7 +42,6 @@ export function StaggeredMenu({
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  logoUrl = "",
   menuButtonColor = "#fff",
   openMenuButtonColor = "#fff",
   accentColor = "#5227FF",
@@ -457,20 +456,8 @@ export function StaggeredMenu({
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header" data-scrolled={scrolled || undefined}>
         <div className="sm-header-pill">
-          <div className="sm-logo" aria-label="Logo">
-            {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt="Logo"
-                className="sm-logo-img"
-                draggable={false}
-                width={110}
-                height={24}
-                loading="lazy"
-              />
-            ) : (
-              <span className="text-lg font-medium tracking-tight text-white">Mohammad</span>
-            )}
+          <div className="sm-logo">
+            <BrandMark href="/" size="md" tone="light" animate className="sm-brand-mark" />
           </div>
           <button
             ref={toggleBtnRef}

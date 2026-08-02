@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import mhMark from "../../../img/mh-mark.webp";
+import BrandMark from "../BrandMark";
 import LazyCustomCursor from "../LazyCustomCursor";
 import LinksChannels from "./LinksChannels";
 import LinksHero from "./LinksHero";
@@ -21,17 +20,14 @@ export default function LinksExperience({ projects }: Props) {
         <LazyCustomCursor />
 
         <header className="links-topbar">
-          <Link href="/" className="links-topbar-brand" data-cursor aria-label="Home">
-            <Image
-              src={mhMark}
-              alt="Mohammad Hroub"
-              width={40}
-              height={40}
-              className="links-topbar-logo"
-              priority
-              unoptimized
-            />
-          </Link>
+          <BrandMark
+            href="/"
+            size="md"
+            tone="light"
+            animate
+            className="links-topbar-brand"
+            aria-label="m. — Home"
+          />
           <Link href="/work" className="links-topbar-link" data-cursor>
             Archive
           </Link>
@@ -43,7 +39,14 @@ export default function LinksExperience({ projects }: Props) {
           <LinksShowcase items={projects} />
 
           <footer className="links-footer">
-            <p className="links-footer-mark">Mohammad Hroub</p>
+            <BrandMark
+              href={null}
+              size="sm"
+              tone="light"
+              animate={false}
+              className="links-footer-mark"
+              aria-label="m."
+            />
             <a
               href="mailto:eslamhuhu1@gmail.com"
               className="links-footer-cta"
