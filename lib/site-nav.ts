@@ -12,7 +12,13 @@ export type StaggeredMenuSocialItem = {
 export const menuItems: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home", link: "/" },
   { label: "Projects", ariaLabel: "View all projects", link: "/work" },
+  {
+    label: "Restaurants",
+    ariaLabel: "Restaurant and café work",
+    link: "/restaurants",
+  },
   { label: "Links", ariaLabel: "Digital identity links", link: "/links" },
+
   { label: "Contact", ariaLabel: "Get in touch", link: "/#contact" },
   { label: "Work Agreement", ariaLabel: "Work Agreement", link: "/agreement" },
 ];
