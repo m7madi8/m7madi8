@@ -8,7 +8,7 @@ import ProjectGalleryCarousel from "../../components/ProjectGalleryCarousel";
 import ProjectJsonLd from "../../components/ProjectJsonLd";
 import RevealManager from "../../components/RevealManager";
 import SiteFooter from "../../components/SiteFooter";
-import { isComingSoon, projects } from "../../data/projects";
+import { isComingSoon, projects, projectStatusLabel } from "../../data/projects";
 import { SEO_PERSON, buildPageMetadata } from "../../../lib/seo-config";
 
 export function generateStaticParams() {
@@ -78,7 +78,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
           <div className="flex items-center gap-4">
             {comingSoon ? (
-              <span className="badge">In development</span>
+              <span className="badge">{projectStatusLabel(project)}</span>
             ) : (
               <span className="badge badge-live">Live</span>
             )}
@@ -114,12 +114,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Hero image */}
         {project.image ? (
-          <div className="case-hero-image reveal mt-8 sm:mt-10" data-reveal>
+          <div
+            className={`case-hero-image reveal mt-8 sm:mt-10${
+              project.coverLayout === "poster" ? " case-hero-image--poster" : ""
+            }`}
+            data-reveal
+          >
             <Image
               src={project.image}
               alt={`${project.title} preview`}
               fill
-              className="object-cover"
+              className={
+                project.coverLayout === "poster" ? "object-contain" : "object-cover"
+              }
               sizes="(max-width: 1280px) 100vw, 1152px"
               priority
               decoding="async"
@@ -157,7 +164,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             >
               <p className="eyebrow">Status</p>
               <p className="mt-2 text-sm text-white">
-                In active development — publishing soon.
+                {project.status === "launching"
+                  ? project.result
+                  : "In active development — publishing soon."}
               </p>
             </div>
           ) : null}
@@ -174,7 +183,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
             <div>
               <p className="eyebrow">
-                {comingSoon ? "What's being built" : "What was built"}
+                {comingSoon && project.status !== "launching"
+                  ? "What's being built"
+                  : "What was built"}
               </p>
               <p className="mt-3 text-base leading-relaxed text-[color:var(--muted)]">
                 {project.build}

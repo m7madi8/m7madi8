@@ -19,9 +19,9 @@ import { projects } from "./data/projects";
 
 /** Curated homepage selection — full archive lives on /work */
 const FEATURED_SLUGS = [
+  "omino",
   "nanas-biets",
   "od-architects",
-  "interior-landscape-elegance",
   "99cafe",
 ] as const;
 

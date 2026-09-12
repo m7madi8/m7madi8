@@ -13,6 +13,7 @@ export type ShowcaseItem = {
   tech: string;
   href: string;
   external?: boolean;
+  coverLayout?: "poster";
 };
 
 type Props = {
@@ -61,12 +62,18 @@ export default function LinksShowcase({ items }: Props) {
           {items.map((item, index) => {
             const content = (
               <>
-                <div className="links-show-media">
+                <div
+                  className={`links-show-media${
+                    item.coverLayout === "poster" ? " links-show-media--poster" : ""
+                  }`}
+                >
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="links-show-image object-cover"
+                    className={`links-show-image ${
+                      item.coverLayout === "poster" ? "object-contain" : "object-cover"
+                    }`}
                     sizes="(max-width: 768px) 70vw, 28vw"
                     loading={index < 2 ? "eager" : "lazy"}
                     decoding="async"

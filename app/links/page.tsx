@@ -5,21 +5,21 @@ import { projects } from "../data/projects";
 import { SEO_PERSON, buildPageMetadata } from "../../lib/seo-config";
 
 const SHOWCASE_SLUGS = [
+  "omino",
   "nanas-biets",
   "99cafe",
   "nawal-omar-yoga",
   "interior-landscape-elegance",
   "od-architects",
-  "bashar-hroub",
 ] as const;
 
 const TECH_BY_SLUG: Record<string, string> = {
+  omino: "Product · Intelligence",
   "nanas-biets": "Next.js · Commerce UX",
   "99cafe": "React · Brand System",
   "nawal-omar-yoga": "Next.js · Bilingual",
   "interior-landscape-elegance": "Next.js · Editorial",
   "od-architects": "Next.js · Studio Site",
-  "bashar-hroub": "React · Vite · Motion",
 };
 
 export const metadata: Metadata = {
@@ -54,6 +54,7 @@ export default function LinksPage() {
       tech: TECH_BY_SLUG[slug] ?? "Web · Product",
       href: project.url ?? `/work/${project.slug}`,
       external: Boolean(project.url),
+      coverLayout: project.coverLayout,
     });
   }
 

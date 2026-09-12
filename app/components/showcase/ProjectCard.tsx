@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECT_SHOWCASE_META } from "../../data/project-showcase-meta";
-import { isComingSoon, type Project } from "../../data/projects";
+import { isComingSoon, projectStatusLabel, type Project } from "../../data/projects";
 import ProjectHoverEffect from "./ProjectHoverEffect";
 
 export type ProjectCardVariant = "featured" | "standard" | "editorial" | "compact";
@@ -43,7 +43,9 @@ export default function ProjectCard({
   return (
     <motion.article
       id={project.slug}
-      className={`showcase-card showcase-card--${variant} ${reverse ? "showcase-card--reverse" : ""} ${className}`}
+      className={`showcase-card showcase-card--${variant} ${reverse ? "showcase-card--reverse" : ""} ${
+        project.coverLayout === "poster" ? "showcase-card--poster" : ""
+      } ${className}`}
       initial={reduceMotion ? false : { opacity: 0, y: 36 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
@@ -60,7 +62,9 @@ export default function ProjectCard({
                 src={project.image}
                 alt={`${project.title} preview`}
                 fill
-                className="showcase-card-img object-cover"
+                className={`showcase-card-img ${
+                  project.coverLayout === "poster" ? "object-contain" : "object-cover"
+                }`}
                 sizes={sizes}
                 loading={variant === "featured" && index === 0 ? "eager" : "lazy"}
                 priority={variant === "featured" && index === 0}
@@ -82,7 +86,9 @@ export default function ProjectCard({
             <span className="showcase-card-dot" aria-hidden />
             <span className="showcase-card-category">{category}</span>
             {comingSoon ? (
-              <span className="showcase-card-status showcase-card-status--soon">In development</span>
+              <span className="showcase-card-status showcase-card-status--soon">
+                {projectStatusLabel(project)}
+              </span>
             ) : (
               <span className="showcase-card-status showcase-card-status--live">Live</span>
             )}

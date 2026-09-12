@@ -1063,6 +1063,24 @@ a {
   }
 }
 
+.case-hero-image--poster {
+  aspect-ratio: 4 / 5;
+  max-width: min(100%, 520px);
+  margin-inline: auto;
+  background: #000;
+}
+
+.case-hero-image--poster img {
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .case-hero-image--poster {
+    aspect-ratio: 4 / 5;
+    max-width: min(100%, 560px);
+  }
+}
+
 .case-carousel {
   --slide-span: 72%;
   position: relative;

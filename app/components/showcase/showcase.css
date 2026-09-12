@@ -74,6 +74,21 @@
   aspect-ratio: 16 / 9;
 }
 
+.showcase-card--poster .showcase-card-frame {
+  aspect-ratio: 4 / 5;
+  background: #000;
+}
+
+.showcase-card--poster .showcase-card-img {
+  object-fit: contain !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .showcase-card--poster:hover .showcase-card-img {
+    transform: none;
+  }
+}
+
 .showcase-card-img {
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   transform: scale(1);

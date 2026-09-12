@@ -73,6 +73,53 @@
   isolation: isolate;
 }
 
+.featured-card--poster .featured-card-frame {
+  aspect-ratio: 4 / 5;
+  background: #000;
+}
+
+.featured-card--poster .featured-card-img {
+  object-fit: contain !important;
+  object-position: center center;
+}
+
+.featured-card--poster .featured-card-veil {
+  opacity: 0.2;
+  background: linear-gradient(
+    180deg,
+    transparent 72%,
+    rgba(6, 7, 8, 0.35) 100%
+  );
+}
+
+@media (min-width: 900px) {
+  .featured-card--lead.featured-card--poster {
+    grid-column: 1 / -1;
+  }
+
+  .featured-card--lead.featured-card--poster .featured-card-shell {
+    display: grid;
+    grid-template-columns: minmax(260px, 42%) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .featured-card--lead.featured-card--poster .featured-card-media,
+  .featured-card--lead.featured-card--poster .featured-card-frame {
+    height: 100%;
+    max-height: 760px;
+  }
+
+  .featured-card--lead.featured-card--poster .featured-card-body {
+    justify-content: center;
+    padding: 2rem 2.4rem 2.2rem;
+  }
+
+  .featured-card--lead.featured-card--poster .featured-card-copy {
+    -webkit-line-clamp: 4;
+    max-width: 38rem;
+  }
+}
+
 .featured-card-img {
   object-fit: cover !important;
   object-position: center center;
@@ -85,6 +132,10 @@
 @media (hover: hover) and (pointer: fine) {
   .featured-card:hover .featured-card-img {
     transform: scale(1.045);
+  }
+
+  .featured-card--poster:hover .featured-card-img {
+    transform: none;
   }
 }
 

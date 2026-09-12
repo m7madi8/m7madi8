@@ -1,3 +1,4 @@
+import imageOmino from "../../img/omino-s26-ultra-poster-1440x1800.png";
 import type { StaticImageData } from "next/image";
 import image99 from "../../img/99.webp";
 import imageSamarammar from "../../img/samar-ammar-cover.webp";
@@ -26,7 +27,7 @@ import cafeUiNavigation from "../../img/99cafe/ui-navigation.webp";
 import cafeUiMenu from "../../img/99cafe/ui-menu.webp";
 import cafeUiDrinks from "../../img/99cafe/ui-drinks.webp";
 
-export type ProjectStatus = "live" | "coming-soon";
+export type ProjectStatus = "live" | "coming-soon" | "launching";
 
 export type ProjectGalleryItem = {
   src: StaticImageData;
@@ -40,6 +41,8 @@ export type Project = {
   context: string;
   summary: string;
   image?: StaticImageData;
+  /** Portrait device posters should not be cropped in landscape frames */
+  coverLayout?: "poster";
   gallery?: ProjectGalleryItem[];
   galleryTitle?: string;
   galleryDescription?: string;
@@ -57,7 +60,13 @@ export type Project = {
 };
 
 export function isComingSoon(project: Project): boolean {
-  return project.status === "coming-soon";
+  return project.status === "coming-soon" || project.status === "launching";
+}
+
+export function projectStatusLabel(project: Project): string {
+  if (project.status === "launching") return "Launching";
+  if (project.status === "coming-soon") return "In development";
+  return "Live";
 }
 
 export function getLiveProjects(): Project[] {
@@ -65,6 +74,29 @@ export function getLiveProjects(): Project[] {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "omino",
+    title: "OMINO",
+    status: "launching",
+    image: imageOmino,
+    coverLayout: "poster",
+    category: "Product · Founder",
+    context: "AI Business OS",
+    summary:
+      "The shop already has the numbers. OMINO gives them a place to live — and a voice that tells the owner what to do next.",
+    overview:
+      "Small businesses run on fragments: WhatsApp, Instagram, cash, and a store that never talks to the counter. OMINO is the operating layer behind the business — one system, one picture, the owner still in control.",
+    goal:
+      "Stop asking the owner to be the glue. Unify the shop, the store, and the books — then explain what changed in language they already use.",
+    build:
+      "A full business OS: sales at the counter and online, stock, customers, money in and out, and a quiet intelligence layer that recommends the next move. Arabic and English, built RTL-native, with the same inventory in both worlds.",
+    work: [
+      "A product language for owners — not another dashboard of charts they will ignore.",
+      "One inventory for the physical counter and the online store, so the business never splits in two.",
+      "An intelligence layer that reads what happened and suggests what to do — without taking the wheel.",
+    ],
+    result: "Built and ready. Launching early 2027.",
+  },
   {
     slug: "99cafe",
     title: "99cafe",

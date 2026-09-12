@@ -3,6 +3,10 @@ export const PROJECT_SHOWCASE_META: Record<
   string,
   { category: string; stack: string[] }
 > = {
+  omino: {
+    category: "Product · Founder",
+    stack: ["Product", "Brand", "Intelligence"],
+  },
   "99cafe": {
     category: "Brand · Cafe",
     stack: ["Next.js", "TypeScript", "Tailwind"],

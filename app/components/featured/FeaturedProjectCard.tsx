@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECT_SHOWCASE_META } from "../../data/project-showcase-meta";
-import { isComingSoon, type Project } from "../../data/projects";
+import { isComingSoon, projectStatusLabel, type Project } from "../../data/projects";
 import ProjectHoverEffect from "../showcase/ProjectHoverEffect";
 
 type FeaturedProjectCardProps = {
@@ -28,7 +28,9 @@ export default function FeaturedProjectCard({
 
   return (
     <motion.article
-      className={`featured-card${lead ? " featured-card--lead" : ""}`}
+      className={`featured-card${lead ? " featured-card--lead" : ""}${
+        project.coverLayout === "poster" ? " featured-card--poster" : ""
+      }`}
       initial={reduceMotion ? false : { opacity: 0, y: 36 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
@@ -51,7 +53,9 @@ export default function FeaturedProjectCard({
                 src={project.image}
                 alt={`${project.title} preview`}
                 fill
-                className="featured-card-img object-cover"
+                className={`featured-card-img ${
+                  project.coverLayout === "poster" ? "object-contain" : "object-cover"
+                }`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 560px"
                 priority={index < 2}
                 loading={index < 2 ? "eager" : "lazy"}
@@ -72,7 +76,7 @@ export default function FeaturedProjectCard({
             <span className="featured-card-category">{category}</span>
             {comingSoon ? (
               <span className="featured-card-status featured-card-status--soon">
-                In development
+                {projectStatusLabel(project)}
               </span>
             ) : (
               <span className="featured-card-status featured-card-status--live">

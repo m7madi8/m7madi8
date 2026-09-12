@@ -325,12 +325,21 @@
   border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
 }
 
+.links-show-media--poster {
+  aspect-ratio: 4 / 5;
+  background: #000;
+}
+
 .links-show-image {
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .links-show-card-link:hover .links-show-image {
   transform: scale(1.04);
+}
+
+.links-show-card-link:hover .links-show-media--poster .links-show-image {
+  transform: none;
 }
 
 .links-show-media-veil {

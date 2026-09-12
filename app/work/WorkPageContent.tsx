@@ -11,7 +11,8 @@ import { menuItems, socialItems } from "../../lib/site-nav";
 
 export default function WorkPageContent() {
   const liveCount = getLiveProjects().length;
-  const inDevCount = projects.length - liveCount;
+  const launchingCount = projects.filter((p) => p.status === "launching").length;
+  const inDevCount = projects.filter((p) => p.status === "coming-soon").length;
 
   return (
     <div className="relative overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
@@ -55,6 +56,9 @@ export default function WorkPageContent() {
 
           <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
             <span className="badge badge-live">{liveCount} Live</span>
+            {launchingCount > 0 ? (
+              <span className="badge">{launchingCount} Launching</span>
+            ) : null}
             <span className="badge">{inDevCount} In Development</span>
             <span className="badge">{projects.length} Total Cases</span>
           </div>
