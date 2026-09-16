@@ -9,13 +9,16 @@ import { menuItems, socialItems } from "../lib/site-nav";
 import ContactSocialLinks from "./components/ContactSocialLinks";
 import { FeaturedProjects } from "./components/featured";
 import Hero from "./components/Hero";
+import HomeCta from "./components/HomeCta";
+import HomeSignature from "./components/HomeSignature";
 import LazyContactForm from "./components/LazyContactForm";
 import LazyCustomCursor from "./components/LazyCustomCursor";
 import LazyStaggeredMenu from "./components/LazyStaggeredMenu";
 import RevealManager from "./components/RevealManager";
+import ScrollFloat from "./components/ScrollFloat";
 import SectionHeader from "./components/SectionHeader";
 import SiteFooter from "./components/SiteFooter";
-import { projects } from "./data/projects";
+import { getLiveProjects, projects } from "./data/projects";
 
 /** Curated homepage selection — full archive lives on /work */
 const FEATURED_SLUGS = [
@@ -23,6 +26,7 @@ const FEATURED_SLUGS = [
   "nanas-biets",
   "od-architects",
   "99cafe",
+  "nawal-omar-yoga",
 ] as const;
 
 export const metadata: Metadata = {
@@ -33,8 +37,10 @@ export const metadata: Metadata = {
     keywords: [
       "Silent Code Massive Impact",
       "hire full-stack developer",
+      "operational systems developer",
+      "business dashboard developer",
       "استئجار مطور ويب",
-      "مواقع احترافية",
+      "أنظمة تشغيل رقمية للأعمال",
       "مطور Next.js",
     ],
     ogTitle: defaultOgTitle,
@@ -56,12 +62,12 @@ export default function Home() {
     {
       step: "02",
       title: "Shape the system",
-      copy: "Structure, stack, and decisions that won’t rot in six months.",
+      copy: "Structure, stack, and the decisions — screens, data, workflows — that won’t rot in six months.",
     },
     {
       step: "03",
       title: "Build with restraint",
-      copy: "Clean UI, fast code, nothing decorative without a job.",
+      copy: "Clean UI, reliable systems, nothing decorative without a job.",
     },
     {
       step: "04",
@@ -70,8 +76,10 @@ export default function Home() {
     },
   ];
 
+  const liveCount = getLiveProjects().length;
+
   return (
-    <div className="relative overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="relative bg-[color:var(--background)] text-[color:var(--foreground)]">
       <LazyCustomCursor />
       <RevealManager />
       <LazyStaggeredMenu
@@ -81,57 +89,53 @@ export default function Home() {
         displaySocials
         displayItemNumbering
         menuButtonColor="#ffffff"
-        openMenuButtonColor="#000000"
-        changeMenuColorOnOpen
-        colors={["#060708", "#1a1c22", "#6b7280"]}
+        openMenuButtonColor="#ffffff"
+        colors={["#060708", "#111318", "#1a1c22"]}
         accentColor="var(--button-border)"
         isFixed={true}
         closeOnClickAway
+        changeMenuColorOnOpen={false}
       />
 
-      <Hero />
+      <HomeSignature>
+        <Hero />
+      </HomeSignature>
 
       <main className="relative z-10 mx-auto max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
         <section id="work" className="section-block" aria-label="Featured projects">
-          <div className="reveal mb-8 sm:mb-10" data-reveal>
-            <SectionHeader
-              eyebrow="Featured Work"
-              title="Selected projects. Elevated craft."
-              description="Four pieces that define the standard — clarity, performance, and a premium digital presence."
-              className="mb-0 max-w-2xl"
-            />
-          </div>
+          <SectionHeader
+            index="01"
+            eyebrow="Featured Work"
+            title="Different problems. One standard."
+            description="Five projects, two kinds of problems — the experience customers see, and the systems running behind it."
+            className="mb-8 sm:mb-10"
+          />
 
           <FeaturedProjects projects={featuredProjects} />
         </section>
 
-        <section className="section-block">
-          <div className="cta-banner reveal text-center" data-reveal>
-            <div className="cta-banner-inner">
-              <p className="eyebrow">Ready to start?</p>
-              <h2 className="section-title mx-auto mt-3 max-w-2xl font-medium sm:mt-4">
-                Let&apos;s build your next big thing.
-              </h2>
-              <p className="mx-auto mt-3 max-w-lg text-sm text-[color:var(--muted)] sm:mt-4 sm:text-base">
-                From idea to launch — clear process, high quality, and results you
-                can measure.
-              </p>
-              <a
-                href="#contact"
-                className="btn-primary mt-6 inline-flex w-full max-w-xs justify-center px-8 py-3.5 sm:mt-8 sm:w-auto sm:py-4"
-                data-cursor
-              >
-                Get in Touch
-              </a>
-            </div>
-          </div>
-        </section>
+        <HomeCta liveCount={liveCount} />
 
-        <section className="section-block" aria-label="Method">
+        <section id="method" className="section-block" aria-label="Method">
           <div className="method-layout">
-            <div className="method-aside reveal" data-reveal>
-              <p className="method-kicker">Method</p>
-              <h2 className="method-heading">How the work happens.</h2>
+            <div className="method-aside">
+              <div className="section-eyebrow-row reveal" data-reveal>
+                <span className="section-index" aria-hidden>
+                  02
+                </span>
+                <p className="method-kicker">Method</p>
+              </div>
+              <ScrollFloat
+                as="h2"
+                className="method-heading"
+                animationDuration={1}
+                ease="back.inOut(2)"
+                scrollStart="center bottom+=50%"
+                scrollEnd="bottom bottom-=40%"
+                stagger={0.03}
+              >
+                How the work happens.
+              </ScrollFloat>
             </div>
 
             <ol className="method-list">
@@ -152,44 +156,47 @@ export default function Home() {
 
         <section id="contact" className="section-block">
           <SectionHeader
+            index="03"
             eyebrow="Contact"
-            title="Available for new projects."
-            description="I take on a limited number of projects to keep quality high. Let's talk about yours."
+            title="Have a business that needs better digital infrastructure?"
+            description="I take on a limited number of projects to keep quality high — websites, operational systems, or both. Let's talk about yours."
           />
 
-          <div className="contact-grid mt-8 sm:mt-12">
-            <div className="space-y-3 sm:space-y-4">
-              <div className="contact-info-item reveal" data-reveal>
-                <div className="contact-info-icon" aria-hidden>
-                  ✉
-                </div>
-                <div className="min-w-0">
-                  <p className="eyebrow">Email</p>
-                  <p className="mt-1 truncate text-sm text-white">
-                    {SEO_PERSON.email}
-                  </p>
-                </div>
-              </div>
-              <div className="contact-info-item reveal" data-reveal>
-                <div className="contact-info-icon" aria-hidden>
-                  ◎
-                </div>
-                <div>
-                  <p className="eyebrow">Location</p>
-                  <p className="mt-1 text-sm text-white">Remote — Worldwide</p>
-                </div>
+          <div className="contact-layout">
+            <div className="contact-aside">
+              <a
+                className="contact-action reveal"
+                data-reveal
+                href={`mailto:${SEO_PERSON.email}`}
+                data-cursor
+              >
+                <span className="contact-action-index">01</span>
+                <span className="contact-action-copy">
+                  <span className="contact-action-label">Email</span>
+                  <span className="contact-action-value">{SEO_PERSON.email}</span>
+                </span>
+                <span className="contact-action-go">Write</span>
+              </a>
+              <div className="contact-action contact-action--static reveal" data-reveal>
+                <span className="contact-action-index">02</span>
+                <span className="contact-action-copy">
+                  <span className="contact-action-label">Location</span>
+                  <span className="contact-action-value">Remote — Worldwide</span>
+                </span>
+                <span className="contact-action-go">Open</span>
               </div>
               <ContactSocialLinks />
             </div>
 
-            <div className="reveal surface-card p-5 sm:p-8" data-reveal>
+            <div className="reveal" data-reveal>
               <LazyContactForm />
             </div>
           </div>
         </section>
 
-        <SiteFooter />
       </main>
+
+      <SiteFooter />
     </div>
   );
 }

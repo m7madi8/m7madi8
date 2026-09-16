@@ -47,7 +47,6 @@ export default function ContactForm() {
     setStatus("loading");
 
     try {
-      // 1) إرسال الطلب إلى بريدك عبر Web3Forms
       if (web3formsKey) {
         const res = await fetch(WEB3FORMS_ENDPOINT, {
           method: "POST",
@@ -68,7 +67,6 @@ export default function ContactForm() {
         }
       }
 
-      // 2) حفظ في Firebase إن كان مفعّلاً
       if (isFirebaseConfigured) {
         const db = await getDb();
         if (db) {
@@ -82,7 +80,6 @@ export default function ContactForm() {
         }
       }
 
-      // إذا لم يكن هناك Web3Forms ولا Firebase → عرض رابط mailto بدل فتحه (لتجنب نافذة اختيار التطبيق على الموبايل)
       if (!web3formsKey && !isFirebaseConfigured) {
         const subject = encodeURIComponent(`${SITE_NAME} – New contact`);
         const body = encodeURIComponent(
@@ -105,19 +102,17 @@ export default function ContactForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="grid w-full gap-5 sm:grid-cols-2"
-      suppressHydrationWarning
-    >
+    <form onSubmit={handleSubmit} className="contact-form" suppressHydrationWarning>
+      <div className="contact-form-head">
+        <p className="contact-form-kicker">Brief</p>
+        <h3 className="contact-form-title">Tell me about the work.</h3>
+      </div>
+
       {status !== "success" && (
-        <>
-          <div className="space-y-2 sm:col-span-2 sm:max-w-xs">
-            <label
-              htmlFor="contact-name"
-              className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
-            >
-              Name <span className="text-red-400">*</span>
+        <div className="contact-fields">
+          <div className="contact-field contact-field--wide">
+            <label htmlFor="contact-name">
+              Name <span className="contact-req">*</span>
             </label>
             <input
               id="contact-name"
@@ -126,35 +121,27 @@ export default function ContactForm() {
               onChange={(e) => setName(e.target.value)}
               disabled={status === "loading"}
               required
-              className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
+              className="contact-input"
               placeholder="Your name"
               suppressHydrationWarning
             />
           </div>
-          <div className="space-y-2 sm:max-w-xs">
-            <label
-              htmlFor="contact-email"
-              className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
-            >
-              Email
-            </label>
+          <div className="contact-field">
+            <label htmlFor="contact-email">Email</label>
             <input
               id="contact-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={status === "loading"}
-              className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
-              placeholder="Your email"
+              className="contact-input"
+              placeholder="you@studio.com"
               suppressHydrationWarning
             />
           </div>
-          <div className="space-y-2 sm:max-w-xs">
-            <label
-              htmlFor="contact-phone"
-              className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
-            >
-              Phone <span className="text-red-400">*</span>
+          <div className="contact-field">
+            <label htmlFor="contact-phone">
+              Phone <span className="contact-req">*</span>
             </label>
             <input
               id="contact-phone"
@@ -163,76 +150,60 @@ export default function ContactForm() {
               onChange={(e) => setPhone(e.target.value)}
               disabled={status === "loading"}
               required
-              className="contact-input w-full select-text rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
+              className="contact-input"
               placeholder="Phone or WhatsApp"
               suppressHydrationWarning
             />
           </div>
-          <div className="space-y-2 sm:col-span-2">
-            <label
-              htmlFor="contact-notes"
-              className="block font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]"
-            >
-              Message <span className="text-red-400">*</span>
+          <div className="contact-field contact-field--wide">
+            <label htmlFor="contact-notes">
+              Message <span className="contact-req">*</span>
             </label>
             <textarea
               id="contact-notes"
-              rows={4}
+              rows={5}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               disabled={status === "loading"}
               required
-              className="contact-input w-full resize-y rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 text-sm text-white placeholder:text-[color:var(--muted)] focus:border-[color:var(--button-border)] focus:outline-none focus:ring-1 focus:ring-[color:var(--button-border)] disabled:opacity-60"
-              placeholder="Your message or project details..."
+              className="contact-input contact-input--area"
+              placeholder="Goals, timeline, and what done looks like."
             />
           </div>
-        </>
+        </div>
       )}
 
       {status === "success" && (
-        <div className="sm:col-span-2 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-8 text-center">
-          <p className="eyebrow text-[color:var(--muted)]">Message sent</p>
-          <h3 className="mt-3 text-xl font-medium tracking-tight text-white sm:text-2xl">
-            Thank you for reaching out.
-          </h3>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[color:var(--muted)]">
-            I&apos;ll get back to you as soon as possible.
-          </p>
-          <div className="mx-auto mt-6 h-px w-12 bg-[color:var(--border)]" aria-hidden />
+        <div className="contact-form-success">
+          <p className="contact-form-kicker">Sent</p>
+          <h3>Thank you for reaching out.</h3>
+          <p>I&apos;ll get back to you as soon as possible.</p>
         </div>
       )}
+
       {mailtoUrl && (
-        <div className="sm:col-span-2 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-6">
-          <p className="text-sm text-[color:var(--muted)]">
-            To send your message, open your email app by clicking the link below:
-          </p>
-          <a
-            href={mailtoUrl}
-            className="mt-3 inline-block text-sm font-medium text-white underline decoration-[color:var(--border)] underline-offset-2 hover:decoration-white"
-          >
-            Send via email
-          </a>
+        <div className="contact-form-mailto">
+          <p>Open your email app to send this brief:</p>
+          <a href={mailtoUrl}>Send via email →</a>
         </div>
       )}
 
       {status === "error" && (
-        <p className="sm:col-span-2 text-sm text-red-400">
-          {errorMessage || "Failed to send. Try again or use the email link below."}
+        <p className="contact-form-status" role="alert">
+          {errorMessage || "Failed to send. Try again or use the email action."}
         </p>
       )}
 
       {status !== "success" && (
-        <div className="sm:col-span-2">
-          <button
-            type="submit"
-            disabled={status === "loading" || !canSubmit}
-            className="btn-primary px-6 py-3 disabled:opacity-60 disabled:cursor-not-allowed"
-            data-cursor
-            suppressHydrationWarning
-          >
-            {status === "loading" ? "Sending…" : "Send"}
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={status === "loading" || !canSubmit}
+          className="btn-primary contact-submit"
+          data-cursor
+          suppressHydrationWarning
+        >
+          {status === "loading" ? "Sending…" : "Send brief"}
+        </button>
       )}
     </form>
   );

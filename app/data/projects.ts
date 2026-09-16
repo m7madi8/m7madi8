@@ -80,7 +80,7 @@ export const projects: Project[] = [
     status: "launching",
     image: imageOmino,
     coverLayout: "poster",
-    category: "Product · Founder",
+    category: "Operational System · Founder",
     context: "AI Business OS",
     summary:
       "The shop already has the numbers. OMINO gives them a place to live — and a voice that tells the owner what to do next.",
@@ -158,7 +158,8 @@ export const projects: Project[] = [
     build: "A clean, responsive site with focused sections.",
     work: ["Structured the content flow.", "Optimized for mobile speed."],
     result: "A clear, reliable site that supports the cafe’s presence.",
-    overview: "Clean branding, fast pages, and an easy menu experience.",
+    overview:
+      "A cafe brand that needed to look as sharp online as the space does — fast pages, a clear menu, no friction between browsing and visiting.",
   },
   {
     slug: "nawal-omar-yoga",
@@ -179,7 +180,7 @@ export const projects: Project[] = [
     result:
       "A trustworthy, easy-to-navigate presence that reflects the brand’s calm, professional approach.",
     overview:
-      "Wellness-focused web experience — yoga, workshops, and retreats in a clear bilingual format.",
+      "A yoga practice serving English and Arabic-speaking clients needed one site that works cleanly in both — not a translated afterthought.",
   },
   {
     slug: "interior-landscape-elegance",
@@ -232,7 +233,7 @@ export const projects: Project[] = [
     result:
       "A brand-led studio site that communicates full-service design and builds client trust.",
     overview:
-      "Interior, exterior, and landscape design — from vision to supervision and build.",
+      "An architecture studio needed a site that read as considered as their buildings. Rebuilt section by section around their actual projects, not a template gallery.",
   },
   {
     slug: "shape-up",
@@ -325,7 +326,7 @@ export const projects: Project[] = [
     result:
       "A premium storefront that matches Chef Farah Ammar's brand and supports online orders.",
     overview:
-      "Chef Farah Ammar — premium treats in a dedicated online store.",
+      "Chef Farah Ammar was taking orders over Instagram DMs. Built a dedicated store with a real ordering flow for her dumplings, date balls, and sauces.",
   },
   {
     slug: "darna",
@@ -386,24 +387,5 @@ export const projects: Project[] = [
     result: "In active development — publishing soon.",
     overview:
       "Contemporary artist portfolio — gallery, motion, and commission inquiry, built with React, Vite, and Framer Motion.",
-  },
-  {
-    slug: "nora-harb",
-    title: "Nora Harb",
-    status: "coming-soon",
-    context: "Vinyasa yoga instructor — personal brand site",
-    summary:
-      "A calm, refined personal site for a Vinyasa yoga instructor (RYT 300) — geometric precision meets the presence of practice.",
-    goal: "Let visitors meet Nora, explore recorded video courses (each with its own page and content), and book live sessions (studio · beach · private) through direct contact.",
-    build:
-      "A quiet luxury landing with instructor story, dedicated online course pages, and clear paths to book personal sessions.",
-    work: [
-      "Brand presence that balances geometric structure with a yoga-led tone.",
-      "Recorded course pages with dedicated content per program.",
-      "Booking paths for studio, beach, and private live sessions.",
-    ],
-    result: "In active development — publishing soon.",
-    overview:
-      "Yoga instructor landing — calm identity, online courses, and personal session booking.",
   },
 ];

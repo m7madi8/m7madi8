@@ -11,20 +11,20 @@ export const DEFAULT_SITE_URL = "https://mohammadhroub.com";
 export const SEO_PERSON = {
   nameEn: "Mohammad Hroub",
   nameAr: "محمد حروب",
-  jobTitle: "Full-Stack Web Developer",
-  jobTitleAr: "مطور ويب Full-Stack",
+  jobTitle: "Full-Stack Developer — Websites & Operational Systems",
+  jobTitleAr: "مطور Full-Stack — مواقع وأنظمة تشغيل رقمية",
   email: "eslamhuhu1@gmail.com",
   taglineEn:
-    "Freelance full-stack developer — modern websites, high performance, clear delivery.",
+    "Freelance full-stack developer — websites and the operational systems behind them.",
   taglineAr:
-    "مطور ويب مستقل — مواقع حديثة، أداء عالٍ، وتسليم احترافي.",
+    "مطور ويب مستقل — مواقع وأنظمة تشغيل رقمية للأعمال.",
   descriptionEn:
-    "Mohammad Hroub — Full-Stack Web Developer & freelancer. Portfolio showcasing React, Next.js, and scalable web apps. Available for remote projects worldwide.",
+    "Mohammad Hroub — Full-stack developer building websites and the operational systems behind them, for businesses worldwide.",
   descriptionAr:
-    "محمد حروب — مطور ويب Full-Stack ومستقل. معرض أعمال React وNext.js وتطبيقات ويب قابلة للتوسع. متاح للمشاريع عن بُعد.",
+    "محمد حروب — مطور ويب مستقل يبني مواقع وأنظمة تشغيل رقمية للأعمال حول العالم.",
   /** وصف مeta يجمع العربية والإنجليزية لمحركات البحث */
   description:
-    "Mohammad Hroub | محمد حروب — Full-Stack Web Developer & freelance portfolio. React, Next.js, TypeScript. مطور ويب مستقل — تطوير مواقع احترافي.",
+    "Mohammad Hroub | محمد حروب — Full-stack developer building websites and the operational systems behind them, for businesses worldwide. React, Next.js, TypeScript, Supabase. مطور ويب مستقل — مواقع وأنظمة تشغيل رقمية للأعمال.",
   sameAs: [
     "https://www.instagram.com/mohammad._dev/",
     "https://wa.me/972592132438",
@@ -58,7 +58,11 @@ export const SEO_KEYWORDS = [
   "Mohammad Hroub portfolio",
   "portfolio محمد حروب",
   "hire web developer",
+  "hire full-stack developer",
+  "operational systems developer",
+  "business dashboard developer",
   "تصميم وتطوير مواقع",
+  "أنظمة تشغيل رقمية للأعمال",
 ] as const;
 
 /** أسئلة شائعة — FAQ schema لمحركات البحث (EN + AR) */
@@ -67,15 +71,15 @@ export const SEO_FAQ = [
     questionEn: "Who is Mohammad Hroub?",
     questionAr: "من هو محمد حروب؟",
     answerEn:
-      "Mohammad Hroub is a freelance Full-Stack Web Developer specializing in React, Next.js, and TypeScript — building fast, scalable websites and web apps for clients worldwide.",
+      "Mohammad Hroub is a freelance Full-Stack Developer specializing in React, Next.js, and TypeScript — building websites and the operational systems behind them for clients worldwide.",
     answerAr:
-      "محمد حروب مطور ويب Full-Stack مستقل، متخصص في React وNext.js وTypeScript — يبني مواقع وتطبيقات ويب سريعة وقابلة للتوسع للعملاء حول العالم.",
+      "محمد حروب مطور Full-Stack مستقل، متخصص في React وNext.js وTypeScript — يبني مواقع وأنظمة تشغيل رقمية للأعمال حول العالم.",
   },
   {
     questionEn: "What services does Mohammad Hroub offer?",
     questionAr: "ما الخدمات التي يقدمها محمد حروب؟",
     answerEn:
-      "Full-stack web development: custom websites, e-commerce, dashboards, API integration, performance optimization, and deployment — from discovery to launch.",
+      "Websites, operational systems, and digital products: custom sites, e-commerce, dashboards, workflows, API integration, and deployment — from discovery to launch.",
     answerAr:
       "تطوير ويب Full-Stack: مواقع مخصصة، متاجر إلكترونية، لوحات تحكم، ربط APIs، تحسين الأداء، والنشر — من التخطيط حتى الإطلاق.",
   },
@@ -100,7 +104,7 @@ export const SEO_FAQ = [
 export const defaultPageTitle = "Mohammad Hroub";
 
 export const defaultOgTitle =
-  "Mohammad Hroub — Full-Stack Web Developer | محمد حروب";
+  "Mohammad Hroub — Websites & Operational Systems | محمد حروب";
 
 export function getSiteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) {

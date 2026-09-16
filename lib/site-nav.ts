@@ -9,6 +9,12 @@ export type StaggeredMenuSocialItem = {
   link: string;
 };
 
+export const headerLinks = [
+  { num: "01", label: "Work", href: "/work" },
+  { num: "02", label: "Method", href: "/#method" },
+  { num: "03", label: "Contact", href: "/#contact" },
+] as const;
+
 export const menuItems: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home", link: "/" },
   { label: "Projects", ariaLabel: "View all projects", link: "/work" },

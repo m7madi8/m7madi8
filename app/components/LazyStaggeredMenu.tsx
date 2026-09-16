@@ -3,15 +3,11 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import type { StaggeredMenuItem, StaggeredMenuSocialItem } from "./StaggeredMenu";
+import "./StaggeredMenu.css";
 
 const StaggeredMenu = dynamic(() => import("./StaggeredMenu"), {
   ssr: false,
-  loading: () => (
-    <div
-      className="fixed right-6 top-8 z-[100] h-11 w-11 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm sm:right-10"
-      aria-hidden
-    />
-  ),
+  loading: () => <MenuPlaceholder />,
 });
 
 type LazyStaggeredMenuProps = {
@@ -34,16 +30,21 @@ type LazyStaggeredMenuProps = {
 
 function MenuPlaceholder() {
   return (
-    <div
-      className="fixed right-6 top-8 z-[100] h-11 w-11 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm sm:right-10"
-      aria-hidden
-    />
+    <div className="staggered-menu-wrapper fixed-wrapper" aria-hidden>
+      <header className="sm-header-placeholder">
+        <div className="sm-header-inner">
+          <div className="sm-logo" />
+          <nav className="sm-inline-nav" />
+          <span className="sm-toggle">
+            <span className="sm-toggle-textWrap">Menu</span>
+            <span className="sm-toggle-mark" />
+          </span>
+        </div>
+      </header>
+    </div>
   );
 }
 
-/**
- * Defers GSAP menu until idle / first interaction to reduce TBT and LCP impact.
- */
 export default function LazyStaggeredMenu(props: LazyStaggeredMenuProps) {
   const [ready, setReady] = useState(false);
 
@@ -83,6 +84,17 @@ export default function LazyStaggeredMenu(props: LazyStaggeredMenuProps) {
     };
   }, []);
 
-  if (!ready) return <MenuPlaceholder />;
-  return <StaggeredMenu {...props} />;
+  if (!ready) {
+    return (
+      <div className="lazy-staggered-menu-slot">
+        <MenuPlaceholder />
+      </div>
+    );
+  }
+
+  return (
+    <div className="lazy-staggered-menu-slot">
+      <StaggeredMenu {...props} />
+    </div>
+  );
 }

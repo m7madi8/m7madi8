@@ -4,7 +4,7 @@ export const PROJECT_SHOWCASE_META: Record<
   { category: string; stack: string[] }
 > = {
   omino: {
-    category: "Product · Founder",
+    category: "Operational System · Founder",
     stack: ["Product", "Brand", "Intelligence"],
   },
   "99cafe": {
@@ -50,9 +50,5 @@ export const PROJECT_SHOWCASE_META: Record<
   "bashar-hroub": {
     category: "Artist Portfolio",
     stack: ["React", "Vite", "Framer Motion"],
-  },
-  "nora-harb": {
-    category: "Wellness · Yoga",
-    stack: ["Next.js", "TypeScript", "Tailwind"],
   },
 };

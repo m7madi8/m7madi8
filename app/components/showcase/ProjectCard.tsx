@@ -29,31 +29,35 @@ export default function ProjectCard({
   const comingSoon = isComingSoon(project);
   const meta = PROJECT_SHOWCASE_META[project.slug];
   const category = project.category ?? meta?.category ?? project.context;
-  const stack = project.stack ?? meta?.stack ?? [];
   const caseNumber = String(index + 1).padStart(2, "0");
   const href = `/work/${project.slug}`;
 
   const sizes =
     variant === "featured"
-      ? "(max-width: 1024px) 100vw, 70vw"
-      : variant === "editorial"
-        ? "(max-width: 1024px) 100vw, 55vw"
-        : "(max-width: 1024px) 100vw, 40vw";
+      ? "(max-width: 1024px) 100vw, 56vw"
+      : "(max-width: 899px) 100vw, 50vw";
 
   return (
     <motion.article
       id={project.slug}
       className={`showcase-card showcase-card--${variant} ${reverse ? "showcase-card--reverse" : ""} ${
-        project.coverLayout === "poster" ? "showcase-card--poster" : ""
+        project.coverLayout === "poster" ||
+        (project.image && project.image.height > project.image.width)
+          ? "showcase-card--poster"
+          : ""
       } ${className}`}
-      initial={reduceMotion ? false : { opacity: 0, y: 36 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 40 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: Math.min(index * 0.06, 0.24) }}
+      viewport={{ once: true, amount: 0.12, margin: "0px 0px -4% 0px" }}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: reduceMotion ? 0 : Math.min(index * 0.06, 0.28),
+      }}
     >
       <ProjectHoverEffect
         className="showcase-card-hover"
-        intensity={variant === "featured" ? 5 : 7}
+        intensity={variant === "featured" ? 4 : 5}
       >
         <Link href={href} className="showcase-card-media" data-cursor aria-label={`${project.title} case study`}>
           <div className="showcase-card-frame">
@@ -62,9 +66,8 @@ export default function ProjectCard({
                 src={project.image}
                 alt={`${project.title} preview`}
                 fill
-                className={`showcase-card-img ${
-                  project.coverLayout === "poster" ? "object-contain" : "object-cover"
-                }`}
+                className="showcase-card-img"
+                style={{ objectFit: "cover", objectPosition: "center" }}
                 sizes={sizes}
                 loading={variant === "featured" && index === 0 ? "eager" : "lazy"}
                 priority={variant === "featured" && index === 0}
@@ -101,14 +104,6 @@ export default function ProjectCard({
           </h3>
 
           <p className="showcase-card-summary">{project.overview || project.summary}</p>
-
-          {stack.length > 0 ? (
-            <ul className="showcase-card-stack" aria-label="Technologies">
-              {stack.map((tech) => (
-                <li key={tech}>{tech}</li>
-              ))}
-            </ul>
-          ) : null}
 
           <div className="showcase-card-actions">
             <Link href={href} className="showcase-card-cta" data-cursor>

@@ -7,7 +7,7 @@ const ContactForm = dynamic(() => import("./ContactForm"), {
   ssr: false,
   loading: () => (
     <div
-      className="h-40 w-full animate-pulse rounded-2xl bg-[color:var(--surface)]"
+      className="h-56 w-full bg-[color:var(--surface)]"
       aria-hidden
     />
   ),
@@ -41,7 +41,7 @@ export default function LazyContactForm() {
         <ContactForm />
       ) : (
         <div
-          className="h-40 w-full animate-pulse rounded-2xl bg-[color:var(--surface)]"
+          className="h-56 w-full bg-[color:var(--surface)]"
           aria-hidden
         />
       )}

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import {
+  Bodoni_Moda,
   IBM_Plex_Mono,
   IBM_Plex_Sans_Arabic,
-  League_Spartan,
+  Jost,
   Space_Grotesk,
+  Syne,
 } from "next/font/google";
 import "./globals.css";
 import InitialLoader from "./components/InitialLoader";
@@ -14,15 +16,25 @@ import { getRootLayoutMetadata } from "../lib/seo-config";
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
   preload: true,
   adjustFontFallback: true,
 });
 
-const leagueSpartan = League_Spartan({
-  variable: "--font-league-spartan",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: ["700", "800"],
+  display: "swap",
+  preload: true,
+  adjustFontFallback: true,
+});
+
+const jost = Jost({
+  variable: "--font-jost",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
   display: "swap",
   preload: true,
   adjustFontFallback: true,
@@ -32,6 +44,16 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
+  preload: false,
+  adjustFontFallback: true,
+});
+
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
   display: "swap",
   preload: false,
   adjustFontFallback: true,
@@ -56,7 +78,7 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${leagueSpartan.variable} ${plexMono.variable} ${plexArabic.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${syne.variable} ${jost.variable} ${plexMono.variable} ${bodoni.variable} ${plexArabic.variable} antialiased`}
         suppressHydrationWarning
       >
         <SeoJsonLd />

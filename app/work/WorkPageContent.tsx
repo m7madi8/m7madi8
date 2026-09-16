@@ -5,6 +5,7 @@ import LazyCustomCursor from "../components/LazyCustomCursor";
 import LazyStaggeredMenu from "../components/LazyStaggeredMenu";
 import ProjectCaseList from "../components/ProjectCaseList";
 import RevealManager from "../components/RevealManager";
+import ScrollFloat from "../components/ScrollFloat";
 import SiteFooter from "../components/SiteFooter";
 import { projects, getLiveProjects } from "../data/projects";
 import { menuItems, socialItems } from "../../lib/site-nav";
@@ -15,7 +16,7 @@ export default function WorkPageContent() {
   const inDevCount = projects.filter((p) => p.status === "coming-soon").length;
 
   return (
-    <div className="relative overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
+    <div className="relative bg-[color:var(--background)] text-[color:var(--foreground)]">
       <LazyCustomCursor />
       <RevealManager />
       <LazyStaggeredMenu
@@ -25,17 +26,17 @@ export default function WorkPageContent() {
         displaySocials
         displayItemNumbering
         menuButtonColor="#ffffff"
-        openMenuButtonColor="#000000"
-        changeMenuColorOnOpen
-        colors={["#060708", "#1a1c22", "#6b7280"]}
+        openMenuButtonColor="#ffffff"
+        changeMenuColorOnOpen={false}
+        colors={["#060708", "#111318", "#1a1c22"]}
         accentColor="var(--button-border)"
         isFixed
         closeOnClickAway
       />
 
       <main className="page-with-fixed-nav relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
-        <header className="page-hero reveal" data-reveal>
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <header className="page-hero">
+          <div className="reveal flex flex-wrap items-center justify-between gap-4" data-reveal>
             <p className="eyebrow">Portfolio</p>
             <Link
               href="/"
@@ -46,9 +47,17 @@ export default function WorkPageContent() {
               Back to home
             </Link>
           </div>
-          <h1 className="page-hero-title mt-6 max-w-3xl font-medium tracking-tight">
+          <ScrollFloat
+            as="h1"
+            className="page-hero-title mt-6 max-w-3xl"
+            animationDuration={1}
+            ease="back.inOut(2)"
+            scrollStart="center bottom+=50%"
+            scrollEnd="bottom bottom-=40%"
+            stagger={0.03}
+          >
             Selected work
-          </h1>
+          </ScrollFloat>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-[color:var(--muted)] sm:text-lg">
             A curated archive of digital products — each one designed, engineered,
             and refined with the same standard of craft.
@@ -72,9 +81,17 @@ export default function WorkPageContent() {
           <div className="cta-banner reveal text-center" data-reveal>
             <div className="cta-banner-inner">
               <p className="eyebrow">Next step</p>
-              <h2 className="section-title mx-auto mt-4 max-w-xl font-medium">
+              <ScrollFloat
+                as="h2"
+                className="section-title mx-auto mt-4 max-w-xl"
+                animationDuration={1}
+                ease="back.inOut(2)"
+                scrollStart="center bottom+=50%"
+                scrollEnd="bottom bottom-=40%"
+                stagger={0.03}
+              >
                 Ready to start your project?
-              </h2>
+              </ScrollFloat>
               <p className="mx-auto mt-3 max-w-md text-sm text-[color:var(--muted)]">
                 Let&apos;s discuss your goals and build something exceptional together.
               </p>

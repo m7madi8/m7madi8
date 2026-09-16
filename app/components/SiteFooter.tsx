@@ -6,62 +6,41 @@ export default function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer reveal mt-16 sm:mt-20" data-reveal>
-      <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
-        <div className="lg:col-span-2">
-          <BrandMark
-            href="/"
-            size="lg"
-            tone="light"
-            animate={false}
-            aria-label="m. — Home"
-          />
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-[color:var(--muted)]">
-            Full-Stack Web Developer crafting high-performance digital products
-            with clean code and clear results.
-          </p>
-        </div>
-        <div>
-          <p className="eyebrow mb-4">Navigate</p>
-          <ul className="space-y-2.5">
+    <footer className="site-footer reveal" data-reveal>
+      <p className="site-footer-signoff">
+        <BrandMark
+          href="/"
+          size="display"
+          tone="light"
+          animate={false}
+          aria-label="m. — Home"
+        />
+        <span className="site-footer-thanks">Thanks for looking.</span>
+      </p>
+
+      <div className="site-footer-meta">
+        <nav aria-label="Footer">
+          <ul className="site-footer-links">
             {menuItems.map((item) => (
               <li key={item.link}>
-                <Link
-                  href={item.link}
-                  className="text-sm text-[color:var(--muted)] transition hover:text-white"
-                  data-cursor
-                >
+                <Link href={item.link} data-cursor>
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
-        <div>
-          <p className="eyebrow mb-4">Connect</p>
-          <ul className="space-y-2.5">
-            {socialItems.map((item) => (
-              <li key={item.link}>
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-[color:var(--muted)] transition hover:text-white"
-                  data-cursor
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="mt-10 flex flex-col items-center justify-between gap-4 pt-6 sm:mt-12 sm:flex-row">
-        <p className="text-xs text-[color:var(--muted)]">
-          © {year} m. All rights reserved.
-        </p>
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)]">
-          Silent Code. Massive Impact.
+        </nav>
+        <ul className="site-footer-links">
+          {socialItems.map((item) => (
+            <li key={item.link}>
+              <a href={item.link} target="_blank" rel="noreferrer" data-cursor>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="site-footer-legal">
+          © {year} m. · Silent Code. Massive Impact.
         </p>
       </div>
     </footer>

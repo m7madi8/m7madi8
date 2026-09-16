@@ -17,7 +17,7 @@ type BrandMarkProps = {
 
 /**
  * Typographic brand mark: m.
- * Quiet luxury — League Spartan, no ornaments.
+ * Display identity — Syne, no ornaments.
  */
 export default function BrandMark({
   href = "/",

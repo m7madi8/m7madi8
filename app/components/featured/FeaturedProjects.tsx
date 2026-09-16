@@ -9,12 +9,11 @@ type FeaturedProjectsProps = {
 };
 
 /**
- * Homepage curated showcase — 4 landscape tiles (2×2).
- * Landscape frames match mockup covers so imagery fills cleanly.
+ * Homepage curated showcase — five tiles, narrower frames so covers fill.
  * Full portfolio lives on /work.
  */
 export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
-  const items = projects.slice(0, 4);
+  const items = projects.slice(0, 5);
   if (items.length === 0) return null;
 
   return (
@@ -32,8 +31,8 @@ export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
 
       <div className="featured-projects-footer">
         <p className="featured-projects-note">
-          A curated selection of recent work. Every project is engineered as a
-          complete digital experience.
+          A curated selection of recent work — customer-facing sites, and the
+          systems running behind some of them.
         </p>
         <Link href="/work" className="hero-btn featured-projects-all" data-cursor>
           View all projects

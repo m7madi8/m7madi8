@@ -7,8 +7,10 @@ import CustomCursor from "../../components/CustomCursor";
 import ProjectGalleryCarousel from "../../components/ProjectGalleryCarousel";
 import ProjectJsonLd from "../../components/ProjectJsonLd";
 import RevealManager from "../../components/RevealManager";
+import ScrollFloat from "../../components/ScrollFloat";
 import SiteFooter from "../../components/SiteFooter";
 import { isComingSoon, projects, projectStatusLabel } from "../../data/projects";
+import { PROJECT_SHOWCASE_META } from "../../data/project-showcase-meta";
 import { SEO_PERSON, buildPageMetadata } from "../../../lib/seo-config";
 
 export function generateStaticParams() {
@@ -52,6 +54,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const project = projects[projectIndex];
   const comingSoon = isComingSoon(project);
+  const showcase = PROJECT_SHOWCASE_META[project.slug];
+  const category = project.category ?? showcase?.category ?? project.context;
+  const stack = project.stack ?? showcase?.stack ?? [];
   const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
   const nextProject =
     projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
@@ -147,14 +152,38 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Title block */}
         <section className="mt-12 space-y-6 lg:mt-16">
+          <p className="eyebrow reveal" data-reveal>
+            {category}
+          </p>
+          <ScrollFloat
+            as="h1"
+            className="case-title mt-3"
+            animationDuration={1}
+            ease="back.inOut(2)"
+            scrollStart="center bottom+=50%"
+            scrollEnd="bottom bottom-=40%"
+            stagger={0.03}
+          >
+            {project.title}
+          </ScrollFloat>
           <div className="reveal" data-reveal>
-            <p className="eyebrow">{project.context}</p>
-            <h1 className="page-hero-title mt-3 font-medium tracking-tight">
-              {project.title}
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[color:var(--muted)]">
-              {project.overview}
-            </p>
+            <dl className="case-meta-row">
+              <div className="case-meta-item">
+                <dt>Context</dt>
+                <dd>{project.context}</dd>
+              </div>
+              {stack.length ? (
+                <div className="case-meta-item">
+                  <dt>Stack</dt>
+                  <dd>{stack.join(", ")}</dd>
+                </div>
+              ) : null}
+              <div className="case-meta-item">
+                <dt>Status</dt>
+                <dd>{comingSoon ? projectStatusLabel(project) : "Live"}</dd>
+              </div>
+            </dl>
+            <p className="case-lede mt-8">{project.overview}</p>
           </div>
 
           {comingSoon ? (
@@ -176,23 +205,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <section className="mt-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           <div className="reveal space-y-8" data-reveal>
             <div>
-              <p className="eyebrow">Goal</p>
-              <p className="mt-3 text-base leading-relaxed text-white">
-                {project.goal}
-              </p>
+              <p className="case-section-label">Goal</p>
+              <p className="case-section-body mt-3">{project.goal}</p>
             </div>
             <div>
-              <p className="eyebrow">
+              <p className="case-section-label">
                 {comingSoon && project.status !== "launching"
                   ? "What's being built"
                   : "What was built"}
               </p>
-              <p className="mt-3 text-base leading-relaxed text-[color:var(--muted)]">
-                {project.build}
-              </p>
+              <p className="case-section-body mt-3">{project.build}</p>
             </div>
             <div>
-              <p className="eyebrow">Key work</p>
+              <p className="case-section-label">Key work</p>
               <ul className="mt-4 space-y-3">
                 {project.work.map((item) => (
                   <li
@@ -208,10 +233,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           <div className="reveal surface-card-elevated p-8" data-reveal>
-            <p className="eyebrow">Outcome</p>
-            <p className="mt-4 text-lg leading-relaxed text-white">
-              {project.result}
-            </p>
+            <p className="case-section-label">Outcome</p>
+            <p className="case-section-body mt-4 text-white">{project.result}</p>
             <div className="mt-8 space-y-4 border-t border-[color:var(--border)] pt-8">
               <div>
                 <p className="eyebrow">Summary</p>

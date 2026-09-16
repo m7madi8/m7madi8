@@ -10,9 +10,10 @@ import ProjectHoverEffect from "../showcase/ProjectHoverEffect";
 type FeaturedProjectCardProps = {
   project: Project;
   index?: number;
-  /** Slightly stronger typography for the first tile */
   lead?: boolean;
 };
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function FeaturedProjectCard({
   project,
@@ -23,22 +24,19 @@ export default function FeaturedProjectCard({
   const comingSoon = isComingSoon(project);
   const meta = PROJECT_SHOWCASE_META[project.slug];
   const category = project.category ?? meta?.category ?? project.context;
-  const stack = (project.stack ?? meta?.stack ?? []).slice(0, 3);
   const href = `/work/${project.slug}`;
+  const isPoster = project.coverLayout === "poster";
+  const delay = reduceMotion ? 0 : index * 0.1;
 
   return (
     <motion.article
-      className={`featured-card${lead ? " featured-card--lead" : ""}${
-        project.coverLayout === "poster" ? " featured-card--poster" : ""
-      }`}
-      initial={reduceMotion ? false : { opacity: 0, y: 36 }}
+      className={`featured-card featured-card--${project.slug}${
+        lead ? " featured-card--lead" : ""
+      }${isPoster ? " featured-card--poster" : ""}`}
+      initial={reduceMotion ? false : { opacity: 0, y: 56 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: reduceMotion ? 0 : index * 0.08,
-      }}
+      viewport={{ once: true, amount: 0.12, margin: "0px 0px -4% 0px" }}
+      transition={{ duration: 0.85, ease, delay }}
     >
       <ProjectHoverEffect className="featured-card-shell" intensity={5}>
         <Link
@@ -53,10 +51,8 @@ export default function FeaturedProjectCard({
                 src={project.image}
                 alt={`${project.title} preview`}
                 fill
-                className={`featured-card-img ${
-                  project.coverLayout === "poster" ? "object-contain" : "object-cover"
-                }`}
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 560px"
+                className="featured-card-img object-cover"
+                sizes="(max-width: 699px) 100vw, (max-width: 1099px) 50vw, 28vw"
                 priority={index < 2}
                 loading={index < 2 ? "eager" : "lazy"}
                 decoding="async"
@@ -94,14 +90,6 @@ export default function FeaturedProjectCard({
           <p className="featured-card-copy">
             {project.overview || project.summary}
           </p>
-
-          {stack.length > 0 ? (
-            <ul className="featured-card-stack" aria-label="Stack">
-              {stack.map((tech) => (
-                <li key={tech}>{tech}</li>
-              ))}
-            </ul>
-          ) : null}
 
           <Link href={href} className="featured-card-cta" data-cursor>
             <span>View project</span>

@@ -7,7 +7,7 @@
   --brand-ink: #0f0f10;
   --brand-paper: #f5f5f2;
   --brand-gray: #8e8e93;
-  --font-brand: var(--font-league-spartan), "League Spartan", system-ui, sans-serif;
+  --font-brand: var(--font-display);
 }
 
 .brand-mark {
@@ -22,7 +22,7 @@
   text-decoration: none;
   color: var(--brand-mark-color);
   font-family: var(--font-brand);
-  font-weight: 500;
+  font-weight: 800;
   font-size: var(--brand-mark-size);
   letter-spacing: var(--brand-mark-tracking);
   font-feature-settings: "kern" 1, "liga" 1;
@@ -109,8 +109,8 @@
 
 .brand-mark--display {
   --brand-mark-size: clamp(3.5rem, 12vw, 6.5rem);
-  --brand-mark-tracking: 0;
-  font-weight: 600;
+  --brand-mark-tracking: -0.03em;
+  font-weight: 800;
 }
 
 /* ---- Entrance ---- */

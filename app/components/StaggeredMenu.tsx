@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useLayoutEffect, useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
+import { headerLinks } from "../../lib/site-nav";
 import BrandMark from "./BrandMark";
 import "./StaggeredMenu.css";
 
@@ -402,7 +404,10 @@ export function StaggeredMenu({
   }, [closeOnClickAway, open, closeMenu]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled((prev) => (prev ? y > 12 : y > 48));
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -412,10 +417,16 @@ export function StaggeredMenu({
 
   const handleItemClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, item: StaggeredMenuItem) => {
-      if (item.link.startsWith("#")) {
+      const hashIndex = item.link.indexOf("#");
+      const pathPart = hashIndex >= 0 ? item.link.slice(0, hashIndex) : item.link;
+      const samePageHash =
+        item.link.startsWith("#") ||
+        (hashIndex > 0 && pathPart === window.location.pathname);
+
+      if (samePageHash) {
         e.preventDefault();
         closeMenu();
-        const hash = item.link;
+        const hash = item.link.slice(hashIndex);
         setTimeout(() => {
           if (hash === "#" || hash.length <= 1) {
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -455,10 +466,26 @@ export function StaggeredMenu({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header" data-scrolled={scrolled || undefined}>
-        <div className="sm-header-pill">
+        <div className="sm-header-inner">
           <div className="sm-logo">
             <BrandMark href="/" size="md" tone="light" animate className="sm-brand-mark" />
           </div>
+
+          <nav className="sm-inline-nav" aria-label="Primary">
+            {headerLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="sm-inline-link"
+                data-cursor
+                onClick={() => openRef.current && closeMenu()}
+              >
+                <span className="sm-inline-num">{link.num}</span>
+                <span className="sm-inline-label">{link.label}</span>
+              </Link>
+            ))}
+          </nav>
+
           <button
             ref={toggleBtnRef}
             className="sm-toggle"
@@ -472,11 +499,15 @@ export function StaggeredMenu({
             <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
               <span ref={textInnerRef} className="sm-toggle-textInner">
                 {textLines.map((l, i) => (
-                  <span className="sm-toggle-line" key={i}>
+                  <span className="sm-toggle-line" key={`${l}-${i}`}>
                     {l}
                   </span>
                 ))}
               </span>
+            </span>
+            <span ref={iconRef} className="sm-toggle-mark" aria-hidden="true">
+              <span ref={plusHRef} className="sm-toggle-bar sm-toggle-bar--h" />
+              <span ref={plusVRef} className="sm-toggle-bar sm-toggle-bar--v" />
             </span>
           </button>
         </div>
@@ -521,7 +552,7 @@ export function StaggeredMenu({
           </ul>
           {displaySocials && socialItems && socialItems.length > 0 && (
             <div className="sm-socials" aria-label="Social links">
-              <h3 className="sm-socials-title">Socials</h3>
+              <h3 className="sm-socials-title">Connect</h3>
               <ul className="sm-socials-list" role="list">
                 {socialItems.map((s, i) => (
                   <li key={s.label + i} className="sm-socials-item">
