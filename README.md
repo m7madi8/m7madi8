@@ -43,7 +43,9 @@ Copy `.env.example` to `.env.local` for local development. On Vercel (or your ho
 ### SEO (search engines)
 
 - Production SEO defaults to **`https://mohammadhroub.com`**. Override with **`NEXT_PUBLIC_SITE_URL`** if you use another domain or preview URL.
-- Optional: **`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`** — paste the content value from [Google Search Console](https://search.google.com/search-console) after adding your property.
+- Optional site verification (set on the host before **build**; values appear as `<meta>` tags via [`getRootLayoutMetadata()`](lib/seo-config.ts)):
+  - **`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`** — the `content` value from Google’s `google-site-verification` meta tag ([Search Console](https://search.google.com/search-console)).
+  - **`NEXT_PUBLIC_BING_SITE_VERIFICATION`** — the `content` value from Bing’s `msvalidate.01` meta tag ([Bing Webmaster Tools](https://www.bing.com/webmasters)).
 - The site includes **metadata** (title, description, keywords), **Open Graph / Twitter cards**, **JSON-LD** (`Person`, `WebSite`, `ProfessionalService`), and auto-generated **`/sitemap.xml`** and **`/robots.txt`**.
 - Edit branding and keywords in [`lib/seo-config.ts`](lib/seo-config.ts).
 
