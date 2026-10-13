@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SEO_PERSON, SEO_SITE } from "../lib/seo-config";
+import { SEO_OG, SEO_PERSON, SEO_PORTRAIT, SEO_SITE } from "../lib/seo-config";
 
 /** مطلوب مع `output: "export"` */
 export const dynamic = "force-static";
@@ -28,6 +28,22 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
+      },
+    ],
+    screenshots: [
+      {
+        src: SEO_OG.png,
+        sizes: `${SEO_OG.width}x${SEO_OG.height}`,
+        type: "image/png",
+        form_factor: "wide",
+        label: SEO_OG.alt,
+      },
+      {
+        src: SEO_PORTRAIT.webp,
+        sizes: `${SEO_PORTRAIT.width}x${SEO_PORTRAIT.height}`,
+        type: "image/webp",
+        form_factor: "narrow",
+        label: SEO_PORTRAIT.alt,
       },
     ],
   };

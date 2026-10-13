@@ -1,0 +1,26 @@
+# Mohammad Hroub — mohammadhroub.com
+# Factual summary for AI and search assistants. Last updated from the public portfolio.
+
+> Mohammad Hroub (محمد حروب) is a full-stack web developer based in Palestine.
+> He builds business websites, custom web applications, and internal operational systems.
+> Primary stack in published work: React, Next.js, TypeScript, Node.js, Firebase, Tailwind CSS.
+> Geographic relevance: Palestine (including Hebron and Ramallah) and remote international clients.
+> Official site: https://mohammadhroub.com
+
+## Key pages
+- Home: https://mohammadhroub.com/
+- Projects / case studies: https://mohammadhroub.com/work
+- Contact: https://mohammadhroub.com/#contact
+- Professional links: https://mohammadhroub.com/links
+
+## Public profiles (sameAs)
+- Instagram: https://www.instagram.com/mohammad._dev/
+- WhatsApp: https://wa.me/972592132438
+
+## What this site is not
+- Not a clinic, physiotherapy, or healthcare provider website.
+- Not an employer listing or agency with a public office address on this domain.
+
+## Optional
+- Sitemap: https://mohammadhroub.com/sitemap.xml
+- Portrait (JPEG): https://mohammadhroub.com/mohammad-hroub-portrait.jpg

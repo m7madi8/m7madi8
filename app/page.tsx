@@ -8,7 +8,9 @@ import {
 import { menuItems, socialItems } from "../lib/site-nav";
 import ContactSocialLinks from "./components/ContactSocialLinks";
 import { FeaturedProjects } from "./components/featured";
+import About from "./components/About";
 import Hero from "./components/Hero";
+import HomeEntitySummary from "./components/HomeEntitySummary";
 import HomeCta from "./components/HomeCta";
 import HomeSignature from "./components/HomeSignature";
 import LazyContactForm from "./components/LazyContactForm";
@@ -101,7 +103,8 @@ export default function Home() {
         <Hero />
       </HomeSignature>
 
-      <main className="relative z-10 mx-auto max-w-7xl px-5 pb-10 sm:px-8 lg:px-16">
+      <main className="relative z-10 mx-auto max-w-7xl px-5 pb-10 sm:px-8 lg:px-16" id="main-content">
+        <HomeEntitySummary />
         <section id="work" className="section-block" aria-label="Featured projects">
           <SectionHeader
             index="01"
@@ -114,6 +117,8 @@ export default function Home() {
           <FeaturedProjects projects={featuredProjects} />
         </section>
 
+        <About liveCount={liveCount} />
+
         <HomeCta liveCount={liveCount} />
 
         <section id="method" className="section-block" aria-label="Method">
@@ -121,7 +126,7 @@ export default function Home() {
             <div className="method-aside">
               <div className="section-eyebrow-row reveal" data-reveal>
                 <span className="section-index" aria-hidden>
-                  02
+                  03
                 </span>
                 <p className="method-kicker">Method</p>
               </div>
@@ -156,7 +161,7 @@ export default function Home() {
 
         <section id="contact" className="section-block">
           <SectionHeader
-            index="03"
+            index="04"
             eyebrow="Contact"
             title="Have a business that needs better digital infrastructure?"
             description="I take on a limited number of projects to keep quality high — websites, operational systems, or both. Let's talk about yours."

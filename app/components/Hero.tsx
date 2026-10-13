@@ -70,8 +70,9 @@ export default function Hero() {
 
           <p className="hero-lede">
             I build the websites businesses show customers, and the systems they
-            run on behind the scenes — from the first line of code to the
-            dashboard your team opens every morning.
+            run on behind the scenes — from Palestine and remotely worldwide,
+            from the first line of code to the dashboard your team opens every
+            morning.
           </p>
 
           <div className="hero-actions">

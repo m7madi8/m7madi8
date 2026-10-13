@@ -1,11 +1,16 @@
 import { projects } from "../data/projects";
 import {
   SEO_FAQ,
+  SEO_GEO,
+  SEO_OG,
   SEO_PERSON,
+  SEO_PORTRAIT,
+  SEO_SERVICES,
   SEO_SITE,
   absoluteUrl,
   defaultPageTitle,
   getSiteUrl,
+  personEntityId,
 } from "../../lib/seo-config";
 
 type JsonLd = Record<string, unknown>;
@@ -20,89 +25,136 @@ function jsonLdScript(data: JsonLd) {
 }
 
 /**
- * بيانات منظمة (Schema.org) — Person, WebSite, ProfessionalService, ItemList
+ * بيانات منظمة (Schema.org) — Person, WebSite, ProfilePage, FAQ, صور
  */
 export default function SeoJsonLd() {
   const url = getSiteUrl();
+  const personId = personEntityId(url);
+  const portraitUrl = absoluteUrl(SEO_PORTRAIT.jpeg);
+  const ogUrl = absoluteUrl(SEO_OG.png);
+
+  const portraitImage: JsonLd = {
+    "@type": "ImageObject",
+    "@id": `${url}/#portrait`,
+    url: portraitUrl,
+    contentUrl: portraitUrl,
+    width: SEO_PORTRAIT.width,
+    height: SEO_PORTRAIT.height,
+    caption: SEO_PORTRAIT.alt,
+    name: SEO_PORTRAIT.alt,
+    inLanguage: ["en", "ar"],
+    representativeOfPage: true,
+    encodingFormat: "image/jpeg",
+  };
+
+  const socialImage: JsonLd = {
+    "@type": "ImageObject",
+    "@id": `${url}/#ogimage`,
+    url: ogUrl,
+    contentUrl: ogUrl,
+    width: SEO_OG.width,
+    height: SEO_OG.height,
+    caption: SEO_OG.alt,
+    name: SEO_OG.alt,
+    encodingFormat: "image/png",
+  };
 
   const person: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "Person",
-    "@id": `${url}/#person`,
+    "@id": personId,
     name: SEO_PERSON.nameEn,
-    alternateName: [SEO_PERSON.nameAr, "M7madi"],
+    givenName: SEO_PERSON.givenName,
+    familyName: SEO_PERSON.familyName,
+    alternateName: SEO_PERSON.alternateNames,
     url,
-    email: SEO_PERSON.email,
+    mainEntityOfPage: { "@id": `${url}/#profilepage` },
+    email: `mailto:${SEO_PERSON.email}`,
     jobTitle: SEO_PERSON.jobTitle,
     description: SEO_PERSON.descriptionEn,
+    image: [
+      { "@id": `${url}/#portrait` },
+      { "@id": `${url}/#ogimage` },
+    ],
     knowsAbout: [
       "Web Development",
       "Full-Stack Development",
+      "Business Websites",
+      "Custom Web Applications",
+      "Operational Systems",
       "React",
       "Next.js",
       "TypeScript",
       "Node.js",
       "Firebase",
-      "Responsive Web Design",
+      "Tailwind CSS",
       "تطوير مواقع",
       "مطور ويب",
+      "أنظمة تشغيل رقمية",
+      ...SEO_SERVICES,
     ],
+    knowsLanguage: ["en", "ar"],
     sameAs: [...SEO_PERSON.sameAs],
-    worksFor: {
-      "@type": "Organization",
-      name: SEO_PERSON.nameEn,
+    nationality: {
+      "@type": "Country",
+      name: SEO_GEO.countryEn,
+    },
+    homeLocation: {
+      "@type": "Country",
+      name: SEO_GEO.countryEn,
+    },
+    workLocation: {
+      "@type": "Place",
+      name: "Remote — Worldwide",
     },
   };
 
   const website: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${url}/#website`,
     name: SEO_SITE.nameEn,
-    alternateName: SEO_SITE.nameAr,
+    alternateName: [SEO_SITE.nameAr, SEO_SITE.shortName],
     url,
     description: SEO_PERSON.description,
     inLanguage: ["en", "ar"],
-    publisher: { "@id": `${url}/#person` },
-    author: { "@id": `${url}/#person` },
+    publisher: { "@id": personId },
+    author: { "@id": personId },
   };
 
   const profilePage: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "ProfilePage",
     "@id": `${url}/#profilepage`,
     url,
-    name: SEO_SITE.nameEn,
+    name: defaultPageTitle,
     description: SEO_PERSON.description,
     inLanguage: ["en", "ar"],
-    mainEntity: { "@id": `${url}/#person` },
+    mainEntity: { "@id": personId },
     isPartOf: { "@id": `${url}/#website` },
+    primaryImageOfPage: { "@id": `${url}/#portrait` },
+    image: [{ "@id": `${url}/#portrait` }, { "@id": `${url}/#ogimage` }],
   };
 
   const professional: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${url}/#service`,
     name: `${SEO_PERSON.nameEn} — ${SEO_PERSON.jobTitle}`,
     alternateName: `${SEO_PERSON.nameAr} — ${SEO_PERSON.jobTitleAr}`,
     url,
     description: SEO_PERSON.descriptionEn,
-    areaServed: {
-      "@type": "Place",
-      name: "Worldwide",
-    },
-    serviceType: [
-      "Web Development",
-      "Full-Stack Development",
-      "تطوير مواقع",
-      "Portfolio Development",
+    image: { "@id": `${url}/#portrait` },
+    areaServed: [
+      { "@type": "Country", name: SEO_GEO.countryEn },
+      ...SEO_GEO.citiesEn.map((city) => ({
+        "@type": "City",
+        name: city,
+      })),
+      { "@type": "Place", name: "Worldwide" },
     ],
-    provider: { "@id": `${url}/#person` },
+    serviceType: [...SEO_SERVICES],
+    provider: { "@id": personId },
     availableLanguage: ["English", "Arabic"],
   };
 
   const webPage: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${url}/#webpage`,
     url,
@@ -110,15 +162,12 @@ export default function SeoJsonLd() {
     description: SEO_PERSON.description,
     inLanguage: ["en", "ar"],
     isPartOf: { "@id": `${url}/#website` },
-    about: { "@id": `${url}/#person` },
-    primaryImageOfPage: {
-      "@type": "ImageObject",
-      url: absoluteUrl("/og.png"),
-    },
+    about: { "@id": personId },
+    primaryImageOfPage: { "@id": `${url}/#portrait` },
+    image: [{ "@id": `${url}/#portrait` }, { "@id": `${url}/#ogimage` }],
   };
 
   const faqPage: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     "@id": `${url}/#faq`,
     mainEntity: SEO_FAQ.map((item) => ({
@@ -132,11 +181,10 @@ export default function SeoJsonLd() {
   };
 
   const workList: JsonLd = {
-    "@context": "https://schema.org",
     "@type": "ItemList",
     "@id": `${url}/#projects`,
-    name: "Portfolio Projects",
-    description: "Selected web development projects by Mohammad Hroub",
+    name: "Portfolio Projects — Mohammad Hroub",
+    description: "Selected web development projects by Mohammad Hroub | محمد حروب",
     numberOfItems: projects.length,
     itemListElement: projects.map((project, index) => ({
       "@type": "ListItem",
@@ -146,15 +194,20 @@ export default function SeoJsonLd() {
     })),
   };
 
-  return (
-    <>
-      {jsonLdScript(person)}
-      {jsonLdScript(website)}
-      {jsonLdScript(profilePage)}
-      {jsonLdScript(professional)}
-      {jsonLdScript(webPage)}
-      {jsonLdScript(faqPage)}
-      {jsonLdScript(workList)}
-    </>
-  );
+  const graph: JsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      portraitImage,
+      socialImage,
+      person,
+      website,
+      profilePage,
+      professional,
+      webPage,
+      faqPage,
+      workList,
+    ],
+  };
+
+  return jsonLdScript(graph);
 }

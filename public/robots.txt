@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /oday/
+Disallow: /omino-assessment
+Disallow: /clinic-growth
+Disallow: /_next/
 
 Sitemap: https://mohammadhroub.com/sitemap.xml
 Host: mohammadhroub.com

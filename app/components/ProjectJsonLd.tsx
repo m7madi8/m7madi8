@@ -1,5 +1,5 @@
 import type { Project } from "../data/projects";
-import { SEO_PERSON, absoluteUrl } from "../../lib/seo-config";
+import { SEO_PERSON, absoluteUrl, personEntityId } from "../../lib/seo-config";
 
 type ProjectJsonLdProps = {
   project: Project;
@@ -15,16 +15,8 @@ export default function ProjectJsonLd({ project }: ProjectJsonLdProps) {
     description: project.summary,
     url,
     inLanguage: ["en", "ar"],
-    author: {
-      "@type": "Person",
-      name: SEO_PERSON.nameEn,
-      alternateName: SEO_PERSON.nameAr,
-      url: absoluteUrl("/"),
-    },
-    creator: {
-      "@type": "Person",
-      name: SEO_PERSON.nameEn,
-    },
+    author: { "@id": personEntityId() },
+    creator: { "@id": personEntityId() },
     about: project.context,
     abstract: project.overview,
   };

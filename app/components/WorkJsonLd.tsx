@@ -1,5 +1,5 @@
 import { projects } from "../data/projects";
-import { SEO_PERSON, absoluteUrl } from "../../lib/seo-config";
+import { SEO_PERSON, absoluteUrl, personEntityId } from "../../lib/seo-config";
 
 export default function WorkJsonLd() {
   const url = absoluteUrl("/work");
@@ -12,11 +12,7 @@ export default function WorkJsonLd() {
     name: `Projects — ${SEO_PERSON.nameEn} | ${SEO_PERSON.nameAr}`,
     description: SEO_PERSON.description,
     inLanguage: ["en", "ar"],
-    author: {
-      "@type": "Person",
-      name: SEO_PERSON.nameEn,
-      alternateName: SEO_PERSON.nameAr,
-    },
+    author: { "@id": personEntityId() },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: projects.length,

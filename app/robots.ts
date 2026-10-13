@@ -5,15 +5,25 @@ import { getSiteUrl } from "../lib/seo-config";
 /** مطلوب مع `output: "export"` */
 export const dynamic = "force-static";
 
+const PRIVATE_PREFIXES = [
+  "/oday/",
+  "/omino-assessment",
+  "/clinic-growth",
+] as const;
+
 export default function robots(): MetadataRoute.Robots {
   const base = getSiteUrl();
   const basePath = getBasePath();
+  const prefix = (p: string) => `${basePath}${p}`;
 
   return {
     rules: {
       userAgent: "*",
       allow: basePath ? `${basePath}/` : "/",
-      disallow: basePath ? `${basePath}/_next/` : "/_next/",
+      disallow: [
+        basePath ? `${basePath}/_next/` : "/_next/",
+        ...PRIVATE_PREFIXES.map(prefix),
+      ],
     },
     sitemap: `${base}${basePath}/sitemap.xml`,
     host: base.replace(/^https?:\/\//, ""),
