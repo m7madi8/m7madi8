@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import type { Locale } from "../../lib/i18n/config";
 import type { StaggeredMenuItem, StaggeredMenuSocialItem } from "./StaggeredMenu";
 import "./StaggeredMenu.css";
 
@@ -26,6 +27,7 @@ type LazyStaggeredMenuProps = {
   closeOnClickAway?: boolean;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
+  locale?: Locale;
 };
 
 function MenuPlaceholder() {

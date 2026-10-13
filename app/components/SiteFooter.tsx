@@ -1,27 +1,36 @@
 import Link from "next/link";
-import { menuItems, socialItems } from "../../lib/site-nav";
+import type { Locale } from "../../lib/i18n/config";
+import { getMessages } from "../../lib/i18n/messages";
+import { homePath } from "../../lib/i18n/paths";
+import { getMenuItems, socialItems } from "../../lib/site-nav";
 import BrandMark from "./BrandMark";
 
-export default function SiteFooter() {
+type SiteFooterProps = {
+  locale?: Locale;
+};
+
+export default function SiteFooter({ locale = "en" }: SiteFooterProps) {
   const year = new Date().getFullYear();
+  const m = getMessages(locale).footer;
+  const menu = getMenuItems(locale);
 
   return (
     <footer className="site-footer reveal" data-reveal>
       <p className="site-footer-signoff">
         <BrandMark
-          href="/"
+          href={homePath(locale)}
           size="display"
           tone="light"
           animate={false}
-          aria-label="m. — Home"
+          aria-label={m.homeAria}
         />
-        <span className="site-footer-thanks">Thanks for looking.</span>
+        <span className="site-footer-thanks">{m.thanks}</span>
       </p>
 
       <div className="site-footer-meta">
         <nav aria-label="Footer">
           <ul className="site-footer-links">
-            {menuItems.map((item) => (
+            {menu.map((item) => (
               <li key={item.link}>
                 <Link href={item.link} data-cursor>
                   {item.label}
@@ -40,7 +49,7 @@ export default function SiteFooter() {
           ))}
         </ul>
         <p className="site-footer-legal">
-          © {year} m. · Silent Code. Massive Impact.
+          © {year} m. · {m.legal}
         </p>
       </div>
     </footer>

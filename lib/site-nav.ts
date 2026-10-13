@@ -1,3 +1,13 @@
+import type { Locale } from "./i18n/config";
+import {
+  aboutHash,
+  contactHash,
+  homePath,
+  workHash,
+  workIndexPath,
+} from "./i18n/paths";
+import { getMessages } from "./i18n/messages";
+
 export type StaggeredMenuItem = {
   label: string;
   ariaLabel: string;
@@ -16,20 +26,60 @@ export const headerLinks = [
   { num: "04", label: "Contact", href: "/#contact" },
 ] as const;
 
-export const menuItems: StaggeredMenuItem[] = [
-  { label: "Home", ariaLabel: "Go to home", link: "/" },
-  { label: "Projects", ariaLabel: "View all projects", link: "/work" },
-  { label: "About", ariaLabel: "About Mohammad", link: "/#about" },
-  {
-    label: "Restaurants",
-    ariaLabel: "Restaurant and café work",
-    link: "/restaurants",
-  },
-  { label: "Links", ariaLabel: "Digital identity links", link: "/links" },
+export function getHeaderLinks(locale: Locale) {
+  const m = getMessages(locale).nav;
+  return [
+    { num: "01", label: m.work, href: workHash(locale) },
+    { num: "02", label: m.about, href: aboutHash(locale) },
+    { num: "03", label: m.method, href: `${homePath(locale)}#method` },
+    { num: "04", label: m.contact, href: contactHash(locale) },
+  ];
+}
 
-  { label: "Contact", ariaLabel: "Get in touch", link: "/#contact" },
-  { label: "Work Agreement", ariaLabel: "Work Agreement", link: "/agreement" },
-];
+export function getMenuItems(locale: Locale): StaggeredMenuItem[] {
+  const m = getMessages(locale);
+  const linksPath = locale === "ar" ? "/ar/links" : "/links";
+  return [
+    {
+      label: m.nav.home,
+      ariaLabel: m.navAria.home,
+      link: homePath(locale),
+    },
+    {
+      label: m.nav.projects,
+      ariaLabel: m.navAria.projects,
+      link: workIndexPath(locale),
+    },
+    {
+      label: m.nav.about,
+      ariaLabel: m.navAria.about,
+      link: aboutHash(locale),
+    },
+    {
+      label: m.nav.restaurants,
+      ariaLabel: m.navAria.restaurants,
+      link: "/restaurants",
+    },
+    {
+      label: m.nav.links,
+      ariaLabel: m.navAria.links,
+      link: linksPath,
+    },
+    {
+      label: m.nav.contact,
+      ariaLabel: m.navAria.contact,
+      link: contactHash(locale),
+    },
+    {
+      label: m.nav.agreement,
+      ariaLabel: m.navAria.agreement,
+      link: "/agreement",
+    },
+  ];
+}
+
+/** @deprecated Use getMenuItems(locale) */
+export const menuItems: StaggeredMenuItem[] = getMenuItems("en");
 
 export const socialItems: StaggeredMenuSocialItem[] = [
   { label: "WhatsApp", link: "https://wa.me/972592132438" },

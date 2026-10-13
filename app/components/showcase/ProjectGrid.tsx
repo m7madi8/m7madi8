@@ -1,10 +1,12 @@
 "use client";
 
+import type { Locale } from "../../../lib/i18n/config";
 import type { Project } from "../../data/projects";
 import ProjectCard from "./ProjectCard";
 
 type ProjectGridProps = {
   projects: Project[];
+  locale?: Locale;
 };
 
 function isPortraitCover(project: Project) {
@@ -26,7 +28,10 @@ function rowTone(left: Project, right?: Project) {
   return "archive-row archive-row--even";
 }
 
-export default function ProjectGrid({ projects }: ProjectGridProps) {
+export default function ProjectGrid({
+  projects,
+  locale = "en",
+}: ProjectGridProps) {
   if (projects.length === 0) return null;
 
   const lead = projects.find(isLeadProject);
@@ -46,6 +51,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             index={projects.findIndex((p) => p.slug === lead.slug)}
             variant="featured"
             className="showcase-card--poster showcase-card--lead"
+            locale={locale}
           />
         </div>
       ) : null}
@@ -62,6 +68,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                 index={index}
                 variant={solo ? "editorial" : "standard"}
                 className={isPortraitCover(project) ? "showcase-card--poster" : ""}
+                locale={locale}
               />
             );
           })}

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./styles/rtl.css";
 @import "./components/showcase/showcase.css";
 @import "./components/featured/featured.css";
 @import "./components/contact.css";
@@ -447,7 +448,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  margin-left: 0.55rem;
+  margin-inline-start: 0.55rem;
   padding-bottom: 0.12em;
   border-bottom: 1px solid color-mix(in srgb, var(--foreground) 45%, transparent);
   font-size: 0.38em;
@@ -534,7 +535,7 @@ a {
 
 .hero-copy {
   position: relative;
-  text-align: left;
+  text-align: start;
   flex-shrink: 0;
 }
 
@@ -2248,4 +2249,52 @@ a {
   .under-dev-soon {
     animation: none;
   }
+}
+
+/* Arabic locale — IBM Plex Sans Arabic، بدون تكسير الحروف */
+.locale-root {
+  font-family: var(--font-arabic);
+}
+
+.locale-root .type-display,
+.locale-root .section-title,
+.locale-root .section-title--serif,
+.locale-root .hero-brand,
+.locale-root .method-heading,
+.locale-root .cta-statement,
+.locale-root .page-hero-title,
+.locale-root .case-title,
+.locale-root .featured-card-title,
+.locale-root .showcase-card-title,
+.locale-root .hero-headline,
+.locale-root .sm-panel-itemLabel {
+  font-family: var(--font-ar-display), var(--font-arabic);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.12;
+}
+
+.locale-root .hero-headline-serif,
+.locale-root .type-accent,
+.locale-root .case-lede {
+  font-family: var(--font-ar-display), var(--font-arabic);
+  font-weight: 700;
+  font-style: normal;
+}
+
+.locale-root .hero-ghost-word {
+  font-family: var(--font-ar-display), var(--font-arabic);
+  font-weight: 900;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.locale-root .hero-lede,
+.locale-root .method-copy {
+  line-height: 1.8;
+}
+
+.locale-root .case-meta-row,
+.locale-root .method-list {
+  text-align: start;
 }

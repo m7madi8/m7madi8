@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import type { Locale } from "../../../lib/i18n/config";
+import { getMessages } from "../../../lib/i18n/messages";
+import { homePath, workIndexPath } from "../../../lib/i18n/paths";
+import LanguageSwitcher from "../LanguageSwitcher";
 import BrandMark from "../BrandMark";
 import LazyCustomCursor from "../LazyCustomCursor";
 import LinksChannels from "./LinksChannels";
@@ -11,26 +15,36 @@ import "./links.css";
 
 type Props = {
   projects: ShowcaseItem[];
+  locale?: Locale;
 };
 
-export default function LinksExperience({ projects }: Props) {
+export default function LinksExperience({
+  projects,
+  locale = "en",
+}: Props) {
+  const l = getMessages(locale).links;
+  const rtlClass = locale === "ar" ? " locale-root" : "";
+
   return (
     <LinksSmoothScroll>
-      <div className="links-page">
+      <div className={`links-page${rtlClass}`} dir={locale === "ar" ? "rtl" : "ltr"}>
         <LazyCustomCursor />
 
         <header className="links-topbar">
           <BrandMark
-            href="/"
+            href={homePath(locale)}
             size="md"
             tone="light"
             animate
             className="links-topbar-brand"
-            aria-label="m. — Home"
+            aria-label={l.homeAria}
           />
-          <Link href="/work" className="links-topbar-link" data-cursor>
-            Archive
-          </Link>
+          <div className="links-topbar-actions">
+            <LanguageSwitcher locale={locale} variant="inline" />
+            <Link href={workIndexPath(locale)} className="links-topbar-link" data-cursor>
+              {l.archive}
+            </Link>
+          </div>
         </header>
 
         <main className="links-stack">
@@ -52,7 +66,7 @@ export default function LinksExperience({ projects }: Props) {
               className="links-footer-cta"
               data-cursor
             >
-              Start a project
+              {l.startProject}
             </a>
           </footer>
         </main>

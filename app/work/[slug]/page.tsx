@@ -1,17 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import BrandMark from "../../components/BrandMark";
-import CustomCursor from "../../components/CustomCursor";
-import ProjectGalleryCarousel from "../../components/ProjectGalleryCarousel";
-import ProjectJsonLd from "../../components/ProjectJsonLd";
-import RevealManager from "../../components/RevealManager";
-import ScrollFloat from "../../components/ScrollFloat";
-import SiteFooter from "../../components/SiteFooter";
-import { isComingSoon, projects, projectStatusLabel } from "../../data/projects";
-import { PROJECT_SHOWCASE_META } from "../../data/project-showcase-meta";
-import { SEO_PERSON, buildPageMetadata } from "../../../lib/seo-config";
+import { getMessages } from "../../../lib/i18n/messages";
+import { buildPageMetadata } from "../../../lib/seo-config";
+import { projects } from "../../data/projects";
+import ProjectPageView from "../ProjectPageView";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -27,15 +19,15 @@ export async function generateMetadata({
   if (!project) {
     return {};
   }
-  const title = `${project.title} — ${SEO_PERSON.nameEn} | ${SEO_PERSON.nameAr}`;
-  const description = `${project.summary} ${project.context}. Built by ${SEO_PERSON.nameEn}, ${SEO_PERSON.jobTitle}. ${SEO_PERSON.nameAr} — ${SEO_PERSON.jobTitleAr}.`;
+  const m = getMessages("en").meta;
 
   return buildPageMetadata({
-    title,
-    description,
+    title: m.projectTitle(project.title),
+    description: m.projectDescription(project.summary, project.context),
     path: `/work/${slug}`,
+    locale: "en",
     keywords: [project.title, project.context, project.slug, "case study", "دراسة حالة"],
-    ogTitle: `${project.title} | ${SEO_PERSON.nameEn}`,
+    ogTitle: m.projectOg(project.title),
     ogType: "article",
   });
 }
@@ -46,249 +38,9 @@ type ProjectPageProps = {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const projectIndex = projects.findIndex((item) => item.slug === slug);
-
-  if (projectIndex === -1) {
+  if (!projects.some((p) => p.slug === slug)) {
     notFound();
   }
 
-  const project = projects[projectIndex];
-  const comingSoon = isComingSoon(project);
-  const showcase = PROJECT_SHOWCASE_META[project.slug];
-  const category = project.category ?? showcase?.category ?? project.context;
-  const stack = project.stack ?? showcase?.stack ?? [];
-  const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
-  const nextProject =
-    projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
-
-  return (
-    <div className="relative bg-[color:var(--background)] text-[color:var(--foreground)]">
-      <ProjectJsonLd project={project} />
-      <CustomCursor />
-      <RevealManager />
-
-      <main className="relative z-10 mx-auto min-h-screen max-w-5xl px-5 pb-10 pt-8 sm:px-8 sm:pt-10 lg:max-w-6xl lg:px-16 lg:pt-14">
-        {/* Top nav */}
-        <header className="reveal flex flex-wrap items-center justify-between gap-4" data-reveal>
-          <div className="flex items-center gap-5">
-            <BrandMark href="/" size="sm" tone="light" animate={false} />
-            <Link
-              className="link-arrow text-[color:var(--muted)] hover:text-white"
-              href="/work"
-              data-cursor
-            >
-              <span aria-hidden>←</span>
-              All projects
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            {comingSoon ? (
-              <span className="badge">{projectStatusLabel(project)}</span>
-            ) : (
-              <span className="badge badge-live">Live</span>
-            )}
-            {project.url ? (
-              <a
-                className="project-card-btn project-card-btn--external project-card-btn--inline"
-                href={project.url}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor
-              >
-                Visit site
-                <svg
-                  className="project-card-btn-icon"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  aria-hidden
-                >
-                  <path
-                    d="M5.5 2.5H2.75A1.25 1.25 0 0 0 1.5 3.75v7.5c0 .69.56 1.25 1.25 1.25h7.5c.69 0 1.25-.56 1.25-1.25V8.5M8.5 1.5h4v4M5.5 8.5 12.5 1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-            ) : null}
-          </div>
-        </header>
-
-        {/* Hero image */}
-        {project.image ? (
-          <div
-            className={`case-hero-image reveal mt-8 sm:mt-10${
-              project.coverLayout === "poster" ? " case-hero-image--poster" : ""
-            }`}
-            data-reveal
-          >
-            <Image
-              src={project.image}
-              alt={`${project.title} preview`}
-              fill
-              className={
-                project.coverLayout === "poster" ? "object-contain" : "object-cover"
-              }
-              sizes="(max-width: 1280px) 100vw, 1152px"
-              priority
-              decoding="async"
-            />
-          </div>
-        ) : null}
-
-        {/* Interface mockups */}
-        {project.gallery && project.gallery.length > 0 ? (
-          <div className="mt-8 sm:mt-10">
-            <ProjectGalleryCarousel
-              items={project.gallery}
-              title={project.galleryTitle}
-              description={project.galleryDescription}
-            />
-          </div>
-        ) : null}
-
-        {/* Title block */}
-        <section className="mt-12 space-y-6 lg:mt-16">
-          <p className="eyebrow reveal" data-reveal>
-            {category}
-          </p>
-          <ScrollFloat
-            as="h1"
-            className="case-title mt-3"
-            animationDuration={1}
-            ease="back.inOut(2)"
-            scrollStart="center bottom+=50%"
-            scrollEnd="bottom bottom-=40%"
-            stagger={0.03}
-          >
-            {project.title}
-          </ScrollFloat>
-          <div className="reveal" data-reveal>
-            <dl className="case-meta-row">
-              <div className="case-meta-item">
-                <dt>Context</dt>
-                <dd>{project.context}</dd>
-              </div>
-              {stack.length ? (
-                <div className="case-meta-item">
-                  <dt>Stack</dt>
-                  <dd>{stack.join(", ")}</dd>
-                </div>
-              ) : null}
-              <div className="case-meta-item">
-                <dt>Status</dt>
-                <dd>{comingSoon ? projectStatusLabel(project) : "Live"}</dd>
-              </div>
-            </dl>
-            <p className="case-lede mt-8">{project.overview}</p>
-          </div>
-
-          {comingSoon ? (
-            <div
-              className="reveal surface-card px-6 py-4"
-              data-reveal
-            >
-              <p className="eyebrow">Status</p>
-              <p className="mt-2 text-sm text-white">
-                {project.status === "launching"
-                  ? project.result
-                  : "In active development — publishing soon."}
-              </p>
-            </div>
-          ) : null}
-        </section>
-
-        {/* Details grid */}
-        <section className="mt-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
-          <div className="reveal space-y-8" data-reveal>
-            <div>
-              <p className="case-section-label">Goal</p>
-              <p className="case-section-body mt-3">{project.goal}</p>
-            </div>
-            <div>
-              <p className="case-section-label">
-                {comingSoon && project.status !== "launching"
-                  ? "What's being built"
-                  : "What was built"}
-              </p>
-              <p className="case-section-body mt-3">{project.build}</p>
-            </div>
-            <div>
-              <p className="case-section-label">Key work</p>
-              <ul className="mt-4 space-y-3">
-                {project.work.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 text-sm text-[color:var(--muted)]"
-                  >
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[color:var(--muted)]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="reveal surface-card-elevated p-8" data-reveal>
-            <p className="case-section-label">Outcome</p>
-            <p className="case-section-body mt-4 text-white">{project.result}</p>
-            <div className="mt-8 space-y-4 border-t border-[color:var(--border)] pt-8">
-              <div>
-                <p className="eyebrow">Summary</p>
-                <p className="mt-2 text-sm text-[color:var(--muted)]">
-                  {project.summary}
-                </p>
-              </div>
-              <Link
-                href="/#contact"
-                className="btn-primary mt-4 inline-flex w-full justify-center px-6 py-3"
-                data-cursor
-              >
-                Start a similar project
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Prev / Next navigation */}
-        <nav
-          className="reveal mt-12 grid gap-4 pt-6 sm:grid-cols-2"
-          data-reveal
-          aria-label="Project navigation"
-        >
-          {prevProject ? (
-            <Link
-              href={`/work/${prevProject.slug}`}
-              className="surface-card group p-6 transition hover:border-[color:var(--border)]"
-              data-cursor
-            >
-              <p className="eyebrow">Previous</p>
-              <p className="mt-2 font-medium text-white transition group-hover:text-[color:var(--muted)]">
-                {prevProject.title}
-              </p>
-            </Link>
-          ) : (
-            <div />
-          )}
-          {nextProject ? (
-            <Link
-              href={`/work/${nextProject.slug}`}
-              className="surface-card group p-6 text-right transition hover:border-[color:var(--border)]"
-              data-cursor
-            >
-              <p className="eyebrow">Next</p>
-              <p className="mt-2 font-medium text-white transition group-hover:text-[color:var(--muted)]">
-                {nextProject.title}
-              </p>
-            </Link>
-          ) : null}
-        </nav>
-
-        <SiteFooter />
-      </main>
-    </div>
-  );
+  return <ProjectPageView slug={slug} locale="en" />;
 }

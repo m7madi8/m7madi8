@@ -1,0 +1,123 @@
+/**
+ * تنسيق RTL — يُطبَّق عند dir="rtl" على html أو أي حاوية.
+ */
+
+[dir="rtl"] {
+  text-align: start;
+}
+
+[dir="rtl"] .hero-copy {
+  text-align: start;
+}
+
+[dir="rtl"] .hero-ghost-word {
+  transform-origin: right bottom;
+}
+
+[dir="rtl"] .hero-scroll-mark {
+  align-items: flex-end;
+}
+
+[dir="rtl"] .hero-actions {
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  [dir="rtl"] .hero-actions {
+    justify-content: flex-start;
+  }
+}
+
+[dir="rtl"] .cta-breakout {
+  margin-inline: calc(50% - 50vw);
+  margin-left: 0;
+  margin-right: 0;
+  background: linear-gradient(
+    270deg,
+    transparent 0,
+    transparent 3.2%,
+    color-mix(in srgb, var(--foreground) 8%, transparent) 3.2%,
+    color-mix(in srgb, var(--foreground) 8%, transparent) 3.28%,
+    transparent 3.28%
+  );
+}
+
+[dir="rtl"] .cta-inline {
+  margin-left: 0;
+  margin-inline-start: 0.55rem;
+}
+
+@media (min-width: 860px) {
+  [dir="rtl"] .cta-breakout-stat {
+    transform: translateX(clamp(0px, 4vw, 1.5rem));
+  }
+}
+
+[dir="rtl"] .method-heading {
+  max-width: none;
+}
+
+[dir="rtl"] .method-row:hover .method-title {
+  transform: translateX(-3px);
+}
+
+[dir="rtl"] .link-arrow {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .link-arrow:hover span {
+  transform: translateX(-3px);
+}
+
+[dir="rtl"] .featured-projects-footer {
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  [dir="rtl"] .featured-projects-footer {
+    align-items: center;
+  }
+}
+
+[dir="rtl"] .featured-card-cta:hover .featured-card-cta-arrow {
+  transform: translateX(-3px);
+}
+
+[dir="rtl"] .page-hero .link-arrow {
+  margin-inline-start: auto;
+}
+
+[dir="rtl"] .contact-field label,
+[dir="rtl"] .contact-form-title,
+[dir="rtl"] .contact-form-kicker {
+  text-align: start;
+}
+
+[dir="rtl"] .contact-action {
+  direction: rtl;
+}
+
+[dir="rtl"] .site-footer-links {
+  text-align: start;
+}
+
+[dir="rtl"] .sm-inline-nav {
+  direction: rtl;
+}
+
+[dir="rtl"] .case-meta-row {
+  text-align: start;
+}
+
+[dir="rtl"] .case-meta-item dd {
+  text-align: start;
+}
+
+[dir="rtl"] .project-card-btn-icon {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .brand-mark-dot {
+  margin-left: 0;
+  margin-inline-start: 0.02em;
+}

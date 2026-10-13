@@ -19,6 +19,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: path("/ar"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
+      url: path("/ar/work"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: path("/ar/links"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.82,
+    },
+    {
       url: path("/agreement"),
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -75,6 +93,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
+    });
+    routes.push({
+      url: path(`/ar/work/${p.slug}`),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.65,
     });
   }
 

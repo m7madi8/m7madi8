@@ -3,7 +3,6 @@ import type { StaticImageData } from "next/image";
 import image99 from "../../img/99.webp";
 import imageSamarammar from "../../img/samar-ammar-cover.webp";
 
-import image03 from "../../img/03.webp";
 import image04 from "../../img/04.webp";
 import image88 from "../../img/88.webp";
 import image8 from "../../img/8.webp";
@@ -48,6 +47,8 @@ export type Project = {
   galleryDescription?: string;
   url?: string;
   status?: ProjectStatus;
+  /** Visible label when a cover image shows illustrative figures */
+  figureNote?: string;
   /** Short category label for showcase cards */
   category?: string;
   /** Technology / craft stack shown on showcase cards */
@@ -69,8 +70,9 @@ export function projectStatusLabel(project: Project): string {
   return "Live";
 }
 
+/** Sites a visitor can open. In-development, launching, and entries without a URL are excluded. */
 export function getLiveProjects(): Project[] {
-  return projects.filter((p) => !isComingSoon(p));
+  return projects.filter((p) => !isComingSoon(p) && Boolean(p.url));
 }
 
 export const projects: Project[] = [
@@ -96,6 +98,8 @@ export const projects: Project[] = [
       "An intelligence layer that reads what happened and suggests what to do — without taking the wheel.",
     ],
     result: "Built and ready. Launching early 2027.",
+    figureNote:
+      "The revenue and order figures on this poster are sample interface data, not verified business results.",
   },
   {
     slug: "99cafe",
@@ -189,30 +193,15 @@ export const projects: Project[] = [
     summary: "Showcasing refined interior, exterior, and garden designs.",
     image: imageSamarammar,
     url: "https://samarammar.com",
+    status: "coming-soon",
     goal: "Present refined interior, exterior, and garden design work.",
     build: "A portfolio showcasing elegant spaces and landscapes.",
     work: [
       "Interior and exterior design showcases.",
       "Garden and landscape visualizations.",
     ],
-    result: "A clear, refined presentation of design projects.",
+    result: "The linked website is still under development.",
     overview: "Refined interior, exterior, and garden design portfolio.",
-  },
-  {
-    slug: "vantage",
-    title: "Vantage",
-    context: "Sportswear & gym gear store",
-    summary: "A premium e-commerce experience for athletes and everyday training.",
-    image: image03,
-    goal: "Build a strong Vantage brand presence and frictionless shopping for fitness-focused customers.",
-    build: "A high-performance storefront with clear navigation and product discovery.",
-    work: [
-      "Bold, energetic UI aligned with the Vantage identity.",
-      "Secure checkout and payment integration.",
-      "Product pages tuned for clarity and conversion.",
-    ],
-    result: "A fast, memorable store that supports growth in online sales and engagement.",
-    overview: "Vantage — a robust, modern e-commerce site for sportswear and gym gear.",
   },
   {
     slug: "od-architects",
@@ -331,7 +320,7 @@ export const projects: Project[] = [
   {
     slug: "darna",
     title: "DARNA",
-    status: "coming-soon",
+    url: "https://darna-wine.vercel.app/",
     image: imageDarna,
     context: "Restaurant · Lounge · Catering — venue booking platform",
     summary:
@@ -344,7 +333,8 @@ export const projects: Project[] = [
       "Real-time reservation and table management for the venue team.",
       "End-to-end journey from choice through confirmation, tuned for a polished guest arrival.",
     ],
-    result: "In active development — publishing soon.",
+    result:
+      "A public site is available, with separate paths for the restaurant, lounge, and catering.",
     overview:
       "Smarter venue booking — not just a contact form, but a complete experience from selection to confirmation.",
   },

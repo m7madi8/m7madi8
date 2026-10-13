@@ -9,6 +9,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: `Projects | ${SEO_PERSON.nameEn} — ${SEO_PERSON.nameAr}`,
   description: `${SEO_PERSON.descriptionEn} Explore portfolio case studies: web apps, e-commerce, and full-stack builds by ${SEO_PERSON.nameEn}. ${SEO_PERSON.descriptionAr}`,
   path: "/work",
+  locale: "en",
   keywords: [
     "web development portfolio",
     "معرض مشاريع",
@@ -23,7 +24,7 @@ export default function WorkPage() {
   return (
     <>
       <WorkJsonLd />
-      <WorkPageContent />
+      <WorkPageContent locale="en" />
     </>
   );
 }

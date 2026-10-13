@@ -1,0 +1,72 @@
+.lang-switch {
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.lang-switch:focus-visible {
+  outline: 1px solid color-mix(in srgb, #fff 55%, transparent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* داخل لوحة القائمة — صف واضح تحت الروابط */
+.lang-switch--menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 0 0.25rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  color: #f5f5f4;
+}
+
+.lang-switch-menu-kicker {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lang-switch-menu-label {
+  font-family: var(--font-struct), system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.locale-root .lang-switch-menu-label {
+  font-family: var(--font-arabic), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-switch--menu:hover .lang-switch-menu-label {
+    color: #fff;
+    opacity: 0.85;
+  }
+}
+
+/* صفحات بدون قائمة كاملة — رابط بسيط */
+.lang-switch--inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.lang-switch--inline:hover,
+.lang-switch--inline:focus-visible {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--foreground) 32%, transparent);
+}

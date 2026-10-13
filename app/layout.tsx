@@ -4,10 +4,12 @@ import {
   IBM_Plex_Mono,
   IBM_Plex_Sans_Arabic,
   Jost,
+  Noto_Kufi_Arabic,
   Space_Grotesk,
   Syne,
 } from "next/font/google";
 import "./globals.css";
+import HtmlLocaleSync from "./components/HtmlLocaleSync";
 import InitialLoader from "./components/InitialLoader";
 import NoCopy from "./components/NoCopy";
 import SeoJsonLd from "./components/SeoJsonLd";
@@ -62,7 +64,17 @@ const bodoni = Bodoni_Moda({
 const plexArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-plex-arabic",
   subsets: ["arabic"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
+  adjustFontFallback: true,
+});
+
+/** عناوين عربية — بديل مجاني قريب من Hajeen / Madika (كوفي حديث) */
+const notoKufiArabic = Noto_Kufi_Arabic({
+  variable: "--font-ar-display",
+  subsets: ["arabic"],
+  weight: ["500", "600", "700", "800", "900"],
   display: "swap",
   preload: false,
   adjustFontFallback: true,
@@ -78,10 +90,11 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${syne.variable} ${jost.variable} ${plexMono.variable} ${bodoni.variable} ${plexArabic.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${syne.variable} ${jost.variable} ${plexMono.variable} ${bodoni.variable} ${plexArabic.variable} ${notoKufiArabic.variable} antialiased`}
         suppressHydrationWarning
       >
         <SeoJsonLd />
+        <HtmlLocaleSync />
         <NoCopy />
         <InitialLoader />
         {children}

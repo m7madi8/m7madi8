@@ -8,10 +8,13 @@
 > Official site: https://mohammadhroub.com
 
 ## Key pages
-- Home: https://mohammadhroub.com/
-- Projects / case studies: https://mohammadhroub.com/work
+- Home (EN): https://mohammadhroub.com/
+- Home (AR): https://mohammadhroub.com/ar
+- Projects / case studies (EN): https://mohammadhroub.com/work
+- Projects / case studies (AR): https://mohammadhroub.com/ar/work
 - Contact: https://mohammadhroub.com/#contact
-- Professional links: https://mohammadhroub.com/links
+- Professional links (EN): https://mohammadhroub.com/links
+- Professional links (AR): https://mohammadhroub.com/ar/links
 
 ## Public profiles (sameAs)
 - Instagram: https://www.instagram.com/mohammad._dev/

@@ -3,8 +3,11 @@
 import { useCallback, useLayoutEffect, useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
-import { headerLinks } from "../../lib/site-nav";
+import type { Locale } from "../../lib/i18n/config";
+import { homePath } from "../../lib/i18n/paths";
+import { getHeaderLinks } from "../../lib/site-nav";
 import BrandMark from "./BrandMark";
+import LanguageSwitcher from "./LanguageSwitcher";
 import "./StaggeredMenu.css";
 
 export type StaggeredMenuItem = {
@@ -34,6 +37,7 @@ type StaggeredMenuProps = {
   closeOnClickAway?: boolean;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
+  locale?: Locale;
 };
 
 export function StaggeredMenu({
@@ -52,7 +56,9 @@ export function StaggeredMenu({
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose,
+  locale = "en",
 }: StaggeredMenuProps) {
+  const headerLinks = getHeaderLinks(locale);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const openRef = useRef(false);
@@ -468,7 +474,13 @@ export function StaggeredMenu({
       <header className="staggered-menu-header" aria-label="Main navigation header" data-scrolled={scrolled || undefined}>
         <div className="sm-header-inner">
           <div className="sm-logo">
-            <BrandMark href="/" size="md" tone="light" animate className="sm-brand-mark" />
+            <BrandMark
+              href={homePath(locale)}
+              size="md"
+              tone="light"
+              animate
+              className="sm-brand-mark"
+            />
           </div>
 
           <nav className="sm-inline-nav" aria-label="Primary">
@@ -487,29 +499,29 @@ export function StaggeredMenu({
           </nav>
 
           <button
-            ref={toggleBtnRef}
-            className="sm-toggle"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="staggered-menu-panel"
-            onClick={toggleMenu}
-            type="button"
-            suppressHydrationWarning
-          >
-            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-              <span ref={textInnerRef} className="sm-toggle-textInner">
-                {textLines.map((l, i) => (
-                  <span className="sm-toggle-line" key={`${l}-${i}`}>
-                    {l}
-                  </span>
-                ))}
+              ref={toggleBtnRef}
+              className="sm-toggle"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="staggered-menu-panel"
+              onClick={toggleMenu}
+              type="button"
+              suppressHydrationWarning
+            >
+              <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+                <span ref={textInnerRef} className="sm-toggle-textInner">
+                  {textLines.map((l, i) => (
+                    <span className="sm-toggle-line" key={`${l}-${i}`}>
+                      {l}
+                    </span>
+                  ))}
+                </span>
               </span>
-            </span>
-            <span ref={iconRef} className="sm-toggle-mark" aria-hidden="true">
-              <span ref={plusHRef} className="sm-toggle-bar sm-toggle-bar--h" />
-              <span ref={plusVRef} className="sm-toggle-bar sm-toggle-bar--v" />
-            </span>
-          </button>
+              <span ref={iconRef} className="sm-toggle-mark" aria-hidden="true">
+                <span ref={plusHRef} className="sm-toggle-bar sm-toggle-bar--h" />
+                <span ref={plusVRef} className="sm-toggle-bar sm-toggle-bar--v" />
+              </span>
+            </button>
         </div>
       </header>
 
@@ -550,6 +562,7 @@ export function StaggeredMenu({
               </li>
             )}
           </ul>
+          <LanguageSwitcher locale={locale} variant="menu" />
           {displaySocials && socialItems && socialItems.length > 0 && (
             <div className="sm-socials" aria-label="Social links">
               <h3 className="sm-socials-title">Connect</h3>

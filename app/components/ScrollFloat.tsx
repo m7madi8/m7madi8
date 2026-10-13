@@ -14,6 +14,8 @@ import "./ScrollFloat.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const ARABIC_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/;
+
 type ScrollFloatProps = {
   children: ReactNode;
   as?: ElementType;
@@ -26,6 +28,10 @@ type ScrollFloatProps = {
   scrollEnd?: string;
   stagger?: number;
 };
+
+function containsArabic(text: string): boolean {
+  return ARABIC_RE.test(text);
+}
 
 export default function ScrollFloat({
   children,
@@ -40,11 +46,31 @@ export default function ScrollFloat({
   stagger = 0.03,
 }: ScrollFloatProps) {
   const containerRef = useRef<HTMLElement>(null);
+  const text = typeof children === "string" ? children : "";
+  const useWordAnimation = text.length > 0 && containsArabic(text);
 
   const splitText = useMemo(() => {
-    const text = typeof children === "string" ? children : "";
-    const parts = text.split(/(\s+)/);
+    if (!text) return children;
 
+    if (useWordAnimation) {
+      const parts = text.split(/(\s+)/);
+      return parts.map((part, partIndex) => {
+        if (/^\s+$/.test(part)) {
+          return (
+            <span className="scroll-float-space" key={`s-${partIndex}`}>
+              {"\u00A0"}
+            </span>
+          );
+        }
+        return (
+          <span className="scroll-float-word scroll-float-word--ar" key={`w-${partIndex}`}>
+            {part}
+          </span>
+        );
+      });
+    }
+
+    const parts = text.split(/(\s+)/);
     return parts.map((part, partIndex) => {
       if (/^\s+$/.test(part)) {
         return (
@@ -64,7 +90,7 @@ export default function ScrollFloat({
         </span>
       );
     });
-  }, [children]);
+  }, [children, text, useWordAnimation]);
 
   useLayoutEffect(() => {
     const el = containerRef.current;
@@ -76,27 +102,22 @@ export default function ScrollFloat({
 
     const scroller =
       scrollContainerRef?.current ? scrollContainerRef.current : window;
+
     const charElements = el.querySelectorAll(".char");
-    if (charElements.length === 0) return;
+    const wordElements = el.querySelectorAll(".scroll-float-word--ar");
+    const targets =
+      wordElements.length > 0 ? wordElements : charElements;
+    if (targets.length === 0) return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        charElements,
+        targets,
+        { opacity: 0, yPercent: useWordAnimation ? 40 : 120 },
         {
-          willChange: "opacity, transform",
-          opacity: 0,
-          yPercent: 120,
-          scaleY: 2.3,
-          scaleX: 0.7,
-          transformOrigin: "50% 0%",
-        },
-        {
-          duration: animationDuration,
-          ease,
           opacity: 1,
           yPercent: 0,
-          scaleY: 1,
-          scaleX: 1,
+          ease,
+          duration: animationDuration,
           stagger,
           scrollTrigger: {
             trigger: el,
@@ -118,7 +139,16 @@ export default function ScrollFloat({
     scrollStart,
     scrollEnd,
     stagger,
+    useWordAnimation,
   ]);
+
+  if (typeof children !== "string") {
+    return (
+      <Tag ref={containerRef as never} className={`scroll-float ${className}`.trim()}>
+        {children}
+      </Tag>
+    );
+  }
 
   return (
     <Tag ref={containerRef as never} className={`scroll-float ${className}`.trim()}>

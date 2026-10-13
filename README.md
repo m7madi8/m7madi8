@@ -42,7 +42,9 @@ Copy `.env.example` to `.env.local` for local development. On Vercel (or your ho
 
 ### SEO (search engines)
 
-- Production SEO defaults to **`https://mohammadhroub.com`**. Override with **`NEXT_PUBLIC_SITE_URL`** if you use another domain or preview URL.
+- Production SEO origin is **`https://mohammadhroub.com`**. That value is the source of truth for canonical URLs, Open Graph, JSON-LD, `sitemap.xml`, and `robots.txt` whenever `NEXT_PUBLIC_SITE_URL` is unset.
+- On the production host, set **`NEXT_PUBLIC_SITE_URL`** to `https://mohammadhroub.com`, or leave it unset. A `*.vercel.app` value is ignored in production builds. `VERCEL_URL` is never used: it is the deployment hostname, and that host can be login-protected and `noindex`.
+- Override with **`NEXT_PUBLIC_SITE_URL`** only for another real domain or an intentional preview. `NEXT_PUBLIC_*` values are baked in at build time, so change them and redeploy.
 - Optional site verification (set on the host before **build**; values appear as `<meta>` tags via [`getRootLayoutMetadata()`](lib/seo-config.ts)):
   - **`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`** — the `content` value from Google’s `google-site-verification` meta tag ([Search Console](https://search.google.com/search-console)).
   - **`NEXT_PUBLIC_BING_SITE_VERIFICATION`** — the `content` value from Bing’s `msvalidate.01` meta tag ([Bing Webmaster Tools](https://www.bing.com/webmasters)).

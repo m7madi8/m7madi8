@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import type { Locale } from "../../lib/i18n/config";
+import { getMessages } from "../../lib/i18n/messages";
 import { getDb } from "../../lib/firebase";
 
 const EMAIL = "eslamhuhu1@gmail.com";
@@ -8,7 +10,12 @@ const CONTACTS_COLLECTION = "contacts";
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const SITE_NAME = "My Portfolio";
 
-export default function ContactForm() {
+type ContactFormProps = {
+  locale?: Locale;
+};
+
+export default function ContactForm({ locale = "en" }: ContactFormProps) {
+  const f = getMessages(locale).contactForm;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -40,7 +47,7 @@ export default function ContactForm() {
 
     if (!canSubmit) {
       setStatus("error");
-      setErrorMessage("Please fill in your name, phone number, and message.");
+      setErrorMessage(f.errorRequired);
       return;
     }
 
@@ -104,15 +111,15 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="contact-form" suppressHydrationWarning>
       <div className="contact-form-head">
-        <p className="contact-form-kicker">Brief</p>
-        <h3 className="contact-form-title">Tell me about the work.</h3>
+        <p className="contact-form-kicker">{f.kicker}</p>
+        <h3 className="contact-form-title">{f.title}</h3>
       </div>
 
       {status !== "success" && (
         <div className="contact-fields">
           <div className="contact-field contact-field--wide">
             <label htmlFor="contact-name">
-              Name <span className="contact-req">*</span>
+              {f.name} <span className="contact-req">*</span>
             </label>
             <input
               id="contact-name"
@@ -122,12 +129,12 @@ export default function ContactForm() {
               disabled={status === "loading"}
               required
               className="contact-input"
-              placeholder="Your name"
+              placeholder={f.namePlaceholder}
               suppressHydrationWarning
             />
           </div>
           <div className="contact-field">
-            <label htmlFor="contact-email">Email</label>
+            <label htmlFor="contact-email">{f.email}</label>
             <input
               id="contact-email"
               type="email"
@@ -135,13 +142,14 @@ export default function ContactForm() {
               onChange={(e) => setEmail(e.target.value)}
               disabled={status === "loading"}
               className="contact-input"
-              placeholder="you@studio.com"
+              placeholder={f.emailPlaceholder}
+              dir="ltr"
               suppressHydrationWarning
             />
           </div>
           <div className="contact-field">
             <label htmlFor="contact-phone">
-              Phone <span className="contact-req">*</span>
+              {f.phone} <span className="contact-req">*</span>
             </label>
             <input
               id="contact-phone"
@@ -151,13 +159,14 @@ export default function ContactForm() {
               disabled={status === "loading"}
               required
               className="contact-input"
-              placeholder="Phone or WhatsApp"
+              placeholder={f.phonePlaceholder}
+              dir="ltr"
               suppressHydrationWarning
             />
           </div>
           <div className="contact-field contact-field--wide">
             <label htmlFor="contact-notes">
-              Message <span className="contact-req">*</span>
+              {f.message} <span className="contact-req">*</span>
             </label>
             <textarea
               id="contact-notes"
@@ -167,7 +176,7 @@ export default function ContactForm() {
               disabled={status === "loading"}
               required
               className="contact-input contact-input--area"
-              placeholder="Goals, timeline, and what done looks like."
+              placeholder={f.messagePlaceholder}
             />
           </div>
         </div>
@@ -175,22 +184,24 @@ export default function ContactForm() {
 
       {status === "success" && (
         <div className="contact-form-success">
-          <p className="contact-form-kicker">Sent</p>
-          <h3>Thank you for reaching out.</h3>
-          <p>I&apos;ll get back to you as soon as possible.</p>
+          <p className="contact-form-kicker">{f.successKicker}</p>
+          <h3>{f.successTitle}</h3>
+          <p>{f.successBody}</p>
         </div>
       )}
 
       {mailtoUrl && (
         <div className="contact-form-mailto">
-          <p>Open your email app to send this brief:</p>
-          <a href={mailtoUrl}>Send via email →</a>
+          <p>{f.mailtoIntro}</p>
+          <a href={mailtoUrl}>
+            {f.mailto} {locale === "ar" ? "←" : "→"}
+          </a>
         </div>
       )}
 
       {status === "error" && (
         <p className="contact-form-status" role="alert">
-          {errorMessage || "Failed to send. Try again or use the email action."}
+          {errorMessage || f.errorFallback}
         </p>
       )}
 
@@ -202,7 +213,7 @@ export default function ContactForm() {
           data-cursor
           suppressHydrationWarning
         >
-          {status === "loading" ? "Sending…" : "Send brief"}
+          {status === "loading" ? f.sending : f.submit}
         </button>
       )}
     </form>

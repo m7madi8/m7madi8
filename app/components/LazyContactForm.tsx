@@ -13,7 +13,13 @@ const ContactForm = dynamic(() => import("./ContactForm"), {
   ),
 });
 
-export default function LazyContactForm() {
+import type { Locale } from "../../lib/i18n/config";
+
+type LazyContactFormProps = {
+  locale?: Locale;
+};
+
+export default function LazyContactForm({ locale = "en" }: LazyContactFormProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -38,7 +44,7 @@ export default function LazyContactForm() {
   return (
     <div ref={ref}>
       {visible ? (
-        <ContactForm />
+        <ContactForm locale={locale} />
       ) : (
         <div
           className="h-56 w-full bg-[color:var(--surface)]"

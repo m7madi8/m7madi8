@@ -19,10 +19,6 @@ export const PROJECT_SHOWCASE_META: Record<
     category: "Interior Architecture",
     stack: ["Next.js", "GSAP", "Tailwind"],
   },
-  vantage: {
-    category: "E-commerce · Sportswear",
-    stack: ["Next.js", "Commerce", "Stripe"],
-  },
   "od-architects": {
     category: "Architecture Studio",
     stack: ["Next.js", "Framer Motion", "Tailwind"],

@@ -1,4 +1,4 @@
-import { projects } from "../data/projects";
+import { isComingSoon, projects } from "../data/projects";
 
 export const services = [
   { id: "restaurants", label: "Restaurants", index: "01" },
@@ -117,6 +117,7 @@ export const reservationTimes = [
 ];
 
 const cafe = projects.find((p) => p.slug === "99cafe");
+const darna = projects.find((p) => p.slug === "darna");
 
 export type WorkKind = "project" | "menu-demo" | "resv-demo" | "page";
 
@@ -168,8 +169,8 @@ export const hospitalityWork: HospitalityWork[] = [
     services: ["custom"],
     title: "DARNA",
     kind: "project",
-    status: "live",
-    href: "https://darna-wine.vercel.app/",
+    status: darna && !isComingSoon(darna) && darna.url ? "live" : "coming-soon",
+    href: darna?.url ?? "https://darna-wine.vercel.app/",
     projectSlug: "darna",
   },
 ];

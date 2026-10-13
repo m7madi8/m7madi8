@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     description:
       "Mohammad Hroub digital identity — portfolio, selected work, Instagram, WhatsApp, and email. Creative developer building premium digital experiences.",
     path: "/links",
+    locale: "en",
     keywords: [
       "Mohammad Hroub links",
       "contact Mohammad Hroub",

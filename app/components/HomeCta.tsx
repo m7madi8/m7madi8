@@ -1,22 +1,28 @@
+import type { Locale } from "../../lib/i18n/config";
+import { getMessages } from "../../lib/i18n/messages";
+import { contactHash } from "../../lib/i18n/paths";
 import ScrollFloat from "./ScrollFloat";
 
 type HomeCtaProps = {
   liveCount: number;
+  locale: Locale;
 };
 
-export default function HomeCta({ liveCount }: HomeCtaProps) {
+export default function HomeCta({ liveCount, locale }: HomeCtaProps) {
+  const m = getMessages(locale).cta;
+
   return (
-    <section className="cta-breakout section-block" aria-label="Start a project">
+    <section className="cta-breakout section-block" aria-label={m.aria}>
       <div className="cta-breakout-stat">
-        <p className="sr-only">{liveCount} projects live on the web</p>
+        <p className="sr-only">{m.statSr(liveCount)}</p>
         <p className="cta-stat" aria-hidden>
           {String(liveCount).padStart(2, "0")}
         </p>
-        <p className="cta-stat-label">live on the web</p>
+        <p className="cta-stat-label">{m.statLabel}</p>
       </div>
 
       <div className="cta-breakout-copy">
-        <p className="eyebrow">Next</p>
+        <p className="eyebrow">{m.eyebrow}</p>
         <h2 className="cta-statement">
           <ScrollFloat
             as="span"
@@ -26,11 +32,11 @@ export default function HomeCta({ liveCount }: HomeCtaProps) {
             scrollEnd="bottom bottom-=40%"
             stagger={0.03}
           >
-            Let's build the next one.
+            {m.statement}
           </ScrollFloat>
-          <a href="#contact" className="cta-inline" data-cursor>
-            Start a project
-            <span aria-hidden>→</span>
+          <a href={contactHash(locale)} className="cta-inline" data-cursor>
+            {m.inline}
+            <span aria-hidden>{locale === "ar" ? "←" : "→"}</span>
           </a>
         </h2>
       </div>

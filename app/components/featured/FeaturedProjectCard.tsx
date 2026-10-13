@@ -4,13 +4,18 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECT_SHOWCASE_META } from "../../data/project-showcase-meta";
-import { isComingSoon, projectStatusLabel, type Project } from "../../data/projects";
+import type { Locale } from "../../../lib/i18n/config";
+import { getMessages } from "../../../lib/i18n/messages";
+import { projectStatusLabel } from "../../../lib/i18n/projects";
+import { workProjectPath } from "../../../lib/i18n/paths";
+import { isComingSoon, type Project } from "../../data/projects";
 import ProjectHoverEffect from "../showcase/ProjectHoverEffect";
 
 type FeaturedProjectCardProps = {
   project: Project;
   index?: number;
   lead?: boolean;
+  locale?: Locale;
 };
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -19,13 +24,15 @@ export default function FeaturedProjectCard({
   project,
   index = 0,
   lead = false,
+  locale = "en",
 }: FeaturedProjectCardProps) {
   const reduceMotion = useReducedMotion();
   const comingSoon = isComingSoon(project);
   const meta = PROJECT_SHOWCASE_META[project.slug];
   const category = project.category ?? meta?.category ?? project.context;
-  const href = `/work/${project.slug}`;
+  const href = workProjectPath(project.slug, locale);
   const isPoster = project.coverLayout === "poster";
+  const viewProject = getMessages(locale).case.viewProject;
   const delay = reduceMotion ? 0 : index * 0.1;
 
   return (
@@ -70,15 +77,15 @@ export default function FeaturedProjectCard({
         <div className="featured-card-body">
           <div className="featured-card-meta">
             <span className="featured-card-category">{category}</span>
-            {comingSoon ? (
-              <span className="featured-card-status featured-card-status--soon">
-                {projectStatusLabel(project)}
-              </span>
-            ) : (
-              <span className="featured-card-status featured-card-status--live">
-                Live
-              </span>
-            )}
+            <span
+              className={`featured-card-status ${
+                comingSoon
+                  ? "featured-card-status--soon"
+                  : "featured-card-status--live"
+              }`}
+            >
+              {projectStatusLabel(project, locale)}
+            </span>
           </div>
 
           <h3 className="featured-card-title">
@@ -90,9 +97,12 @@ export default function FeaturedProjectCard({
           <p className="featured-card-copy">
             {project.overview || project.summary}
           </p>
+          {project.figureNote ? (
+            <p className="featured-card-copy">{project.figureNote}</p>
+          ) : null}
 
           <Link href={href} className="featured-card-cta" data-cursor>
-            <span>View project</span>
+            <span>{viewProject}</span>
             <span className="featured-card-cta-arrow" aria-hidden>
               →
             </span>

@@ -4,6 +4,12 @@
  */
 
 import type { Metadata } from "next";
+import type { Locale } from "./i18n/config";
+import {
+  hasArabicEquivalent,
+  localizedPath,
+  stripArabicPrefix,
+} from "./i18n/paths";
 import { getBasePath, withBasePath } from "./base-path";
 
 export const DEFAULT_SITE_URL = "https://mohammadhroub.com";
@@ -198,14 +204,32 @@ export const defaultPageTitle = "Mohammad Hroub | محمد حروب";
 export const defaultOgTitle =
   "Mohammad Hroub — Websites & Operational Systems | محمد حروب";
 
+function isVercelAppHost(url: string): boolean {
+  try {
+    return new URL(url).hostname.endsWith(".vercel.app");
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Public origin for canonical, Open Graph, sitemap, robots, and JSON-LD.
+ *
+ * Production source of truth: https://mohammadhroub.com (`DEFAULT_SITE_URL`).
+ * Set `NEXT_PUBLIC_SITE_URL` to that value on the host, or leave it unset.
+ * A different custom domain is allowed. A `*.vercel.app` value is not: that
+ * host can be deployment-protected and send `noindex`.
+ *
+ * `VERCEL_URL` is never read. It is the deployment hostname, not the public site.
+ */
 export function getSiteUrl(): string {
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  const production = process.env.NODE_ENV === "production";
+
+  if (configured && !(production && isVercelAppHost(configured))) {
+    return configured;
   }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL.replace(/^https?:\/\//, "")}`;
-  }
-  if (process.env.NODE_ENV === "development") {
+  if (!production) {
     return "http://localhost:3000";
   }
   return DEFAULT_SITE_URL;
@@ -220,17 +244,27 @@ export function absoluteUrl(path: string = ""): string {
   return `${getSiteUrl()}${withBasePath(normalized)}`;
 }
 
-export function buildAlternates(path: string = ""): NonNullable<Metadata["alternates"]> {
-  const canonical = withBasePath(path || "/");
-  const url = absoluteUrl(path || "/");
+export function buildAlternates(
+  path: string = "",
+  locale: Locale = "en"
+): NonNullable<Metadata["alternates"]> {
+  const raw = path || "/";
+  const enPath = stripArabicPrefix(raw);
+  const canonicalPath = localizedPath(enPath, locale);
+  const canonical = withBasePath(canonicalPath === "/" ? "/" : canonicalPath);
+  const enUrl = absoluteUrl(localizedPath(enPath, "en"));
+  const languages: Record<string, string> = {
+    en: enUrl,
+    "x-default": enUrl,
+  };
+
+  if (hasArabicEquivalent(enPath)) {
+    languages.ar = absoluteUrl(localizedPath(enPath, "ar"));
+  }
 
   return {
     canonical,
-    languages: {
-      en: url,
-      ar: url,
-      "x-default": url,
-    },
+    languages,
   };
 }
 
@@ -265,6 +299,7 @@ type BuildMetadataOptions = {
   ogTitle?: string;
   ogType?: "website" | "article";
   noIndex?: boolean;
+  locale?: Locale;
 };
 
 /** Metadata موحّد لكل الصفحات — hreflang + Open Graph + Twitter */
@@ -276,10 +311,15 @@ export function buildPageMetadata({
   ogTitle,
   ogType = "website",
   noIndex = false,
+  locale = "en",
 }: BuildMetadataOptions): Metadata {
-  const url = absoluteUrl(path || "/");
+  const canonicalPath = localizedPath(stripArabicPrefix(path || "/"), locale);
+  const url = absoluteUrl(canonicalPath === "/" ? "/" : canonicalPath);
   const allKeywords = [...new Set([...SEO_KEYWORDS, ...keywords])];
   const ogImages = getOpenGraphImages();
+  const ogLocale = locale === "ar" ? "ar_PS" : "en_US";
+  const ogAltLocales =
+    locale === "ar" ? (["en_US"] as const) : (["ar_PS", "ar"] as const);
 
   return {
     title,
@@ -291,13 +331,14 @@ export function buildPageMetadata({
     ],
     creator: SEO_PERSON.nameEn,
     publisher: SEO_PERSON.nameEn,
-    alternates: buildAlternates(path),
+    alternates: buildAlternates(path, locale),
     openGraph: {
       type: ogType,
-      locale: "en_US",
-      alternateLocale: ["ar_PS", "ar"],
+      locale: ogLocale,
+      alternateLocale: [...ogAltLocales],
       url,
-      siteName: SEO_SITE.nameEn,
+      siteName:
+        locale === "ar" ? SEO_SITE.nameAr : SEO_SITE.nameEn,
       title: ogTitle ?? title,
       description,
       images: ogImages,
@@ -323,7 +364,38 @@ export function buildPageMetadata({
         },
     other: {
       "geo.region": "PS",
-      "content-language": "en, ar",
+      "content-language": locale === "ar" ? "ar" : "en",
+      "og:image:alt": SEO_OG.alt,
+    },
+  };
+}
+
+export function getArabicRootLayoutMetadata(): Metadata {
+  const base = getRootLayoutMetadata();
+  return {
+    ...base,
+    title: {
+      default: "محمد حروب | Mohammad Hroub",
+      template: `%s | محمد حروب`,
+    },
+    description: SEO_PERSON.descriptionAr,
+    alternates: buildAlternates("/", "ar"),
+    openGraph: {
+      ...base.openGraph,
+      locale: "ar_PS",
+      alternateLocale: ["en_US"],
+      url: absoluteUrl("/ar"),
+      title: "محمد حروب — مواقع وأنظمة تشغيل",
+      description: SEO_PERSON.descriptionAr,
+      siteName: SEO_SITE.nameAr,
+    },
+    twitter: {
+      ...base.twitter,
+      title: "محمد حروب — مواقع وأنظمة تشغيل",
+      description: SEO_PERSON.descriptionAr,
+    },
+    other: {
+      "content-language": "ar",
       "og:image:alt": SEO_OG.alt,
     },
   };

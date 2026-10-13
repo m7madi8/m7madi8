@@ -4,7 +4,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { PROJECT_SHOWCASE_META } from "../../data/project-showcase-meta";
-import { isComingSoon, projectStatusLabel, type Project } from "../../data/projects";
+import type { Locale } from "../../../lib/i18n/config";
+import { getMessages } from "../../../lib/i18n/messages";
+import { projectStatusLabel } from "../../../lib/i18n/projects";
+import { workProjectPath } from "../../../lib/i18n/paths";
+import { isComingSoon, type Project } from "../../data/projects";
 import ProjectHoverEffect from "./ProjectHoverEffect";
 
 export type ProjectCardVariant = "featured" | "standard" | "editorial" | "compact";
@@ -16,6 +20,7 @@ type ProjectCardProps = {
   /** Editorial rows alternate image side */
   reverse?: boolean;
   className?: string;
+  locale?: Locale;
 };
 
 export default function ProjectCard({
@@ -24,13 +29,15 @@ export default function ProjectCard({
   variant = "standard",
   reverse = false,
   className = "",
+  locale = "en",
 }: ProjectCardProps) {
   const reduceMotion = useReducedMotion();
   const comingSoon = isComingSoon(project);
   const meta = PROJECT_SHOWCASE_META[project.slug];
   const category = project.category ?? meta?.category ?? project.context;
   const caseNumber = String(index + 1).padStart(2, "0");
-  const href = `/work/${project.slug}`;
+  const href = workProjectPath(project.slug, locale);
+  const viewProject = getMessages(locale).case.viewProject;
 
   const sizes =
     variant === "featured"
@@ -88,13 +95,15 @@ export default function ProjectCard({
             <span className="showcase-card-index">{caseNumber}</span>
             <span className="showcase-card-dot" aria-hidden />
             <span className="showcase-card-category">{category}</span>
-            {comingSoon ? (
-              <span className="showcase-card-status showcase-card-status--soon">
-                {projectStatusLabel(project)}
-              </span>
-            ) : (
-              <span className="showcase-card-status showcase-card-status--live">Live</span>
-            )}
+            <span
+              className={`showcase-card-status ${
+                comingSoon
+                  ? "showcase-card-status--soon"
+                  : "showcase-card-status--live"
+              }`}
+            >
+              {projectStatusLabel(project, locale)}
+            </span>
           </div>
 
           <h3 className="showcase-card-title">
@@ -107,7 +116,7 @@ export default function ProjectCard({
 
           <div className="showcase-card-actions">
             <Link href={href} className="showcase-card-cta" data-cursor>
-              <span>View project</span>
+              <span>{viewProject}</span>
               <span className="showcase-card-cta-arrow" aria-hidden>
                 →
               </span>

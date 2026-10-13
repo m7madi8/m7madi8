@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { Locale } from "../../lib/i18n/config";
+import { getMessages } from "../../lib/i18n/messages";
+import { contactHash } from "../../lib/i18n/paths";
 import { SEO_PORTRAIT } from "../../lib/seo-config";
 import s from "./About.module.css";
 
@@ -11,27 +14,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 type AboutProps = {
   liveCount: number;
+  locale: Locale;
 };
 
-const CHAPTERS = [
-  {
-    index: "A",
-    title: "Both sides of the product.",
-    body: "Business websites and custom web applications — plus the operational systems your team relies on behind the scenes.",
-  },
-  {
-    index: "B",
-    title: "Built to stay useful.",
-    body: "Clear structure, clean UI, dependable infrastructure — nothing decorative without a job.",
-  },
-  {
-    index: "C",
-    title: "Close after launch.",
-    body: "Ship, measure, refine. I stay reachable when the product is live.",
-  },
-] as const;
-
-export default function About({ liveCount }: AboutProps) {
+export default function About({ liveCount, locale }: AboutProps) {
+  const copy = getMessages(locale).about;
+  const plate = getMessages(locale).aboutPlate;
+  const aboutCta = getMessages(locale).aboutCta;
+  const chapters = copy.chapters;
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const photo = useRef<HTMLDivElement>(null);
@@ -175,40 +165,45 @@ export default function About({ liveCount }: AboutProps) {
     <section
       ref={root}
       className={s.about}
-      id="about"
+      id={copy.id}
+      lang={locale}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      data-locale={locale}
       aria-labelledby="about-title"
     >
       <header className={s.head}>
         <div className={s.headMeta}>
           <span className={s.index} aria-hidden>02</span>
-          <span className={s.label}>About</span>
+          <span className={s.label}>{copy.eyebrow}</span>
         </div>
-        <p className={s.headName} id="about-title">Mohammad Hroub</p>
+        <p className={s.headName} id="about-title">{copy.title}</p>
       </header>
 
       <div ref={track} className={s.track}>
         <div className={s.sticky}>
           <figure className={s.visual}>
-            <p className={s.visualGhost} aria-hidden>Hroub</p>
+            <p className={s.visualGhost} aria-hidden>
+              {locale === "ar" ? "حروب" : "Hroub"}
+            </p>
             <div className={s.frame}>
               <div ref={photo} className={s.photo}>
                 <Image
                   src={SEO_PORTRAIT.webp}
-                  alt={SEO_PORTRAIT.alt}
+                  alt={copy.portraitAlt}
                   fill
                   sizes="(min-width: 1024px) 22rem, 88vw"
                   priority
                   style={{ objectFit: "cover", objectPosition: "50% 12%" }}
                 />
               </div>
-              <span className={s.plate}>Palestine · Remote worldwide</span>
+              <span className={s.plate}>{plate}</span>
             </div>
           </figure>
 
           <div className={s.narrative}>
             <div className={s.rail} aria-hidden>
               <div ref={railLine} className={s.railLine} />
-              {CHAPTERS.map((chapter, i) => (
+              {chapters.map((chapter, i) => (
                 <span
                   key={chapter.index}
                   className={`${s.railDot} ${
@@ -219,7 +214,7 @@ export default function About({ liveCount }: AboutProps) {
             </div>
 
             <div className={s.panels}>
-              {CHAPTERS.map((chapter, i) => (
+              {chapters.map((chapter, i) => (
                 <article
                   key={chapter.index}
                   ref={(node) => {
@@ -235,10 +230,10 @@ export default function About({ liveCount }: AboutProps) {
                   {i === 2 && (
                     <>
                       <p className={s.panelStat}>{statLabel}</p>
-                      <p className={s.panelStatLabel}>projects live on the web</p>
-                      <a href="#contact" className={s.cta} data-cursor>
-                        Start a project
-                        <span aria-hidden>→</span>
+                      <p className={s.panelStatLabel}>{copy.statLabel}</p>
+                      <a href={contactHash(locale)} className={s.cta} data-cursor>
+                        {aboutCta}
+                        <span aria-hidden>{rtlArrow(locale)}</span>
                       </a>
                     </>
                   )}
@@ -252,4 +247,8 @@ export default function About({ liveCount }: AboutProps) {
       <div className={s.footerLine} aria-hidden />
     </section>
   );
+}
+
+function rtlArrow(locale: Locale): string {
+  return locale === "ar" ? "←" : "→";
 }

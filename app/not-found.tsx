@@ -6,6 +6,7 @@ export const metadata = buildPageMetadata({
   description:
     "The page you requested is not on mohammadhroub.com. Browse projects or contact Mohammad Hroub for web development and operational systems work.",
   path: "/",
+  locale: "en",
   noIndex: true,
 });
 

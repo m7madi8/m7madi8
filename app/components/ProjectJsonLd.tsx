@@ -1,12 +1,23 @@
+import type { Locale } from "../../lib/i18n/config";
+import { workProjectPath } from "../../lib/i18n/paths";
 import type { Project } from "../data/projects";
-import { SEO_PERSON, absoluteUrl, personEntityId } from "../../lib/seo-config";
+import { absoluteUrl, personEntityId } from "../../lib/seo-config";
 
 type ProjectJsonLdProps = {
   project: Project;
+  locale?: Locale;
 };
 
-export default function ProjectJsonLd({ project }: ProjectJsonLdProps) {
-  const url = absoluteUrl(`/work/${project.slug}`);
+export default function ProjectJsonLd({
+  project,
+  locale = "en",
+}: ProjectJsonLdProps) {
+  const path = workProjectPath(project.slug, locale);
+  const url = absoluteUrl(path);
+  const homeUrl = absoluteUrl(locale === "ar" ? "/ar" : "/");
+  const workUrl = absoluteUrl(locale === "ar" ? "/ar/work" : "/work");
+  const homeLabel = locale === "ar" ? "الرئيسية" : "Home";
+  const workLabel = locale === "ar" ? "المشاريع" : "Projects";
 
   const creativeWork = {
     "@context": "https://schema.org",
@@ -14,7 +25,7 @@ export default function ProjectJsonLd({ project }: ProjectJsonLdProps) {
     name: project.title,
     description: project.summary,
     url,
-    inLanguage: ["en", "ar"],
+    inLanguage: locale === "ar" ? "ar" : "en",
     author: { "@id": personEntityId() },
     creator: { "@id": personEntityId() },
     about: project.context,
@@ -28,14 +39,14 @@ export default function ProjectJsonLd({ project }: ProjectJsonLdProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
-        item: absoluteUrl("/"),
+        name: homeLabel,
+        item: homeUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Projects",
-        item: absoluteUrl("/work"),
+        name: workLabel,
+        item: workUrl,
       },
       {
         "@type": "ListItem",
